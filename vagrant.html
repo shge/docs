@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Vagrant</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Vagrant</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>Box</h1>
+
+      <h3>Boxの追加</h3>
+      <pre><code>$ vagrant box add OS名 URL</code></pre>
+      <pre><code>$ vagrant box add centos64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20131103.box</code></pre>
+
+      <h3>Boxの一覧</h3>
+      <pre><code>$ vagrant box list</code></pre>
+
+      <h3>Boxの削除</h3>
+      <pre><code>$ vagrant box remove OS名</code></pre>
+      <pre><code>$ vagrant box remove centos64</code></pre>
+
+      <h1>仮想OS</h1>
+
+      <h3>起動</h3>
+      <pre><code>$ vagrant up</code></pre>
+
+      <h3>状態</h3>
+      <pre><code>$ vagrant status</code></pre>
+
+      <h3>終了</h3>
+      <pre><code>$ vagrant halt</code></pre>
+
+      <h3>再起動</h3>
+      <pre><code>$ vagrant reload</code></pre>
+
+      <h3>スリープ</h3>
+      <pre><code>$ vagrant suspend</code></pre>
+
+      <h3>スリープ解除</h3>
+      <pre><code>$ vagrant resume</code></pre>
+
+      <h3>削除</h3>
+      <pre><code>$ vagrant destroy</code></pre>
+
+      <h3>仮想OSにログイン</h3>
+      <pre><code>$ vagrant ssh</code></pre>
+
+      <h3>仮想OSとローカルフォルダのリンク</h3>
+      <p>ローカルの<code>~/Vagrant/Box名/</code>と仮想OS上の<code>/vagrant/</code>はリンクしているため、以下のようにするとローカルからサーバー上のファイル操作ができる。
+      <pre><code>$ sudo rm -rf /var/www/html    # 既存のファイルを削除</code></pre>
+      <pre><code>$ sudo ln -fs /vagrant /var/www/html    # シンボリックリンクを作成</code></pre>
+
+      <h1>OSの設定</h1>
+
+      <h3>httpdサーバーのインストール</h3>
+      <pre><code>$ sudo yum -y install httpd</code></pre>
+
+      <h3>httpdサーバー起動</h3>
+      <pre><code>$ sudo service httpd start</code></pre>
+
+      <h3>httpdサーバーを再起動後にもON</h3>
+      <pre><code>$ sudo chkconfig httpd on</code></pre>
+
+      <h3>キャッシュによってWebサーバーが誤動作しないようにしないようにする</h3>
+      <pre><code>$ sudo vi /etc/httpd/conf/httpd.conf</code></pre>
+      <p><code>EnableMMAP</code>と<code>EnableSendfile</code>のコメントアウトを外す
+
+      <h3>ファイアーウォールをOFF</h3>
+      <pre><code>$ sudo service iptables stop</code></pre>
+
+      <h3>ファイアーウォールを再起動後にもOFF</h3>
+      <pre><code>$ sudo chkconfig iptables off</code></pre>
+
+      <h3>Webページにアクセスするための設定</h3>
+      <p><code>~/Vagrant/Box名/Vagrantfile</code>の、下記の行のコメントアウトを外す：
+      <pre><code># config.vm.network :private_network, ip: "192.168.33.10"</code></pre>
+
+      <h3>CentOS6以降の高速化</h3>
+      <p>仮想OS内の<code>/etc/resolv.conf</code>の先頭に下記を追記する。
+      <pre><code>options single-request-reopen</code></pre>
+
+      <h1>プラグイン</h1>
+
+      <h3>プラグインをインストール</h3>
+      <pre><code>$ vagrant plugin install プラグイン名</code></pre>
+      <pre><code>$ vagrant plugin install sahara</code></pre>
+
+      <h3>プラグインをアンインストール</h3>
+      <pre><code>$ vagrant plugin uninstall プラグイン名</code></pre>
+      <pre><code>$ vagrant plugin uninstall sahara</code></pre>
+
+      <h3>プラグインの一覧を表示</h3>
+      <pre><code>$ vagrant plugin list</code></pre>
+
+      <h1>プラグイン - sahara</h1>
+
+      <h3>サンドボックスをON</h3>
+      <p>ロールバック時にここまで戻る
+      <pre><code>$ vagrant sandbox on</code></pre>
+
+      <h3>サンドボックスの状態を表示</h3>
+      <pre><code>$ vagrant sandbox status</code></pre>
+
+      <h3>ロールバック</h3>
+      <pre><code>$ vagrant sandbox rollback</code></pre>
+
+      <h3>変更を確定</h3>
+      <pre><code>$ vagrant sandbox commit</code></pre>
+      <p>次回<code>rollback</code>したときに、ここまで戻る。
+      <p>実行時には<code>$ vagrant sandbox suspend</code>などでスリープにした方が処理が速い。
+
+      <h3>サンドボックスをOFF</h3>
+      <pre><code>$ vagrant sandbox off</code></pre>
+      <p>実行時には<code>$ vagrant sandbox suspend</code>などでスリープにした方が処理が速い。
+
+      <h1>リポジトリの追加</h1>
+
+      <h3>EPEL</h3>
+      <p><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/" target="_blank">Epel</a>で<code>epel-release</code>から始まるものを仮想OSにダウンロードする。
+      <pre><code>$ wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</code></pre>
+
+      <h3>Remi</h3>
+      <p><a href="http://rpms.famillecollet.com" target="_blank">Remi</a>からCentOS6用のファイルを仮想OSにダウンロードする。
+      <pre><code>$ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</code></pre>
+
+      <h3>リポジトリの追加</h3>
+      <p>仮想OS上で以下のコマンドを実行する。
+      <pre><code>$ sudo rpm -Uvh ファイル名.rpm</code></pre>
+      <pre><code>$ sudo rpm -Uvh epel-release-6-8.noarch.rpm</code></pre>
+      <pre><code>$ sudo rpm -Uvh remi-release-6.rpm</code></pre>
+
+      <h3>EPELの無効化</h3>
+      <p>仮想OS内の<code>/etc/yum.repos.d/epel.repo</code>の中の<code>enabled</code>を0にする。
+      <pre><code>sudo vi /etc/yum.repos.d/epel.repo</code></pre>
+
+      <h1>パッケージの追加</h1>
+
+      <h3>Vim</h3>
+      <pre><code>$ sudo yum install -y vim
+$ vim --version</code></pre>
+
+      <h3>PHP</h3>
+      <pre><code>$ sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd
+$ php -v</code></pre>
+      <h4>設定</h4>
+      <p>設定ファイルの場所：<code>/etc/php.ini</code>
+      <ol>
+        <li>366行目：<code>expose_php = Off</code>
+        <li>577行目：<code>error_log = /var/log/php.log</code>
+        <li>869行目：<code>date.timezone = Asia/Tokyo</code>
+        <li>1628行目：コメントアウトを外す
+        <li>1634行目：<code>mbstring.internal_encoding = UTF-8</code>
+        <li>1638行目：コメントアウトを外す
+        <li>1656行目：コメントアウトを外す
+      </ol>
+      <p>上記の設定を有効にするにはサーバーを再起動する：
+      <pre><code>sudo service httpd restart</code></pre>
+
+      <h3>MySQL</h3>
+      <pre><code>$ sudo yum --enablerepo=remi install -y mysql-server
+$ mysql --version</code></pre>
+      <h4>設定</h4>
+      <p>設定ファイルの場所：<code>/etc/my.cnf</code>
+      <p>3行目に下記を挿入する。
+      <pre><code>character_set_server=utf8
+default-storage-engine=InnoDB
+innodb_file_per_table
+[mysql]
+default-character-set=utf8
+[mysqldump]
+default-character-set=utf8</code></pre>
+      <h4>起動</h4>
+      <pre><code>$ sudo service mysqld</code></pre>
+      <h4>セキュリティ設定</h4>
+      <pre><code>$ /usr/bin/mysql_secure_installation</code></pre>
+      <p>1回目はReturn、2回目はy、3回目はパスワード設定、4回目はパスワード確認、それ以外はReturnする。
+      <p>再起動時にも自動起動する：
+      <pre><code>$ sudo chkconfig mysqld on</code></pre>
+
+      <h3>PostgreSQL</h3>
+      <p><a href="http://www.postgresql.org/download/linux/redhat/" target="_blank">PostgreSQL</a>からPostgreSQL Yum Repositoryのコマンドを実行する。例：
+      <pre><code>$ sudo yum install -y http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+$ sudo yum install -y postgresql93-server postgresql93-contrib
+$ sudo service postgresql-9.3 initdb
+$ sudo chkconfig postgresql-9.3 on
+$ sudo service postgresql-9.3 start</code></pre>
+      <h4>ユーザー設定</h4>
+      <pre><code>$ sudo passwd postgres
+$ su - postgres
+$ psql
+  create user vagrant createdb password 'vagrant' login;
+  \q
+$ exit
+$ psql --version</code></pre>
+
+      <h3>Python</h3>
+      <p><a href="https://www.python.org/downloads/" target="_blank">Python</a>のリリースノートからXZ compressed source tar ballなどをダウンロードし、インストールする。例：
+      <pre><code>$ wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+$ tar xJvf Python-2.7.8.tar.xz
+$ ./configure --enable-shared --with-threads
+$ make
+$ sudo make install
+$ sudo cp libpython2.7.so libpython2.7.so.1.0 /usr/lib
+$ sudo /sbin/ldconfig
+$ python --version</code></pre>
+
+      <h3>Git</h3>
+      <pre><code>$ sudo yum install -y git
+$ git --version</code></pre>
+
+      <h3>Ruby</h3>
+      <pre><code>$ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+$ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+$ source ~/.bash_profile
+$ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+$ rbenv install -v 2.1.2
+$ rbenv rehash
+$ rbenv global 2.1.2
+$ ruby -v</code></pre>
+      <p><code>$ rbenv versions</code>：インストール済みRubyの一覧
+      <p><code>$ rbenv rehash</code>：rbenv・gemを使用後に実行する
+
+      <h3>Ruby on Rails</h3>
+      <pre><code>$ gem update --system
+$ gem install rails --no-ri --no-rdoc -V
+$ rbenv rehash
+$ rails -v</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

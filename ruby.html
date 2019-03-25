@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Ruby</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Ruby</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>文字列の表示 / 改行の扱い</h1>
+
+      <h3>文字列を出力（末尾に改行なし）</h3>
+      <pre><code>print "Hello, world!"</code></pre>
+
+      <h3>文字列を出力（末尾に改行あり）</h3>
+      <pre><code>puts "Hello, world!"</code></pre>
+
+      <h3>文字列を出力（データ型を表示）</h3>
+      <pre><code>p "Hello, world!"</code></pre>
+
+      <h3>1行にまとめる</h3>
+      <pre><code>print "Hello!"; puts "Hello!"</code></pre>
+
+      <h1>コメント</h1>
+
+      <h3>1行コメント</h3>
+      <pre><code># コメント</code></pre>
+
+      <h3>複数行コメント</h3>
+      <pre><code>==begin
+  コメント
+==end</code></pre>
+
+      <h1>変数 / 定数</h1>
+
+      <h3>変数を代入</h3>
+      <pre><code>msg = "Hello, world!"</code></pre>
+
+      <h3>定数を代入</h3>
+      <pre><code>EMAIL = "example@example.com"</code></pre>
+      <p>1文字目が大文字だと定数として認識されるが、すべて大文字で書く。
+
+      <h3>多重代入</h3>
+      <pre><code>x, y = 3, 5</code></pre>
+      <p>左辺の変数の数よりも右辺の値の数が少ない場合、超えた分は<code>nil</code>が代入される。
+
+      <h3>グローバル変数</h3>
+      <pre><code>$global = 10</code></pre>
+      <p>プログラムのどこからでも参照できる。
+
+      <h1>数値オブジェクト</h1>
+
+      <h3>記法</h3>
+      <table>
+        <tr> <td>整数 <td>10
+        <tr> <td>実数 <td>20.5
+        <tr> <td rowspan="2">分数(3分の1) <td>1/3r
+        <tr> <td>Rational(1, 3)
+      </table>
+      <p>数値オブジェクトはアンダーバー（<code>_</code>）を無視するため、桁の大きい数値を書くときに、<code>100_000_000</code>と書くことができる。
+
+      <h1>文字列オブジェクト</h1>
+
+      <h3>記法</h3>
+      <table>
+        <tr> <td>                         <td>変数展開 <td>特殊文字（<code>\n, \t</code>）
+        <tr> <td>ダブルクォーテーション   <td>○       <td>○
+        <tr> <td>シングルクォーテーション <td>×       <td>×
+      </table>
+
+      <h3>変数展開</h3>
+      <pre><code>p "Hello, #{name}!"</code></pre>
+
+      <h3>演算子</h3>
+      <h4>連結</h4>
+      <pre><code>puts 'Hello, ' + 'world!'    # Hello, world!</code></pre>
+      <h4>繰り返し</h4>
+      <pre><code>puts 'Hello' * 3             # HelloHelloHello</code></pre>
+
+      <h1>配列オブジェクト</h1>
+
+      <h3>記法</h3>
+      <pre><code>sales = [3, 8, 2]</code></pre>
+
+      <h3>配列の指定番目の要素を取得</h3>
+      <pre><code>p sales[1]</code></pre>
+
+      <h3>配列の値を変更</h3>
+      <pre><code>sales[1] = 8</code></pre>
+
+      <h3>添字の指定方法</h3>
+      <table>
+        <tr> <td><code>[1]</code>     <td>2個目
+        <tr> <td><code>[0..2]</code>  <td>1〜3個目
+        <tr> <td><code>[0...2]</code> <td>1・2個目
+        <tr> <td><code>[-1]</code>    <td>最後
+        <tr> <td><code>[0, 2]</code>  <td>1番目から2個分（1・2個目）
+      </table>
+      <p>添字の数字は0から始まる。
+
+      <h3>配列の途中に要素を追加</h3>
+      <pre><code>sales[1, 0] = [10, 11]    # 2個目の要素の後に10, 11を追加</code></pre>
+
+      <h3>配列の末尾に要素を追加</h3>
+      <pre><code>sales &lt;&lt; 100 &lt;&lt; 102</code></pre>
+
+      <h3>配列同士を連結</h3>
+      <pre><code>x = a + b</code></pre>
+
+      <h1>ハッシュオブジェクト</h1>
+
+      <h3>記法</h3>
+      <pre><code>sales = {"yamada" =&gt; 100, "tanaka" =&gt; 200}</code></pre>
+      <p>シンボル（少し高速）：
+      <pre><code>sales = {:yamada =&gt; 100, :tanaka =&gt; 200}</code></pre>
+      <pre><code>sales = {yamada: 100, tanaka: 200}</code></pre>
+
+      <h3>ハッシュの指定キーの要素を取得</h3>
+      <pre><code>p sales["yamada"]</code></pre>
+      <p>シンボル（少し高速）：
+      <pre><code>p sales[:yamada]</code></pre>
+
+      <h3>ハッシュの値を変更</h3>
+      <pre><code>sales["yamada"] = 120</code></pre>
+
+      <h1>時刻オブジェクト</h1>
+
+      <h3>現在時刻を代入</h3>
+      <pre><code>変数 = Time.now / 変数 = Time.new</code></pre>
+
+      <h3>指定時刻を代入</h3>
+      <pre><code>変数 = Time.new(年, 月, 日, 時, 分, 秒, タイムゾーン)</code></pre>
+      <pre><code>変数 = Time.utc(年, 月, 日, 時, 分, 秒)</code></pre>
+      <p>月以降は省略可能。
+      <p>タイムゾーン指定例：<code>'+09:00'</code>
+
+      <h3>エポック秒（UNIX）で指定して代入</h3>
+      <pre><code>変数 = Time.at(1970/01/01からの経過秒数)</code></pre>
+
+      <h2>時刻計算</h3>
+      <p>秒を足したり引いたりすることで、時間の計算ができる。
+      <pre><code>p Time.new + 60    # 1分後</code></pre>
+      <pre><code>p Time.new + 60 * 60 * 24 * 3    # 3日後</code></pre>
+
+      <h1>％記法</h1>
+
+      <pre><code>s = %Q(Hello)</code></pre>
+      <p><code>()</code>は、記号または括弧なら何でも良い：
+      <pre><code>s = %Q{Hello}</code></pre>
+      <pre><code>s = %Q!Hello!</code></pre>
+
+      <table>
+        <tr> <td>%  <td rowspan="2">文字列（式展開有効） <td>
+        <tr> <td>%Q                                           <td>
+        <tr> <td>%q <td>文字列（式展開無効）             <td>
+        <tr> <td>%x <td>文字列（バッククォート）         <td>
+        <tr> <td>%W <td>文字列の配列（式展開有効）       <td rowspan="2">スペース区切り（スペースを含む文字列は\でエスケープ）
+        <tr> <td>%w <td>文字列の配列（式展開無効）
+        <tr> <td>%r <td>正規表現                         <td>
+      </table>
+      <p>式展開有効：ダブルクォーテーションと同じ
+      <p>式展開無効：シングルクォーテーションと同じ
+
+    <h1>条件分岐</h1>
+
+      <h3>if</h3>
+      <div class="row">
+        <div class="col-xs-4">
+          <pre><code>if 条件
+  真の場合の処理
+end</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if 条件
+  真の場合の処理
+else
+  偽の場合の処理
+end</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if 条件
+  真の場合の処理
+elsif 条件
+  真の場合の処理
+else
+  偽の場合の処理
+end</code></pre>
+        </div>
+      </div>
+      <p>例：
+      <pre><code>score = 80
+if score &gt; 60
+  puts "ok"
+elsif score &gt; 40
+  puts "soso"
+else
+  puts "ng"
+end</code></pre>
+
+      <h3>後置if</h3>
+      <pre><code>puts "OK" if score &gt; 60</code></pre>
+
+      <h3>条件演算子</h3>
+      <p><code>変数 = 条件 ? b : c</code>
+      <pre><code>b, c = 10, 20
+a = b &gt; c ? b : c    # 大きい方をaに代入</code></pre>
+
+      <h3>真偽値判定</h3>
+      <pre><code>puts "Hello" if x</code></pre>
+      <p><code>true</code>：<code>false, nil</code>以外
+      <p><code>false</code>：<code>false, nil</code>（<code>0, ''</code>は含まない）
+
+      <h3>case</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <p>値に一致した場合に実行する
+          <pre><code>case オブジェクト
+when '値'           # 値に一致した場合
+  処理
+when '値', '値'     # 2つの値を指定することも可能
+  処理
+else               # どの値にも一致しない場合
+  処理
+end</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <p>例：
+          <pre><code>signal = 'red'
+case signal
+when 'red'
+  puts 'stop!'
+when 'green'
+  puts 'go!'
+else
+  puts 'caution!'
+end</code></pre>
+        </div>
+      </div>
+
+      <h1>繰り返し</h1>
+
+      <h3>for</h3>
+      <p>変数に値を代入しながら繰り返す
+      <pre><code>for 変数 in 配列/範囲 do
+  処理
+end</code></pre>
+      <p><code>do</code>は省略可能。
+      <p>例：
+      <pre><code>for i in 0..2 do
+  puts "#{i}. Hello"
+end</code></pre>
+      <pre><code>for color in ["red", "blue", "green"] do
+  puts color
+end</code></pre>
+
+      <h3>while</h3>
+      <p>条件が真の間繰り返す
+      <pre><code>while 条件 do
+  処理
+end</code></pre>
+      <p><code>do</code>は省略可能。
+      <p>例：
+      <pre><code>i = 0
+while i &lt; 3 do
+  puts "#{i}. Hello"
+  i += 1
+end</code></pre>
+
+      <h3>until</h3>
+      <p>条件が偽の間繰り返す
+      <pre><code>until 条件 do
+  処理
+end</code></pre>
+      <p><code>do</code>は省略可能。
+
+      <h3>loop</h3>
+      <p>無限ループ
+      <pre><code>loop {
+  処理
+}</code></pre>
+      <p>抜けるためにはif文を使用する。
+
+      <h3>.times</h3>
+      <p>指定回数繰り返す
+      <pre><code>数値.times{|変数|    # 変数に回数が代入される
+  処理
+}</code></pre>
+      <pre><code>数値.times do |変数|    # 変数に回数が代入される
+  処理
+end</code></pre>
+      <p>回数は0から始まる。<code>|変数|</code>は省略可能。
+      <p>例：
+      <pre><code>3.times do
+  puts "Hello"
+end</code></pre>
+      <pre><code>3.times do |i|
+  puts "#{i}. Hello"
+end</code></pre>
+
+      <h3>.each, .each_pair</h3>
+      <p>変数に値を代入しながら繰り返す
+      <pre><code>配列/ハッシュ/範囲.each{|変数|
+  処理
+}</code></pre>
+      <pre><code>配列/ハッシュ/範囲.each do |変数|
+  処理
+end</code></pre>
+      <p><code>.each</code>と<code>.each_pair</code>は同じ。<code>|変数|</code>は省略可能。
+      <p>例：
+      <pre><code>["red", "blue", "green"].each do |color|
+puts color
+end</code></pre>
+      <pre><code>{"red"=&gt; 100, "blue"=&gt; 200}.each do |color, price|
+puts "#{color}: #{price}"
+end</code></pre>
+
+      <h3>.each_key / .each_value</h3>
+      <p>変数にハッシュのキー / 値を代入しながら繰り返す
+
+      <h3>break</h3>
+      <p>ループから抜ける
+
+      <h3>next</h3>
+      <p>ループを1回スキップ
+
+      <h3>redo</h3>
+      <p>ループの最初に戻る
+
+      <h1>演算子</h1>
+
+      <h3>算術演算子</h3>
+      <table>
+        <tr> <td><code>+</code>  <td>加算
+        <tr> <td><code>-</code>  <td>減算
+        <tr> <td><code>*</code>  <td>乗算
+        <tr> <td><code>/</code>  <td>除算
+        <tr> <td><code>%</code>  <td>剰余（除算の余り）
+        <tr> <td><code>**</code> <td>累乗
+      </table>
+      <p><code>**</code>→<code>*, /, %</code>→<code>+, -</code>の順に計算される。同じ優先順位のものは、左から順番に計算される。
+
+      <h3>比較演算子</h3>
+      <table>
+        <tr> <td><code>==</code>    <td>等しい
+        <tr> <td><code>!=</code>    <td>等しくない
+        <tr> <td><code>&gt;</code>  <td>左が右より大きい
+        <tr> <td><code>&lt;</code>  <td>左が右より小さい
+        <tr> <td><code>&gt;=</code> <td>左が右以上
+        <tr> <td><code>&lt;=</code> <td>左が右以下
+      </table>
+
+      <h3>論理演算子</h3>
+      <table>
+        <tr> <td><code>&amp;&amp;</code> <td>AND
+        <tr> <td><code>||</code>         <td>OR
+        <tr> <td><code>!</code>          <td>NOT
+      </table>
+      <p>例：
+      <pre><code>score &lt; 80 &amp;&amp; score &gt; 60    // 60より大きく80より小さい</code></pre>
+
+      <h3>自己代入演算子</h3>
+      <table>
+          <tr> <th>短縮した演算子 <th>意味
+          <tr> <td><code>x += y</code>  <td><code>x = x + y</code>
+          <tr> <td><code>x -= y</code>  <td><code>x = x - y</code>
+          <tr> <td><code>x *= y</code>  <td><code>x = x * y</code>
+          <tr> <td><code>x /= y</code>  <td><code>x = x / y</code>
+          <tr> <td><code>x %= y</code>  <td><code>x = x % y</code>
+          <tr> <td><code>x **= y</code> <td><code>x = x ** y</code>
+      </table>
+
+      <h1>メソッド</h1>
+
+      <h3>メソッドの定義</h3>
+      <pre><code>def メソッド名(引数1, 引数2...)
+  処理
+end</code></pre>
+      <p>例：
+      <pre><code>def sayHi(name)
+  puts "Hello, #{name}"
+end</code></pre>
+      <p>メソッド内で定義された変数は、メソッド外からはアクセスすることができない。
+
+      <h3>初期値の指定</h3>
+      <p>値が指定されなかった場合に使われる
+      <pre><code>def メソッド名(引数1 = 初期値1, 引数2 = 初期値2...)
+  処理
+end</code></pre>
+
+      <h3>返り値の指定</h3>
+      <p>メソッドの返り値を変数に代入できる
+      <pre><code>def hello()
+  return "Hello"
+end
+s = hello()</code></pre>
+
+      <h3>メソッドの実行</h3>
+      <pre><code>メソッド名</code></pre>
+      <pre><code>メソッド名()</code></pre>
+      <pre><code>メソッド名(引数1, 引数2...)</code></pre>
+
+      <h3>破壊的メソッド</h3>
+      <p>元データも書き換える
+      <p><code>.メソッド名!</code>のものが破壊的メソッド。
+
+      <h3>真偽値を返すメソッド</h3>
+      <p>true / falseを返す
+      <p><code>.メソッド名?</code>のものが真偽値を返すメソッド。
+
+      <h1>クラス</h1>
+
+      <h3>クラスの定義</h3>
+      <pre><code>class クラス名
+end</code></pre>
+      <p>クラス名の最初は大文字で指定する。
+
+      <h3>クラスからオブジェクトを作成</h3>
+      <pre><code>変数名 = クラス名.new()</code></pre>
+
+      <h3>インスタンスメソッド</h3>
+      <pre><code>class クラス名
+  def メソッド名(引数1, 引数2...)
+    処理
+  end
+end</code></pre>
+      <p>実行：
+      <pre><code>変数.メソッド名</code></pre>
+      <pre><code>変数.メソッド名(引数1, 引数2...)</code></pre>
+      <p><code>.</code>の代わりに<code>::</code>を使うこともできる。
+
+      <h3>initializeメソッドの定義</h3>
+      <p>オブジェクトの作成時に実行される
+      <pre><code>class クラス名
+  def initialize(引数1, 引数2...)
+    処理
+  end
+end</code></pre>
+      <p>インスタンス変数の初期化などに使用される。
+      <p>初期値を指定することもできる：
+      <pre><code>def initialize(引数1 = 初期値1, 引数2 = 初期値2...)
+  処理
+end</code></pre>
+
+      <h3>クラスメソッド</h3>
+      <pre><code>class クラス名
+  def クラス名.メソッド名(引数1, 引数2...)
+    処理
+  end
+end</code></pre>
+      <p>実行：
+      <pre><code>クラス名.メソッド名</code></pre>
+      <pre><code>クラス名.メソッド名(引数1, 引数2...)</code></pre>
+
+      <h3>クラス変数 / インスタンス変数 / クラスインスタンス変数 / ローカル変数</h3>
+      <table>
+        <tr> <th rowspan="2">           <th colspan="2">定義場所 <th rowspan="2">継承 <th rowspan="2">定義方法       <th rowspan="2">共有範囲
+        <tr>                            <th><code>class</code>内 <th><code>def</code>内
+        <tr> <td>クラス変数             <td>○      <td>○        <td>○               <td><code>@@変数名 = 値</code> <td>クラスごと
+        <tr> <td>インスタンス変数       <td>×       <td>○        <td>○               <td><code>@変数名 = 値</code>  <td>オブジェクトごと
+        <tr> <td>クラスインスタンス変数 <td>○      <td>×         <td>×                <td><code>@変数名 = 値</code>  <td>クラスごと
+        <tr> <td>ローカル変数           <td>×       <td>○        <td>×                <td><code>変数名 = 値</code>   <td>メソッドごと
+      </table>
+      <p>インスタンス変数：クラス内の全メソッドで変数を使いたいときに使う。
+      <p>クラス変数：<code>initialize</code>メソッドと組み合わせて、オブジェクトが作成された数などを数えることができる。
+      <p>クラスインスタンス変数：クラス変数を継承させたくない場合に使う。
+
+      <h3>クラス内で定義された定数</h3>
+      <p>メソッド内では定義できない
+      <p>定義は通常の定数と同じ。
+      <p>クラス外からの呼び出し：
+      <pre><code>クラス名::定数名</code></pre>
+
+      <h3>クラスの継承</h3>
+      <p>メソッドが継承される
+      <pre><code>class 新クラス名 &lt; 継承元のクラス名
+end</code></pre>
+      <p>継承後のクラスで同盟のメソッドが定義された場合、上書きされる。
+
+      <h3>継承元のメソッドを呼び出す</h3>
+      <pre><code>def クラス名
+  super
+end</code></pre>
+      <pre><code>def クラス名
+  super(引数1, 引数2...)
+end</code></pre>
+      <p>スーパークラス（親クラス）で同盟のメソッドがあった場合、それを実行する。
+
+      <h3>インスタンス変数にクラス外からアクセスする</h3>
+      <p>クラス内に次のように書いておく：
+      <pre><code>class クラス名
+  attr_accessor :変数名    # readerとwriter両方
+  attr_reader :変数名      # 取得のみ
+  attr_writer :変数名      # 変更のみ
+end</code></pre>
+      <p>取得 / 変更：
+      <pre><code>オブジェクト.変数名        # 取得
+オブジェクト.変数名 = 値    # 変更</code></pre>
+
+      <h1>モジュール</h1>
+
+      <h3>モジュールの定義</h3>
+      <p>中にメソッド（<code>def ... end</code>）を入れる。
+      <pre><code>module モジュール名
+end</code></pre>
+      <p>使用方法は、関数として使用するか、クラスに読み込むかである。
+
+      <h3>関数として使用する</h3>
+      <p>まずモジュール内に以下のコードを書く：
+      <pre><code>module_function :メソッド名</code></pre>
+      <p>そして以下のコードを書く：
+      <pre><code>モジュール名.メソッド名</code></pre>
+      <pre><code>モジュール名.メソッド名(引数1, 引数2...)</code></pre>
+      <p><code>module_function</code>は実行させたいメソッドすべてについて書かなければならない。
+
+      <h3>クラスに読み込む</h3>
+      <p>クラス内に以下のコードを書く：
+      <pre><code>include モジュール名</code></pre>
+
+      <h1>組み込みライブラリ - メソッド</h1>
+
+      <h2>数値（Numeric）クラス</h2>
+      <table>
+        <tr> <td>.abs      <td>絶対値を取得       <td>負の値には括弧をつける（<code>(-3).abs</code>）
+        <tr> <td>.ceil     <td>切り上げ           <td>
+        <tr> <td>.floor    <td>切り捨て           <td>
+        <tr> <td>.integer? <td>整数かどうか       <td><code>1.0</code>も<code>false</code>になる
+        <tr> <td>.round    <td>四捨五入           <td>
+        <tr> <td>.to_f     <td>浮動小数点数に変換 <td>
+        <tr> <td>.to_i     <td>整数に変換         <td>小数点以下切り捨て<br><code>.to_i(16)</code>：16進数
+        <tr> <td>.to_s     <td>文字列に変換       <td>
+      </table>
+      <h2>└整数（Integer）クラス</h2>
+      <table>
+        <tr> <td>.even?    <td>偶数かどうか                             <td>
+        <tr> <td>.gcd()    <td>指定値との最大公約数                     <td>
+        <tr> <td>.gcdlcm() <td>指定値との最大公約数と最小公倍数を配列で <td>
+        <tr> <td>.lcm()    <td>指定値との最小公倍数                     <td>
+        <tr> <td>.odd?     <td>奇数かどうか                             <td>
+      </table>
+
+      <h2>文字列（String）クラス</h2>
+      <table>
+        <tr> <td>.ascii_only? <td>アスキー文字のみかどうか   <td>
+        <tr> <td>.bytesize    <td>バイト数                   <td>
+        <tr> <td>.empty?      <td>空文字列かどうか           <td>
+        <tr> <td>.downcase, ! <td>小文字に変換               <td>
+        <tr> <td>.length      <td rowspan="2">文字数         <td>
+        <tr> <td>.size                                       <td>
+        <tr> <td>.reverse, !  <td>文字を逆順に並べる         <td>
+        <tr> <td>.split("")   <td>指定文字で分割し配列に変換 <td> ""(空白文字)：1文字ごと
+        <tr> <td>.strip, !    <td>空白の削除                 <td rowspan="3"><code>\t, \r, \n, \f, \v</code>も削除される
+        <tr> <td>.lstrip, !   <td>先頭の空白の削除
+        <tr> <td>.rstrip, !   <td>末尾の空白の削除
+        <tr> <td>.to_f        <td>浮動小数点数に変換         <td>
+        <tr> <td>.to_i        <td>整数に変換                 <td>引数で何進数かを指定可能
+        <tr> <td>.upcase, !   <td>大文字に変換               <td>
+      </table>
+
+      <h2>配列（Array）クラス</h2>
+      <table>
+        <tr> <td>.empty?      <td>空かどうか                 <td>
+        <tr> <td>.clear       <td>配列を空にする             <td>
+        <tr> <td>.delete_at() <td>指定個目の要素を削除       <td>
+        <tr> <td>.last        <td>末尾の要素                 <td>引数で末尾から何個か指定可能
+        <tr> <td>.length      <td rowspan="2">要素数         <td>
+        <tr> <td>.size                                       <td>
+        <tr> <td>.push        <td>末尾に追加                 <td>
+        <tr> <td>.reverse, !  <td>要素を逆順にする           <td>
+        <tr> <td>.sample      <td>要素をランダムに返す       <td>引数で、返す数を指定可能
+        <tr> <td>.sort, !     <td>並び替え（昇順）           <td>
+        <tr> <td>.to_h        <td>多次元配列をハッシュに変換 <td>
+        <tr> <td>.uniq, !     <td>重複した様を削除           <td>
+      </table>
+
+      <h2>ハッシュ（Hash）クラス</h2>
+      <table>
+        <tr> <td>.clear        <td>ハッシュを空にする                 <td>
+        <tr> <td>.delete()     <td>指定キーを削除                     <td>
+        <tr> <td>.empty?       <td>空かどうか                         <td>
+        <tr> <td>.has_key?()   <td rowspan="4">キーが存在するか       <td rowspan="4">true / false
+        <tr> <td>.key?()
+        <tr> <td>.member?()
+        <tr> <td>.include?()
+        <tr> <td>.has_value?() <td rowspan="2">値が存在するか         <td rowspan="2">true / false
+        <tr> <td>.value?()
+        <tr> <td>.key()        <td>引数と値が一致した要素のキーを返す <td>ない場合<code>nil</code>
+        <tr> <td>.keys         <td>キーのみを配列に                   <td>
+        <tr> <td>.length       <td rowspan="2">要素数                 <td>
+        <tr> <td>.size                                                <td>
+        <tr> <td>.shift        <td>先頭の要素を削除                   <td>
+        <tr> <td>.to_a         <td>多次元配列に変換                   <td>
+        <tr> <td>.values       <td>値のみを配列に                     <td>
+      </table>
+
+      <h2>時刻（Time）クラス</h2>
+      <table>
+        <tr> <td>.dst?          <td rowspan="2">夏時間があるかどうか
+        <tr> <td>.isdst
+        <tr> <td>.getgm         <td rowspan="2">UTC変換
+        <tr> <td>.getutc
+        <tr> <td>.getlocal      <td>ローカル時間帯に変換
+        <tr> <td>.gmt?          <td>UTCかどうか
+        <tr> <td>.gmt_offset    <td>UTCとの差を秒で
+        <tr> <td>.gmtime        <td>元データをUTC変換
+        <tr> <td>.localtime     <td>元データをローカル時間帯に変換
+        <tr> <td>.strfttime("") <td>日時形式を整形
+        <tr> <td>.sec           <td>秒を取得
+        <tr> <td>.min           <td>分を取得
+        <tr> <td>.hour          <td>時を取得
+        <tr> <td>.mday          <td rowspan="2">日を取得
+        <tr> <td>.day
+        <tr> <td>.wday          <td>曜日（日〜土＝0〜6）を取得
+        <tr> <td>.mon           <td rowspan="2">月を取得
+        <tr> <td>.month
+        <tr> <td>.yday          <td>1/1からの通算日
+        <tr> <td>.year          <td>年を取得
+        <tr> <td>.zone          <td>タイムゾーンを表す文字列
+        <tr> <td>.曜日?         <td>その曜日かどうか（sunday〜saturday）
+      </table>
+      <table>
+        <tr> <th colspan="2">strfttime
+        <tr> <td>%A <td>曜日（Sunday...）
+        <tr> <td>%a <td>曜日の省略形（Sun...）
+        <tr> <td>%B <td>月（January...）
+        <tr> <td>%b <td>月の省略形（Jan...）
+        <tr> <td>%c <td>日付と時刻
+        <tr> <td>%d <td>日（01-31）
+        <tr> <td>%H <td>24時間制の時（00-23）
+        <tr> <td>%i <td>12時間制の時（01-12）
+        <tr> <td>%j <td>1/1からの通算日（001-366）
+        <tr> <td>%M <td>分（00-59）
+        <tr> <td>%m <td>月（01-12）
+        <tr> <td>%p <td>AM, PM
+        <tr> <td>%S <td>秒（00-59）うるう秒は60
+        <tr> <td>%U <td>日曜始まりの週（00-53）
+        <tr> <td>%W <td>月曜始まりの週（00-53）
+        <tr> <td>%w <td>曜日（0-6）日曜が0
+        <tr> <td>%X <td>時刻
+        <tr> <td>%x <td>日付
+        <tr> <td>%Y <td>西暦
+        <tr> <td>%y <td>西暦の下2桁
+        <tr> <td>%Z <td>タイムゾーン
+        <tr> <td>%% <td>％
+      </table>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>jQuery UI</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">jQuery UI</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>基本</h1>
+
+      <h3>JavaScriptとCSSを読み込む</h3>
+      <pre><code>&lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css"&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h1>Draggable</h1>
+
+      <h3>要素をドラッグ可能にする</h3>
+      <pre><code>$('#box').draggable();</code></pre>
+
+      <h3>移動方向を制限</h3>
+      <pre><code>$('#box').draggable({ axis: "x" });    // 横方向のみ</code></pre>
+      <pre><code>$('#box').draggable({ axis: "y" });    // 縦方向のみ</code></pre>
+
+      <h3>ドラッグ中の透明度</h3>
+      <pre><code>$('#box').draggable({ opacity: 0.5 })</code></pre>
+
+      <h3>ドラッグを開始できる範囲を指定</h3>
+      <pre><code>$('#box').draggable({ handle: '.handle' });</code></pre>
+
+      <h3>ドラッグを開始できない範囲を指定</h3>
+      <pre><code>$('#box').draggable({ cancel: '.cancel' });</code></pre>
+
+      <h3>ドラッグ中のカーソルを指定</h3>
+      <pre><code>$('#box').draggable({ cursor: 'all-scroll' });</code></pre>
+      <table>
+        <tr> <td>default    <td>デフォルト（矢印）
+        <tr> <td>pointer    <td>リンクカーソル
+        <tr> <td>crosshair  <td>十字カーソル
+        <tr> <td>move       <td>全方向矢印
+        <tr> <td>text       <td>テキスト編集
+        <tr> <td>wait       <td>砂時計/レインボーカーソル
+        <tr> <td>help       <td>ヘルプ（？）
+        <tr> <td>n-resize   <td>上リサイズ
+        <tr> <td>e-resize   <td>右リサイズ
+        <tr> <td>s-resize   <td>下リサイズ
+        <tr> <td>w-resize   <td>左リサイズ
+        <tr> <td>ne-resize  <td>右上リサイズ
+        <tr> <td>se-resize  <td>右下リサイズ
+        <tr> <td>sw-resize  <td>左下リサイズ
+        <tr> <td>nw-resize  <td>左上リサイズ
+        <tr> <td>all-scroll <td>手
+      </table>
+
+      <h3>ドラッグ幅/高さを指定</h3>
+      <pre><code>$('#box').draggable({ grid: [20, 50] });</code></pre>
+      <p><code>grid: [横, 縦]</code>で指定する。
+
+      <h3>ドラッグ開始時に元の要素を残す</h3>
+      <pre><code>$('#box').draggable({ helper: 'clone' });</code></pre>
+      <p>デフォルト：<code>original</code>
+
+      <h3>自動で付けられるClassを付けない</h3>
+      <pre><code>$('#box').draggable({ addClasses: false });</code></pre>
+      <p>デフォルトでは、draggable要素には常時<code>ui-draggable</code>Classが付く。
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>              <th>イベント名 <th>オプションのキー
+        <tr> <td>draggable作成 <td>dragcreate <td>create
+        <tr> <td>ドラッグ開始  <td>dragstart  <td>start
+        <tr> <td>ドラッグ中    <td>drag       <td>drag
+        <tr> <td>ドラッグ終了  <td>dragstop   <td>stop
+      </table>
+      <pre><code>$('#box').draggable({
+  drag: function(event, ui) {
+    console.log(ui.position.left);
+  }
+});</code></pre>
+      <pre><code>$('#box').on('drag', function(event, ui) {
+  console.log(ui.position.left);
+};</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.helper
+        <li>ui.position.top, left
+        <li>ui.offset.top, left
+      </ul>
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#box').draggable('enable');</code></pre>
+      <pre><code>var x = $('#box').draggable("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#box').draggable("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h1>Droppable</h1>
+
+      <h3>draggable要素をドロップ可能にする</h3>
+      <pre><code>$('#target').droppable();</code></pre>
+
+      <h3>受け入れるdraggable要素を指定</h3>
+      <pre><code>$('$target').droppable({ accept: '#box' });</code></pre>
+
+      <h3>上にdraggable要素を乗せられた時にClassを追加</h3>
+      <pre><code>$('#target').droppable({ hoverClass: 'droppable-hover' });</code></pre>
+
+      <h3>受け入れ可能なdraggable要素がドラッグされている時にdroppable要素にClassを追加</h3>
+      <pre><code>$('#target').droppable({ activeClass: 'droppable-highlight' });</code></pre>
+
+      <h3>ドロップ判定になる範囲を指定</h3>
+      <pre><code>$('#target').droppable({ tolerance: 'fit' });</code></pre>
+      <table>
+        <tr> <td><code>fit</code>       <td>すべて入る
+        <tr> <td><code>intersect</code> <td>50％入る（デフォルト）
+        <tr> <td><code>pointer</code>   <td>ポインタが入る
+        <tr> <td><code>touch</code>     <td>少しでも入る
+      </table>
+
+      <h3>ドロップ無効にする</h3>
+      <pre><code>$('#target').droppable({ disabled: true });</code></pre>
+
+      <h3>自動で付けられるClassを付けない</h3>
+      <pre><code>$('#target').droppable({ addClasses: false });</code></pre>
+      <p>デフォルトでは、droppable要素には常時<code>ui-droppable</code>Classが付く。
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>                      <th>イベント名     <td>オプションのキー
+        <tr> <td>droppable作成         <td>dropcreate     <td>create
+        <tr> <td>draggableドラッグ開始 <td>dropactivate   <td>activate
+        <tr> <td>draggableドラッグ終了 <td>dropdeactivate <td>deactivate
+        <tr> <td>droppableに乗る       <td>dropover       <td>over
+        <tr> <td>droppableから外れる   <td>dropout        <td>out
+        <tr> <td>ドロップされる        <td>drop           <td>drop
+      </table>
+      <p><code>dropover, dropout</code>は<code>tolerance</code>に依存
+      <pre><code>$('#target').droppable({
+  drop: function(event, ui) {
+    console.log('Dropped!');
+  }
+});</code></pre>
+      <pre><code>$('#target').on('drop', function(event, ui) {
+  console.log('Dropped!'));
+});</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.draggable
+        <li>ui.helper
+        <li>ui.position.top, left
+        <li>ui.offset.top, left
+      </ul>
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#target').droppable('enable');</code></pre>
+      <pre><code>var x = $('#target').droppable("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#target').droppable("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h3>例</h3>
+      <pre><code>$('#box').draggable({ helper: 'clone' });
+$('#target').droppable({
+  accept: '#box',
+  drop: function(event, ui) {
+    ui.draggable.clone().appendTo(this);
+  }
+});</code></pre>
+
+      <h1>Resizable</h1>
+
+      <h3>要素をリサイズ可能にする</h3>
+      <pre><code>$('#box').resizable();</code></pre>
+
+      <h3>リサイズ中に半透明にする</h3>
+      <pre><code>$('#box').resizable({ ghost: true });</code></pre>
+
+      <h3>リサイズできる方向を指定</h3>
+      <pre><code>$('#box').resizable({ handles: 'n, e, s, w' });</code></pre>
+      <pre><code>$('#box').resizable({ handles: [ {s: '#resize-s', e: '#resize-e'} ] });</code></pre>
+      <table>
+        <tr> <td>n  <td>上
+        <tr> <td>e  <td>右
+        <tr> <td>s  <td>下
+        <tr> <td>w  <td>左
+        <tr> <td>ne <td>右上
+        <tr> <td>se <td>右下
+        <tr> <td>sw <td>左下
+        <tr> <td>nw <td>左上
+      </table>
+
+      <h3>ハンドルを要素の上にカーソルを乗せるまでは非表示にする</h3>
+      <pre><code>$('#box').resizable({ autoHide: true });</code></pre>
+
+      <h3>リサイズ範囲を指定</h3>
+      <pre><code>$('#box').resizable({ containment: 'parent' });</code></pre>
+      <p><code>parent, document</code>を指定できる。デフォルト：<code>false</code>
+
+      <h3>アスペクト比を固定</h3>
+      <pre><code>$('#box').resizable({ aspectRatio: true });</code></pre>
+
+      <h3>リサイズ幅/高さを指定</h3>
+      <pre><code>$('#box').resizable({ grid: [20, 50] });</code></pre>
+      <p><code>grid: [横, 縦]</code>で指定する。
+
+      <h3>リサイズ幅/高さの最小/最大を指定</h3>
+      <pre><code>$('#box').resizable({ maxHeight: 300 });</code></pre>
+      <p><code>maxHeight, maxWidth, minHeight, minWidth</code>が指定できる
+
+      <h3>ドラッグ終了後にアニメーションしながらリサイズ</h3>
+      <pre><code>$('#box').resizable({ animate: true });</code></pre>
+
+      <h3>アニメーションの速さを指定</h3>
+      <pre><code>$('#box').resizable({ animateDuration: 'fast' });</code></pre>
+      <p>デフォルト：<code>slow</code>
+
+      <h3>アニメーションの動きを指定</h3>
+      <pre><code>$('#box').resizable({ animateEasing: 'easeOutBounce' });</code></pre>
+      <p>デフォルト：<code>swing</code>
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>              <th>イベント名   <td>オプションのキー
+        <tr> <td>resizable作成 <td>resizecreate <td>create
+        <tr> <td>リサイズ開始  <td>resizestart  <td>start
+        <tr> <td>リサイズ中    <td>resize       <td>resize
+        <tr> <td>リサイズ終了  <td>resizestop   <td>stop
+      </table>
+      <pre><code>$('#box').resizable({
+  stop: function(event, ui) {
+    console.log('Resized!');
+  }
+});</code></pre>
+      <pre><code>$('#box').on('resizestop', function(event, ui) {
+  console.log('Resized!'));
+});</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.element
+        <li>ui.helper
+        <li>ui.originalElement
+        <li>ui.originalPosition.left, top
+        <li>ui.originalSize.width, height
+        <li>ui.position.left, top
+        <li>ui.size.width, height
+      </ul>
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#box').resizable('enable');</code></pre>
+      <pre><code>var x = $('#box').resizable("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#box').resizable("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h3>例</h3>
+      <pre><code>$('#box').resizable({
+  stop: function(event, ui) {
+    console.log(ui.size.width, ui.size.height);
+  }
+});</code></pre>
+
+      <h1>Selectable</h1>
+      <p>複数選択や範囲選択が可能になる。
+
+      <h3>要素を選択可能にする</h3>
+      <pre><code>$('#list').resizable();</code></pre>
+
+      <h3>選択できる要素を指定</h3>
+      <pre><code>$('#list').resizable({ filter: 'li' });</code></pre>
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>               <th>イベント名            <td>オプションのキー
+        <tr> <td>selectable作成 <td>selectablecreate      <td>create
+        <tr> <td>選択開始       <td>selectablestart       <td>start
+        <tr> <td>選択中         <td>selectableselecting   <td>selecting
+        <tr> <td>選択後         <td>selectableselected    <td>selected
+        <tr> <td>選択終了       <td>selectablestop        <td>stop
+        <tr> <td>選択解除中     <td>selectableunselecting <td>unselecting
+        <tr> <td>選択解除後     <td>selectableunselected  <td>unselected
+      </table>
+      <pre><code>$('#list').selectable({
+  selected: function(event, ui) {
+    console.log('Selected!');
+  }
+});</code></pre>
+      <pre><code>$('#list').on('selected', function(event, ui) {
+  console.log('Selected!'));
+});</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.selecting
+        <li>ui.selected
+        <li>ui.unselecting
+        <li>ui.unselected
+      </ul>
+      <p><code>start, stop</code>には<code>ui</code>はない
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#list').selectable('enable');</code></pre>
+      <pre><code>var x = $('#list').selectable("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#list').selectable("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h3>クラス</h3>
+      <p>自動で<code>selecting, selected</code>Classが付く
+
+      <h3>例</h3>
+      <pre><code>var a = [];
+$('#list').selectable({
+  selected: function(event, ui) {
+    if (a.indexOf(ui.selected.id) === -1) {
+      a.push(ui.selected.id);
+    }
+    console.log(a);
+  },
+  unselected: function(event, ui) {
+    var id = ui.unselected.id;
+    a.splice(a.indexOf(id),1);
+    console.log(a);
+  }
+});</code></pre>
+
+      <h1>Sortable</h1>
+
+      <h3>要素を並べ替え可能にする</h3>
+      <pre><code>$('#list').sortable();</code></pre>
+
+      <h3>移動方向を制限</h3>
+      <pre><code>$('#list').sortable({ axis: "x" });    // 横方向のみ</code></pre>
+      <pre><code>$('#list').sortable({ axis: "y" });    // 縦方向のみ</code></pre>
+
+      <h3>ドラッグ中の透明度</h3>
+      <pre><code>$('#list').sortable({ opacity: 0.5 })</code></pre>
+
+      <h3>ドラッグを開始できる範囲を指定</h3>
+      <pre><code>$('#list').sortable({ handle: '.handle' });</code></pre>
+
+      <h3>ドラッグを開始できない範囲を指定</h3>
+      <pre><code>$('#list').sortable({ cancel: '.cancel' });</code></pre>
+
+      <h3>ドラッグ中のカーソルを指定</h3>
+      <pre><code>$('#list').sortable({ cursor: 'all-scroll' });</code></pre>
+      <table>
+        <tr> <td>default    <td>デフォルト（矢印）
+        <tr> <td>pointer    <td>リンクカーソル
+        <tr> <td>crosshair  <td>十字カーソル
+        <tr> <td>move       <td>全方向矢印
+        <tr> <td>text       <td>テキスト編集
+        <tr> <td>wait       <td>砂時計/レインボーカーソル
+        <tr> <td>help       <td>ヘルプ（？）
+        <tr> <td>n-resize   <td>上リサイズ
+        <tr> <td>e-resize   <td>右リサイズ
+        <tr> <td>s-resize   <td>下リサイズ
+        <tr> <td>w-resize   <td>左リサイズ
+        <tr> <td>ne-resize  <td>右上リサイズ
+        <tr> <td>se-resize  <td>右下リサイズ
+        <tr> <td>sw-resize  <td>左下リサイズ
+        <tr> <td>nw-resize  <td>左上リサイズ
+        <tr> <td>all-scroll <td>手
+      </table>
+
+      <h3>ドラッグ幅/高さを指定</h3>
+      <pre><code>$('#list').sortable({ grid: [20, 50] });</code></pre>
+      <p><code>grid: [横, 縦]</code>で指定する。
+
+      <h3>並び順を出力</h3>
+      <pre><code>var s = $( "#list" ).sortable( "serialize" );</code></pre>
+      <p>要素が<code>item-1, item_1, item=1</code>のようなIDでないと使えない
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>              <th>イベント名 <th>オプションのキー
+        <tr> <td>sortable作成  <td>sortcreate <td>create
+        <tr> <td>ドラッグ開始  <td>sortstart  <td>start
+        <tr> <td>ドラッグ中    <td>sort       <td>drag
+        <tr> <td>並べ替え中    <td>sortchange <td>change
+        <tr> <td>ドラッグ終了  <td>sortstop   <td>stop
+        <tr> <td>並べ替え終了  <td>sortupdate <td>update
+      </table>
+      <pre><code>$('#list').sortable({
+  start: function(event, ui) {
+    console.log(ui.item[0].id);
+  }
+});</code></pre>
+      <pre><code>$('#list').on('sortstart', function(event, ui) {
+  console.log(ui.item[0].id);
+};</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.helper
+        <li>ui.item
+        <li>ui.position.top, left
+        <li>ui.offset.top, left
+        <li>ui.originalPosition.top, left
+      </ul>
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#list').sortable('enable');</code></pre>
+      <pre><code>var x = $('#list').sortable("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#list').sortable("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h3>例</h3>
+      <pre><code>$('#list').sortable({
+  update: function(event, ui) {
+    console.log($(this).sortable('serialize'));
+  }
+});</code></pre>
+
+      <h1>Accordion</h1>
+
+      <h3>ある要素とそれに隣接したある要素のペアをアコーディオンにする</h3>
+      <pre><code>&lt;div id="accordion"&gt;
+  &lt;h3&gt;Header1&lt;/h1&gt;
+  &lt;p&gt;Text1&lt;/p&gt;
+  &lt;h3&gt;Header2&lt;/h1&gt;
+  &lt;p&gt;Text2&lt;/p&gt;
+  &lt;h3&gt;Header2&lt;/h1&gt;
+  &lt;p&gt;Text2&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+      <pre><code>$('#accordion').accordion();</code></pre>
+
+      <h1>Autocomplete</h1>
+
+      <h3>自動で補完する</h3>
+      <pre><code>&lt;input type="text" id="complete"&gt;</code></pre>
+      <pre><code>var list = ['a', 'b', 'c'];
+$('#complete').autocomplete({ source: list });</code></pre>
+
+      <h3>最小文字数を指定</h3>
+      <pre><code>$('#complete').autocomplete({
+  source: list,
+  minLength: 0
+});</code></pre>
+      <p>デフォルト：1
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#complete').autocomplete('enable');</code></pre>
+      <pre><code>var x = $('#complete').autocomplete("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#complete').autocomplete("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h1>Button</h1>
+
+      <h3>ボタンの生成</h3>
+
+      <pre><code>&lt;button&gt;Button&lt;/button&gt;</code></pre>
+      <pre><code>$('button').button();</code></pre>
+
+      <h3>チェックボックス</h3>
+      <pre><code>&lt;input type="checkbox" id="check"&gt;&lt;label for="check"&gt;Checkbox&lt;/label&gt;</code></pre>
+      <pre><code>$('input').button();</code></pre>
+
+      <h3>チェックボックス（グループ）</h3>
+      <pre><code>&lt;div&gt;
+  &lt;input type="checkbox" id="radio1"&gt;&lt;label for="radio1"&gt;Radio1&lt;/label&gt;
+  &lt;input type="checkbox" id="radio2"&gt;&lt;label for="radio2"&gt;Radio2&lt;/label&gt;
+  &lt;input type="checkbox" id="radio3"&gt;&lt;label for="radio3"&gt;Radio3&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+      <pre><code>$('div').buttonset();</code></pre>
+
+      <h3>ラジオボタン</h3>
+      <pre><code>&lt;input type="radio" name="radio" id="radio1"&gt;&lt;label for="radio1"&gt;Radio1&lt;/label&gt;
+&lt;input type="radio" name="radio" id="radio2"&gt;&lt;label for="radio2"&gt;Radio2&lt;/label&gt;
+&lt;input type="radio" name="radio" id="radio3"&gt;&lt;label for="radio3"&gt;Radio3&lt;/label&gt;</code></pre>
+      <pre><code>$('input').button();</code></pre>
+
+      <h3>ラジオボタン（グループ）</h3>
+      <pre><code>&lt;div&gt;
+  &lt;input type="radio" name="radio" id="radio1"&gt;&lt;label for="radio1"&gt;Radio1&lt;/label&gt;
+  &lt;input type="radio" name="radio" id="radio2"&gt;&lt;label for="radio2"&gt;Radio2&lt;/label&gt;
+  &lt;input type="radio" name="radio" id="radio3"&gt;&lt;label for="radio3"&gt;Radio3&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+      <pre><code>$('div').buttonset();</code></pre>
+
+      <h1>Datepicker</h1>
+
+      <h3>日付の選択</h3>
+      <pre><code>&lt;input type="text"&gt;</code></pre>
+      <pre><code>$('input').datepicker();</code></pre>
+
+      <h3>フォーマットの指定</h3>
+      <pre><code>$('input').datepicker({ dateFormat: 'yy/mm/dd' });</code></pre>
+      <table>
+        <tr> <td>d     <td>日（1〜2桁）
+        <tr> <td>dd    <td>日（2桁）3桁）
+        <tr> <td>D     <td>曜日（短縮）
+        <tr> <td>DD    <td>曜日（完全）
+        <tr> <td>m     <td>月（1〜2桁）
+        <tr> <td>mm    <td>月（2桁）
+        <tr> <td>M     <td>月名（短縮）
+        <tr> <td>MM    <td>月名（完全）
+        <tr> <td>y     <td>年（2桁）
+        <tr> <td>yy    <td>年（4桁）
+        <tr> <td>o     <td>年間通算日（1〜3桁）
+        <tr> <td>oo    <td>年間通算日（
+        <tr> <td>@     <td>Unixタイムスタンプ
+      </table>
+
+      <h3>表示される月の数</h3>
+      <pre><code>$('input').datepicker({ numberOfMonths: 3 });</code></pre>
+      <pre><code>$('input').datepicker({ numberOfMonths: [2, 3] });</code></pre>
+      <p><code>[縦, 横]</code>で指定
+
+      <h3>選択可能な日を指定</h3>
+      <pre><code>$('input').datepicker({
+  minDate: -2,
+  maxDate: '+1m'
+});</code></pre>
+      <p><code>y, m, w, d</code>が指定できる
+
+      <h3>月曜日始まりにする</h3>
+      <pre><code>$('input').datepicker({ firstDay: 1 });</code></pre>
+
+      <h3>自動でテキストボックスの幅を設定</h3>
+      <pre><code>$('input').datepicker({ autoSize: true });</code></pre>
+      <p><code>dateFormat</code>の値によって幅が変化する
+
+      <h3>月の名前を変更</h3>
+      <pre><code>$('input').datepicker({
+  monthNames: [ '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月' ],
+  monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+});</code></pre>
+
+      <h3>曜日の名前を変更</h3>
+      <pre><code>$('input').datepicker({
+  dayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+  dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+  dayNamesMin: ['日', '月', '火', '水', '木', '金', '土']
+});</code></pre>
+
+      <h3>月を年の後に表示</h3>
+      <pre><code>$('input').datepicker({ showMonthAfterYear: true });</code></pre>
+
+      <h3>年の書式</h3>
+      <pre><code>$('input').datepicker({ yearSuffix: '年' });</code></pre>
+
+      <h1>Dialog</h1>
+
+      <h3>ダイアログを開く</h3>
+      <pre><code>&lt;div id="msg"&gt;Message&lt;/div&gt;</code></pre>
+      <pre><code>$('#msg').on('click', function() {
+  $('#msg').dialog('open');
+});</code></pre>
+
+      <h3>自動で開かないようにする</h3>
+      <pre><code>$('#msg').dialog({ autoOpen: false });</code></pre>
+
+      <h3>ボタンの処理</h3>
+      <pre><code>$('#msg').dialog({
+  buttons: {
+    "OK": function() {
+      $(this).dialog('close');
+    }
+  }
+});</code></pre>
+
+      <h3>タイトルを指定</h3>
+      <pre><code>$('#msg').dialog({ title: 'Title' });</code></pre>
+
+      <h3>開いている間に他の操作をさせない</h3>
+      <pre><code>$('#msg').dialog({ modal: true });</code></pre>
+
+      <h1>Progressbar</h1>
+
+      <h3>プログレスバーの作成</h3>
+      <pre><code>&lt;div id="bar" style="width:200px;"&gt;&lt;/div&gt;</code></pre>
+      <pre><code>$('#bar').progressbar();</code></pre>
+
+      <h3>％を指定</h3>
+      <pre><code>>$('#bar').progressbar({ value: 50 });</code></pre>
+      <p>未指定の場合0％になる
+
+      <h1>Slider</h1>
+
+      <h3>スライダーの作成</h3>
+      <pre><code>&lt;div id="slider" style="width:200px;"&gt;&lt;/div&gt;</code></pre>
+      <pre><code>$('#slider').slider();</code></pre>
+
+      <h3>垂直方向にする</h3>
+      <pre><code>$('#slider').slider({ orientation: 'vertical' });</code></pre>
+
+      <h3>範囲を指定させるようにする</h3>
+      <pre><code>$('#slider').slider({ range: true });</code></pre>
+
+      <h3>スライダーの移動間隔を指定</h3>
+      <pre><code>$('#slider').slider({ range: true });</code></pre>
+
+      <h3>最小/最大値を指定</h3>
+      <pre><code>$('#slider').slider({ min: 10 });</code></pre>
+      <pre><code>$('#slider').slider({ max: 80 });</code></pre>
+
+      <h3>初期値（％）を指定</h3>
+      <pre><code>$('#slider').sider({ step: 5 });</code></pre>
+
+      <h3>rangeがtrueの場合の初期値</h3>
+      <pre><code>$('#slider').sider({ value: [10, 25] });</code></pre>
+
+      <h3>イベント</h3>
+      <table>
+        <tr> <th>              <th>イベント名  <th>オプションのキー
+        <tr> <td>slider作成    <td>slidecreate <td>create
+        <tr> <td>スライド開始  <td>slidestart  <td>start
+        <tr> <td>スライド中    <td>slide       <td>slide
+        <tr> <td>スライド終了  <td>slidestop   <td>stop
+      </table>
+      <pre><code>$('#slider').slider({
+  slide: function(event, ui) {
+    console.log(ui.value);
+  }
+});</code></pre>
+      <pre><code>$('#slider').on('slide', function(event, ui) {
+  console.log(ui.value);
+};</code></pre>
+      <h4>引数</h4>
+      <ul>
+        <li>event
+        <li>ui.handle
+        <li>ui.value
+        <li>ui.values
+      </ul>
+
+      <h3>メソッド</h3>
+      <table>
+        <tr> <th>                         <th>メソッド
+        <tr> <td>有効化                   <td>("enable")
+        <tr> <td>無効化                   <td>("disable")
+        <tr> <td>永久に無効化             <td>("destroy")
+        <tr> <td>すべてのオプションを取得 <td>("option")
+        <tr> <td>オプションを取得         <td>("option", "オプション")
+        <tr> <td>オプションを変更         <td>("option", "オプション", "値")
+      </table>
+      <pre><code>$('#slider').slider('enable');</code></pre>
+      <pre><code>var x = $('#slider').slider("option", "オプション");    // オプションの値の取得</code></pre>
+      <pre><code>$('#slider').slider("option", "オプション", "値");    // オプションの値の設定</code></pre>
+
+      <h3>例</h3>
+      <p>スライダーとプログレスバーを連動：
+      <pre><code>$('#slider').slider({
+  slide: function(event, ui) {
+    $('#bar').progressbar('option', 'value', ui.value);
+  }
+});</code></pre>
+
+      <h1>Tab</h1>
+
+      <h3>タブを作成</h3>
+      <pre><code>&lt;div id="tabs"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#menu1"&gt;Menu1&lt;/a&gt;
+    &lt;li&gt;&lt;a href="#menu2"&gt;Menu2&lt;/a&gt;
+    &lt;li&gt;&lt;a href="#menu3"&gt;Menu3&lt;/a&gt;
+  &lt;/ul&gt;
+
+  &lt;div id="menu1"&gt;Menu1&lt;/div&gt;
+  &lt;div id="menu2"&gt;Menu2&lt;/div&gt;
+  &lt;div id="menu3"&gt;Menu3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      <pre><code>$('#tabs').tabs();</code></pre>
+
+      <h3>最初に開いておくタブ</h3>
+      <pre><code>$('#tabs').tabs({ selected: 1 });</code></pre>
+      <p>0から始まる
+
+      <h3>開けないタブ</h3>
+      <pre><code>$('#tabs').tabs({ disabled: [1, 2] });</code></pre>
+
+      <h3>エフェクト</h3>
+      <pre><code>$('#tabs').tabs({ hide: { effect: 'slideUp', duration: 200 } });</code></pre>
+      <pre><code>$('#tabs').tabs({ show: { effect: 'slideDown', duration: 200 } });</code></pre>
+
+      <h1>Effect</h1>
+
+      <h3>エフェクト</h3>
+      <pre><code>$('#box').on('click', function() {
+  $(this).effect('explode', {pieces: 4}, 'slow');
+});</code></pre>
+      <p><a href="http://api.jqueryui.com/category/effects/">jQuery UI</a>や<a href="http://api.jquery.com/category/effects/">jQuery</a>からエフェクトを探すと良い
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

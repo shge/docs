@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTML5 Canvas</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">HTML5 Canvas</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>概要</h1>
+
+      <h3>HTMLのテンプレート</h3>
+      <pre><code>&lt;canvas id="canvas" width="400" height="200"&gt;
+  お使いのブラウザはCanvasに対応していません。
+&lt;/canvas&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+      <p><code>canvas</code>タグ内には非対応ブラウザ用の説明を書く。
+
+      <h3>JavaScriptのテンプレート </h3>
+      <pre><code>window.onload = function() {
+  draw();
+};
+
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (!canvas || !canvas.getContext) return false;
+  var ctx = canvas.getContext('2d');
+  // 描画処理
+}</code></pre>
+
+      <h1>四角形</h1>
+
+      <h3>四角形（枠線のみ）</h3>
+      <pre><code>ctx.strokeRect(x, y, width, height);</code></pre>
+      <pre><code>ctx.strokeRect(10, 10, 50, 50);</code></pre>
+
+      <h3>四角形（塗りつぶし）</h3>
+      <pre><code>ctx.fillRect(x, y, width, height);</code></pre>
+      <pre><code>ctx.fillRect(10, 10, 50, 50);</code></pre>
+      <p>デフォルトの色は黒。
+
+      <h3>範囲内の図形の削除</h3>
+      <pre><code>ctx.clearRect(x, y, width, height);</code></pre>
+      <pre><code>ctx.clearRect(10, 10, 50, 50);</code></pre>
+
+      <h1>図形のスタイル</h1>
+
+      <h3>線の色を指定</h3>
+      <pre><code>ctx.strokeStyle = 色;</code></pre>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>ctx.strokeStyle = "red";</code></pre></div>
+        <div class="col-xs-6"><pre><code>ctx.strokeStyle = "#ff0000";</code></pre></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>ctx.strokeStyle = "rgb(255, 0, 0)";</code></pre></div>
+        <div class="col-xs-6"><pre><code>ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";</code></pre></div>
+      </div>
+
+      <h3>塗りつぶしの色を指定</h3>
+      <pre><code>ctx.fillStyle = 色;</code></pre>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>ctx.fillStyle = "red";</code></pre></div>
+        <div class="col-xs-6"><pre><code>ctx.fillStyle = "#ff0000";</code></pre></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>ctx.fillStyle = "rgb(255, 0, 0)";</code></pre></div>
+        <div class="col-xs-6"><pre><code>ctx.fillStyle = "rgba(255, 0, 0, 0.5)";</code></pre></div>
+      </div>
+
+      <h3>線の太さを指定</h3>
+      <pre><code>ctx.lineWidth = ピクセル;</code></pre>
+      <pre><code>ctx.lineWidth = 5;</code></pre>
+
+      <h3>線の角のスタイルを指定</h3>
+      <pre><code>ctx.lineJoin = スタイル;</code></pre>
+      <pre><code>ctx.lineJoin = "round"    // 角丸</code></pre>
+      <pre><code>ctx.lineJoin = "bevel"    // 八角形（角を切る）</code></pre>
+      <pre><code>ctx.lineJoin = "miter"    // 通常（デフォルト）</code></pre>
+
+      <h3>グラデーションを作成（線形）</h3>
+      <pre><code>var g = ctx.createLinearGradient(始点x, 始点y, 終点x, 終点y);</code></pre>
+      <pre><code>var g = ctx.createLinearGradient(0, 0, 0, 100);    // 縦方向</code></pre>
+      <pre><code>var g = ctx.createLinearGradient(0, 0, 100, 100);    // 斜め方向</code></pre>
+
+      <h3>グラデーションを作成（円形）</h3>
+      <pre><code>var g = ctx.createRadialGradient(始点x, 始点y, 始点半径, 終点x, 終点y, 終点半径);</code></pre>
+      <pre><code>var g = ctx.createRadialGradient(50, 50, 20, 50, 50, 60);</code></pre>
+
+      <h3>グラデーションの色を指定</h3>
+      <pre><code>g.addColorStop(オフセット, 色);</code></pre>
+      <pre><code>g.addColorStop(0.0, "red");
+g.addColorStop(0.5, "yellow");
+g.addColorStop(1.0, "blue");</code></pre>
+
+      <h3>グラデーションを適用</h3>
+      <pre><code>ctx.fillStyle = g;</code></pre>
+      <pre><code>ctx.fillStyle = g;</code></pre>
+
+      <h3>影</h3>
+      <pre><code>ctx.shadowColor = "#ccc"    // 影の色（指定方法は何でも良い）
+ctx.shadowOffsetX = 5;      // 図形と影のずれ（x）
+ctx.shadowOffsetY = 5;      // 図形と影のずれ（y）
+ctx.shadowBlur = 2;         // ぼかし具合</code></pre>
+
+      <h3>透明度</h3>
+      <pre><code>ctx.globalAlpha = 透明度;</code></pre>
+      <pre><code>ctx.globalAlpha = 0.5;</code></pre>
+
+      <h1>図形の変形</h1>
+      <p>描画後ではなく、描画前に図形を変形させる。
+
+      <h3>縮小・拡大</h3>
+      <pre><code>ctx.scale(x, y);</code></pre>
+      <p><code>x, y</code>は倍率を指定
+      <pre><code>ctx.scale(0.8, 0.8);    // 80%に縮小</code></pre>
+
+      <h3>回転</h3>
+      <pre><code>ctx.rotate(度 / 180 * Math.PI);</code></pre>
+      <pre><code>ctx.rotate(30 / 180 * Math.PI);    // 30度時計回りに回転</code></pre>
+      <p>回転の起点は四角形の左上となっている。
+
+      <h3>移動</h3>
+      <pre><code>ctx.translate(x, y);</code></pre>
+      <pre><code>ctx.translate(100, 10);</code></pre>
+
+      <h1>直線</h1>
+
+      <h3>パスの開始</h3>
+      <pre><code>ctx.beignPath();</code></pre>
+
+      <h3>始点を指定</h3>
+      <pre><code>ctx.moveTo(x, y);</code></pre>
+      <pre><code>ctx.moveTo(20, 20);</code></pre>
+
+      <h3>始点から線を引く</h3>
+      <pre><code>ctx.lineTo(x, y);</code></pre>
+      <pre><code>ctx.lineTo(120, 20);     //  20, 20から120,  20まで線を引く
+ctx.lineTo(120, 120);    // 120, 20から120, 120まで線を引く</code></pre>
+
+      <h3>パスの描画</h3>
+      <pre><code>ctx.stroke();</code></pre>
+
+      <h3>パスの始点と結ぶ</h3>
+      <pre><code>ctx.closePath();</code></pre>
+
+      <h3>パスの内部を塗りつぶす</h3>
+      <pre><code>ctx.fill();</code></pre>
+
+      <h1>円</h1>
+
+      <h3>円を描画</h3>
+      <pre><code>ctx.arc(x, y, 半径, 開始角, 終了角);</code></pre>
+      <pre><code>ctx.beginPath();
+ctx.arc(100, 100, 50, 0 / 180 * Math.PI, 360 / 180 * Math.PI);    // 通常の円
+ctx.stroke();</code></pre>
+      <pre><code>ctx.beginPath();
+ctx.arc(100, 100, 50, 10 / 180 * Math.PI, 210 / 180 * Math.PI);    // 欠けた円
+ctx.stroke();</code></pre>
+      <p>0度は円の右。塗りつぶす場合には<code>ctx.fill();</code>を使う。その場合扇型にはならない。
+
+      <h3>線のスタイルを指定</h3>
+      <pre><code>ctx.lineCap = スタイル;</code></pre>
+      <pre><code>ctx.lineCap = 'butt';    // はみ出さない（デフォルト）</code></pre>
+      <pre><code>ctx.lineCap = 'round';    // 丸くなる（太い線でないとわからない）</code></pre>
+      <pre><code>ctx.lineCap = 'square';    // はみ出す</code></pre>
+
+      <h1>画像</h1>
+
+      <h3>画像を表示</h3>
+      <pre><code>var img = new Image();
+img.src = 'img.jpg';
+img.onload = function() {
+  ctx.drawImage(img, 10, 10);
+}</code></pre>
+      <p>画像の変形もできる。
+
+      <h3>画像パターン</h3>
+      <pre><code>img.onload = function() {    // 画像が読み込まれた時実行
+  var pattern = ctx.createPattern(img, 'repeat');    // no-repeat, repeat-x, repeat-yが指定可能
+  ctx.fillStyle = pattern;    // パターンを適用
+  ctx.fillRect(20, 20, 100, 100);    // 四角形を描画
+}</code></pre>
+
+      <h1>保存 / 復元</h1>
+
+      <h3>保存</h3>
+      <pre><code>ctx.save();</code></pre>
+
+      <h3>復元</h3>
+      <pre><code>ctx.restore();</code></pre>
+
+      <h1>例</h1>
+
+      <h3>アニメーション</h3>
+      <pre><code>window.onload = function() {
+  draw();
+};
+
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (!canvas || !canvas.getContext) return false;
+  var ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = 'red';
+  var y = 0;
+
+  (function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (y &gt; canvas.height) y = -50;
+    y++;
+    ctx.fillRect(0, y, 50, 50);
+    setTimeout(loop, 10);
+  })();
+}</code></pre>
+
+      <h3>ランダムな色の円を100個描画</h3>
+      <pre><code>window.onload = function() {
+  draw();
+};
+
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (!canvas || !canvas.getContext) return false;
+  var ctx = canvas.getContext('2d');
+
+  ctx.globalAlpha = 0.5;
+
+  for (var i = 0; i &lt; 100; i++) {
+    var x = Math.floor(Math.random() * 400);
+    var y = Math.floor(Math.random() * 200);
+    var r = Math.floor(Math.random() * 200);
+    ctx.fillStyle = "rgb(" + rgb() + "," + rgb() + "," + rgb() + ")";
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+  }
+
+  function rgb() {
+    return Math.floor(Math.random() * 255);
+  }
+}</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

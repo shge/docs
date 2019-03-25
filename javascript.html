@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>JavaScript</title>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">JavaScript</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+
+      <h1>文字列の表示</h1>
+
+      <h3>ブラウザのコンソールに出力</h3>
+      <pre><code>console.log("Hello")</code></pre>
+
+      <h1>コメント</h1>
+
+      <h3>1行コメント</h3>
+      <pre><code>// コメント</code></pre>
+      <h3>複数行コメント</h3>
+      <pre><code>/* コメント */</code></pre>
+
+      <h1>変数・データ型</h1>
+
+      <h3>変数を宣言</h3>
+      <pre><code>var foo;</code></pre>
+      <p>複数の変数をまとめて宣言
+      <pre><code>var foo, bar;</code></pre>
+
+      <h3>変数を宣言・代入</h3>
+      <pre><code>var foo = 'bar';</code></pre>
+      <p>複数の変数をまとめて宣言・代入：
+      <pre><code>var foo = "bar",
+    x   = 20,
+    y   = 10;</code></pre>
+
+      <h3>変数に代入</h3>
+      <pre><code>foo = 'bar';</code></pre>
+
+      <h3>データ型</h3>
+      <ul>
+        <li>文字列
+        <li>数値
+        <li>真偽値（<code>true</code> / <code>false</code>）
+        <li>オブジェクト
+          <ul>
+            <li>配列
+            <li>関数
+            <li>組み込みオブジェクト
+          </ul>
+        <li><code>undefined</code>（無定義）
+        <li><code>null</code>（空データ）
+      </ul>
+
+      <h1>演算子</h1>
+
+      <h3>算術演算子</h3>
+      <table>
+          <tr> <td><code>+</code>  <td>加算
+          <tr> <td><code>-</code>  <td>減算
+          <tr> <td><code>*</code>  <td>乗算
+          <tr> <td><code>/</code>  <td>除算
+          <tr> <td><code>%</code>  <td>剰余（除算の余り）
+          <tr> <td><code>++</code> <td>インクリメント
+          <tr> <td><code>--</code> <td>デクリメント
+      </table>
+      <h3>インクリメント / デクリメント演算</h3>
+      <pre><code>var num1 = 10;
+var num2 = num1++;
+alert(num1);    // 11
+alert(num2);    // 10</code></pre>
+                <pre><code>var num1 = 10;
+var num2 = ++num1;
+alert(num1);    // 11
+alert(num2);    // 11</code></pre>
+
+      <h3>比較演算子</h3>
+      <table>
+        <tr> <td><code>==</code>    <td>等しい
+        <tr> <td><code>!=</code>    <td>等しくない
+        <tr> <td><code>===</code>   <td>厳密に等しい（同じ型）
+        <tr> <td><code>!==</code>   <td>厳密には等しくない（同じ型）
+        <tr> <td><code>&gt;</code>  <td>左が右より大きい
+        <tr> <td><code>&lt;</code>  <td>左が右より小さい
+        <tr> <td><code>&gt;=</code> <td>左が右以上
+        <tr> <td><code>&lt;=</code> <td>左が右以下
+      </table>
+
+      <h3>論理演算子</h3>
+      <table>
+        <tr> <td><code>&amp;&amp;</code> <td>AND
+        <tr> <td><code>||</code>         <td>OR
+        <tr> <td><code>!</code>          <td>NOT
+      </table>
+      <p>例：
+      <pre><code>score &lt; 80 &amp;&amp; score &gt; 60    // 60より大きく80より小さい</code></pre>
+
+      <h4>代入演算子</h4>
+      <table>
+        <tr> <th>短縮した演算子      <th>意味
+        <tr> <td><code>x += y</code> <td><code>x = x + y</code>
+        <tr> <td><code>x -= y</code> <td><code>x = x - y</code>
+        <tr> <td><code>x *= y</code> <td><code>x = x * y</code>
+        <tr> <td><code>x /= y</code> <td><code>x = x / y</code>
+        <tr> <td><code>x %= y</code> <td><code>x = x % y</code>
+      </table>
+
+      <h1>文字列</h1>
+
+      <h3>変数に代入</h3>
+      <pre><code>var foo = 'bar';</code></pre>
+      <p>ダブルクォーテーションも使用可能。
+      <p>特殊文字（<code>\n</code>, <code>\t</code>）なども使用可能。
+      <p>シングルクォーテーション内にシングルクォーテーションを書くときは、バックスラッシュでエスケープする。
+
+      <h3>文字列の連結</h3>
+      <pre><code>var foo = 'Hello, ' + 'world!'</code></pre>
+      <pre><code>var foo = '5' + 5;    // '55'</code></pre>
+      <p><span class="glyphicon glyphicon-warning-sign"></span> 片方が文字列だと、自動で文字列に変換される
+
+      <h1>条件分岐</h1>
+
+      <h3>if</h3>
+      <div class="row">
+        <div class="col-xs-4">
+          <pre><code>if (条件式) {
+  真の場合の処理
+}</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件式) {
+  真の場合の処理
+} else {
+  偽の場合の処理
+}</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件式) {
+  真の場合の処理
+} else if (条件式) {
+  真の場合の処理
+} else {
+  偽の場合の処理
+}</code></pre>
+        </div>
+      </div>
+      <p>例：
+      <pre><code>var score = 70;
+if (score &gt; 80) {
+  console.log('OK')
+} else if (score &gt; 60) {
+  console.log('So-so')
+} else {
+  console.log('NG')
+}</code></pre>
+
+      <h3>真偽値判定</h3>
+      <p>ifなどは<code>if (foo)</code>と書くと、真偽値判定が行われる。
+      <p>下記のものは<code>false</code>になり、それ以外はすべて<code>true</code>になる。
+      <ul>
+          <li>文字列：空文字
+          <li>数値：<code>0</code>または<code>NaN</code>
+          <li>真偽値：<code>false</code>
+          <li>オブジェクト：<code>null</code>
+          <li><code>undefined</code>, <code>null</code>
+      </ul>
+      <p><code>NaN</code>は<code>if (n === NaN)</code>と書いても<code>true</code>にならないため、<code>if (isNaN(n))</code>と書く。
+
+      <h3>三項演算子</h3>
+      <pre><code>if (条件) {
+  a = b;
+} else {
+  a = c;
+} </code></pre>
+      <p>は次のように書くことができる。
+      <pre><code>a = (条件) ? b : c;</code></pre>
+      <p>例：
+      <pre><code>foo = (x &lt; y) ? x : y;    // 大きい方をfooに代入</code></pre>
+
+      <h3>switch</h3>
+      <p>値に一致した場合に実行する
+      <pre><code>switch (変数) {
+  case '値':    // 値に一致した場合
+    処理
+  break;
+  case '値':    // 2つの値を指定することも可能（AND）
+  case '値':
+    処理
+  break;
+  default:    // どの値にも一致しない場合
+    処理
+  break;
+}</code></pre>
+
+        <h1>繰り返し</h1>
+
+        <h3>while</h3>
+        <p>条件が真の場合のみ繰り返す
+        <p>繰り返す前に判定する。
+                <pre><code>while (条件) {
+  処理
+}</code></pre>
+                <p>例：
+                <pre><code>var i = 0;
+while (i &lt; 10) {    // 0〜9まで順番に出力する
+  console.log(i);
+  i++;
+}</code></pre>
+        <p><span class="glyphicon glyphicon-info-sign"></span> <code>do ... while</code>との違いは繰り返す前に判定することである。
+
+        <h3>do ... while</h3>
+        <p>条件が真の場合のみ繰り返す
+        <pre><code>do {
+  処理
+} while (条件);</code></pre>
+        <p>例：
+        <pre><code>var i = 0;
+do {    // 0〜9まで順番に出力する
+  console.log(i);
+  i++;
+} while (i &lt; 10);</code></pre>
+        <p><span class="glyphicon glyphicon-info-sign"></span> <code>while</code>との違いは繰り返した後に判定することである（最低1回は実行される）。
+
+        <h3>for</h3>
+        <p>条件が真の場合のみ繰り返す
+        <pre><code>for (var 変数 = 初期値; 条件; 変数++) {
+  処理
+}</code></pre>
+        <p>例：
+        <pre><code>for (var i = 0; i &lt; 10; i++) {
+  console.log(i);
+}</code></pre>
+
+        <h3>break;</h3>
+        <p>ループ処理を抜ける
+
+        <h3>continue;</h3>
+        <p>ループ処理を1回スキップ
+
+
+        <h1>ダイアログ</h1>
+
+        <h3>ダイアログを表示</h3>
+        <p>ボタン：OKのみ
+        <pre><code>alert('Hello!');</code></pre>
+
+        <h3>確認ダイアログを表示</h3>
+        <p>ボタン：OK / キャンセル
+        <pre><code>var answer = confirm('Hello!');</code></pre>
+        <p>OKは<code>true</code>、キャンセルは<code>false</code>が返ってくる。
+
+        <h3>文字入力ダイアログを表示</h3>
+        <p>ボタン：OK / キャンセル
+        <pre><code>var answer = confirm('What your name?');</code></pre>
+        <p>OKはその文字列、キャンセルは<code>null</code>が返ってくる。
+        <p>初期値を設定：
+        <pre><code>var answer = confirm('What your name?', 'Tom');</code></pre>
+
+        <h1>関数</h1>
+        <h3>関数の定義</h3>
+        <div class="row">
+          <div class="col-xs-6">
+            <pre><code>function 関数名() {
+  処理
+}</code></pre>
+          </div>
+          <div class="col-xs-6">
+            <pre><code>function 関数名(引数1, 引数2...) {
+    処理
+}</code></pre>
+          </div>
+        </div>
+        <p>例：
+        <div class="row">
+          <div class="col-xs-6"><pre><code>function hello() {
+    console.log('Hello!');
+}</code></pre></div>
+          <div class="col-xs-6"><pre><code>function hello(name) {
+    console.log('Hello!' + name);
+}</code></pre></div>
+        </div>
+        <p>関数はコンパイル時に定義される。
+
+        <h3>関数の実行</h3>
+        <div class="row">
+          <div class="col-xs-6"><pre><code>関数名();</code></pre></div>
+          <div class="col-xs-6"><pre><code>関数名(引数1, 引数2...);</code></pre></div>
+        </div>
+        <p>例：
+        <div class="row">
+          <div class="col-xs-6"><pre><code>hello();</code></pre></div>
+          <div class="col-xs-6"><pre><code>hello(name);</code></pre></div>
+        </div>
+
+        <h3>返り値</h3>
+        <p>関数内で<code>return</code>を使用して、返り値を指定できる。
+        <pre><code>return 'Hello!';</code></pre>
+
+        <h3>返り値付き関数の実行</h3>
+        <pre><code>var foo = hello();</code></pre>
+        <pre><code>console.log(hello();)</code></pre>
+
+        <h3>ローカル変数</h3>
+        <p>関数内で宣言した関数は、その関数内でしか利用できない。
+
+        <h3>無名関数 / 匿名関数</h3>
+        <pre><code>var 変数 = function(引数1, 引数2...) {
+  処理
+};</code></pre>
+        <p>無名関数 / 匿名関数は代入時に定義される。
+        <p>関数の実行の方法は通常と同じ。
+
+        <h3>即時関数</h3>
+        <p>定義後、すぐに実行される。
+        <p>ローカル変数にして、変数が重複しないようにするために使う。
+        <div class="row">
+          <div class="col-xs-6">
+            <pre><code>(function 関数名() {
+  処理
+})();</code></pre>
+          </div>
+          <div class="col-xs-6">
+            <pre><code>(function 関数名(引数1, 引数2...) {
+  処理
+})(引数1, 引数2...);</code></pre>
+          </div>
+        </div>
+        <p>例：
+        <div class="row">
+          <div class="col-xs-6">
+            <pre><code>(function hello() {
+  console.log('Hello!');
+})();</code></pre>
+          </div>
+          <div class="col-xs-6">
+            <pre><code>(function hello(name) {
+  console.log('Hello, ' + name)
+})('Tom');</code></pre>
+          </div>
+        </div>
+        <p>無名関数のように、関数名を省略することもできる。
+
+        <h1>タイマー処理</h1>
+
+        <h3>setInterval</h3>
+        <p>一定時間ごとに処理を繰り返す
+        <pre><code>setInterval(function() {
+  処理
+}, ミリ秒);</code></pre>
+        <p>例：
+        <pre><code>var i = 0;
+setInterval(function() {
+  console.log(i++);
+}, 1000);                // 1秒ごとに0から1ずつ増やして出力</code></pre>
+        <p>関数を指定することもできる：
+        <pre><code>setInterval("show()", 1000)    // 1秒ごとにshow()を実行</code></pre>
+        <p><span class="glyphicon glyphicon-info-sign"></span> 処理終了を待たず、次の処理を実行する。
+        <p><span class="glyphicon glyphicon-warning-sign"></span> 無限ループに注意
+
+        <h3>clearInterval</h3>
+        <p><code>setInterval</code>の繰り返しを停止
+        <pre><code>var i = 0;
+var tid = setInterval(function() {
+    console.log(i);
+    i++;
+    clearInterval(tid);             // 処理が止まるので、0しか出力されない
+}, 1000);</code></pre>
+
+        <h3>setTimeout</h3>
+        <p>指定秒後に処理をする
+        <pre><code>setTimeout(function() {
+  処理
+}, ミリ秒);</code></pre>
+        <p>例：
+        <pre><code>setTimeout(function() {
+  console.log('Hello');
+}, 1000);    // 1秒経過後Helloを出力</code></pre>
+        <p>関数を指定することもできる：
+        <pre><code>setTimeout("show()", 1000)    // 1秒経過後show()を実行</code></pre>
+        <h4><code>setTimeout</code>を使用して、一定時間ごとに処理を繰り返す：</h4>
+        <pre><code>var i = 0;
+function show() {
+  console.log(i++);        // 1秒ごとに0から1ずつ数字を増やして出力
+  setTimeout(function() {
+      show();
+  }, 1000);
+}</code></pre>
+        <p><span class="glyphicon glyphicon-info-sign"></span> 処理終了を待ってから、次の処理を実行する。
+
+        <h3>clearTimeout</h3>
+        <p><code>setTimeout</code>のタイマーを停止
+        <pre><code>var i = 0;
+function show() {
+  console.log(i++);
+  var tid = setTimeout(function() {
+      show();
+  }, 1000);
+  clearTimeout(tid);             // 処理が止まるので、0しか出力されない
+}</code></pre>
+
+        <h1>配列</h1>
+
+        <h3>配列の定義</h3>
+        <pre><code>var ary = [99, 100, 78, 81];</code></pre>
+        <pre><code>var ary = ['Yamada', 'Yamaguchi', 'Tanaka'];</code></pre>
+
+        <h3>配列の値の取得</h3>
+        <pre><code>console.log(ary[0]);</code></pre>
+        <pre><code>console.log(ary[1]);</code></pre>
+        <p>添字は0から始まる。
+
+        <h3>配列の値の書き換え</h3>
+        <pre><code>var ary[0] = 67;</code></pre>
+        <pre><code>var ary[1] = 85;</code></pre>
+
+        <h3>多次元配列</h3>
+        <p>配列の中に配列を入れる
+        <pre><code>var ary = [
+  [1, 2, 3],
+  [4, 5, 6]
+];</code></pre>
+        <pre><code>var ary0 = [1, 2, 3],
+    ary1 = [4, 5, 6];
+var ary = [ary0, ary1];</code></pre>
+
+        <h3>多次元配列の値の取得</h3>
+        <pre><code>console.log(ary[0][1]);    // ary の 1番目の配列 の 2番目 の 値</code></pre>
+
+        <h1>オブジェクト（連想配列）</h1>
+
+        <h3>オブジェクトの定義</h3>
+        <pre><code>var obj = {
+  email: 'example@gmail.com',    // プロパティ: 値
+  score: 80
+};</code></pre>
+
+        <h3>オブジェクトの値の取得</h3>
+        <pre><code>console.log(obj['email']);</code></pre>
+        <pre><code>console.log(obj.email);</code></pre>
+
+        <h3>オブジェクトの値の書き換え</h3>
+        <pre><code>var ary['score'] = 97;</code></pre>
+        <pre><code>var ary.score = 97;</code></pre>
+
+        <h3>メソッド</h3>
+        <pre><code>var 変数 = {
+  プロパティ: function(引数1, 引数2...) {    // メソッド
+    処理
+  }
+};</code></pre>
+        <p>例：
+        <pre><code>var user = {
+  greet: function(name) {
+    console.log('Hello, ' + name);
+  }
+};</code></pre>
+
+        <h3>メソッドを実行</h3>
+        <pre><code>変数.メソッド(引数1, 引数2...)</code></pre>
+        <pre><code>user.greet('Tom');</code></pre>
+
+        <h3>メソッド内のthis</h3>
+        <p>同じオブジェクト内の他のプロパティにアクセスするときに使う。
+        <pre><code>var user = {
+  email: 'example@gmail.com',
+  greet: function(name) {
+    console.log('Hello, ' + name + ' from ' + this.email);
+  }
+};</code></pre>
+
+        <h3>オブジェクトとJSONの仕様</h3>
+        <table>
+          <tr> <th> <th>オブジェクト <th>JSON
+          <tr> <td>プロパティ/メンバー<sup>*1</sup> <td>囲まない <td>ダブルクォーテーションで囲む
+          <tr> <td>空文字のプロパティ/メンバー      <td>○ <td>○
+          <tr> <td>16進数表記                       <td>○ <td>×
+          <tr> <td>数値の前に0をつける<sup>*2</sup> <td>○ <td>×
+          <tr> <td>数値の前に+をつける              <td>○ <td>×
+          <tr> <td>小数点から始まる数値             <td>○ <td>×
+          <tr> <td>文字列を囲むもの                 <td>シングル/ダブルクォーテーション <td>ダブルクォーテーションのみ
+          <tr> <td>エスケープ文字<sup>*3</sup>      <td>○ <td>○
+          <tr> <td><code>undefined, NaN</code>      <td>○ <td>×
+          <tr> <td><code>null</code>                <td>○ <td>○
+          <tr> <td>真偽値（<code>true / false</code>） <td>○ <td>○
+          <tr> <td><code>function</code>            <td>○ <td>×
+        </table>
+        <p>*1：JSONではプロパティではなくメンバーと呼ぶ。
+        <p>*2：<code>001, 002, 003</code>など。
+        <p>*3：<code>\n, \r, \", \\</code>などがある。
+
+        <h1>組み込みオブジェクト</h1>
+
+        <h3>組み込みオブジェクトの種類</h3>
+        <ul>
+          <li>String
+          <li>Array
+          <li>Math
+          <li>Date
+        </ul>
+
+        <h3>Stringオブジェクト</h3>
+        <pre><code>var s = 'Hello, world!';</code></pre>
+        <table>
+          <tr> <th>メソッド名        <th>説明                          <th>備考
+          <tr> <td>.charAt(n)        <td>n文字目の文字                 <td>添字は0から始まる
+          <tr> <td>.length           <td>文字数                        <td>
+          <tr> <td>.contains('s')    <td>sが含まれているか             <td><code>true</code> / <code>false</code>
+          <tr> <td>.indexOf('s')     <td>最初にsが現れるのは何文字目か <td rowspan="2">添字は0から始まる<br>存在しない場合-1を返す
+          <tr> <td>.lastIndexOf('s') <td>最後にsが現れるのは何文字目か <td>
+          <tr> <td>.substr(n1, n2)   <td>n1文字目からn2文字の文字列    <td>添字は0から始まる
+          <tr> <td>.toString         <td>文字列に変換                  <td>
+          <tr> <td>.toLowerCase      <td>小文字に変換                  <td>
+          <tr> <td>.toUpperCase      <td>大文字に変換                  <td>
+        </table>
+
+        <h3>Arrayオブジェクト</h3>
+        <pre><code>var a = [100, 200, 300];</code></pre>
+        <table>
+          <tr> <th>メソッド名             <th>説明                                <th>備考
+          <tr> <td>.length                <td>要素数を返す                        <td>
+          <tr> <td>.unshift(e)            <td>先頭に追加                          <td>
+          <tr> <td>.push(e)               <td>末尾に追加                          <td>
+          <tr> <td>.shift                 <td>先頭から削除                        <td>
+          <tr> <td>.pop                   <td>末尾から削除                        <td>
+          <tr> <td>.reverse               <td>順番を反対にする                    <td>
+          <tr> <td>.splice(n1, n2, e1...) <td>n1要素目からn2個の要素をe1...に置換 <td>e1...未指定の場合削除<br>添字は0から始まる
+        </table>
+
+        <h3>Mathオブジェクト</h3>
+        <pre><code>console.log(Math.PI);</code></pre>
+        <table>
+          <tr> <th>メソッド名 <th>説明
+          <tr> <td>.abs       <td>絶対値
+          <tr> <td>.PI        <td>円周率
+          <tr> <td>.ceil(n)   <td>切り上げ
+          <tr> <td>.floor(n)  <td>切り捨て
+          <tr> <td>.round(n)  <td>四捨五入
+        </table>
+
+        <h3>Dateオブジェクト</h3>
+        <pre><code>var d = new Date();    // 現在時刻
+var d = new Date(2014, 1, 11, 10, 20, 30)    // 指定時刻を代入（月は0から始まる）</code></pre>
+        <table>
+          <tr> <th>メソッド名      <th>説明
+          <tr> <td>getFullYear()   <td>西暦
+          <tr> <td>getMonth        <td>月
+          <tr> <td>getDate         <td>日
+          <tr> <td>getDay          <td>曜日
+          <tr> <td>getHours        <td>時
+          <tr> <td>getMinutes      <td>分
+          <tr> <td>getSeconds      <td>秒
+          <tr> <td>getMilliseconds <td>ミリ秒
+          <tr> <td>getTime()       <td>1970/1/1からの経過ミリ秒
+        </table>
+
+        <h3>その他のメソッド</h3>
+        <table>
+          <tr> <th>メソッド名            <th>説明               <th>備考
+          <tr> <td>parseInt(s)           <td>整数に変換         <td>第2引数で何進数か指定できる
+          <tr> <td>parseFloat(s)         <td>浮動小数点数に変換 <td>
+          <tr> <td>encodeURI(s)          <td>URLエンコード      <td><code>; , / ? : @ &amp; = + $ #</code>と下記のものはエスケープしない
+          <tr> <td>encodeURIComponent(s) <td>URLエンコード      <td><code>アルファベット、数字、- _ . ! ~ * ' ( )</code>はエスケープしない
+          <tr> <td>decodeURI(s)          <td>URLデコード        <td><code>encodeURI</code>でエンコードされたものをデコード
+          <tr> <td>decodeURIComponent(s) <td>URLデコード        <td><code>encodeURIComponent</code>でエンコードされたものをデコード
+        </table>
+
+        <h1>DOM</h1>
+
+        <h3>ウインドウの幅 / 高さを取得</h3>
+        <pre><code>console.log(outerWidth);</code></pre>
+        <pre><code>console.log(outerHeight);</code></pre>
+
+        <h3>指定IDの要素を取得</h3>
+        <pre><code>var e = document.getElementById('nav');</code></pre>
+
+        <h3>指定Classの要素を取得</h3>
+        <pre><code>var e = document.getElementsByClassName('nav');</code></pre>
+        <p>IE9以降
+
+        <h3>指定nameの要素を取得</h3>
+        <pre><code>var e = document.getElementByName('nav');</code></pre>
+
+        <h3>指定タグの要素を取得</h3>
+        <pre><code>var e = document.getElementByTagName('p');</code></pre>
+
+        <h3>指定セレクタの1つ目の要素を取得</h3>
+        <pre><code>var e = document.querySelector('p &gt; a');</code></pre>
+        <p>IE9以降（IE8はCSS2のセレクタのみ）
+
+        <h3>指定セレクタのすべての要素を配列で取得</h3>
+        <pre><code>var e = document.querySelectorAll('p &gt; a');</code></pre>
+        <p>IE9以降（IE8はCSS2のセレクタのみ）
+        <p><code>*, #, ., &gt;, :hover, [margin], [type="text"], [type^="text"], [type$="text"], [type*="text"]</code>などが使用できる。
+
+        <h3>指定要素のテキストを取得 / 変更</h3>
+        <pre><code>text = e.textContent;    // 取得</code></pre>
+        <pre><code>e.textContent = 'foo';    // 変更</code></pre>
+        <p>等号や不等号などを自動でエンコードする。
+        <p>IE9以降
+        <p>IE8以下では<code>innerText</code>が使用できるが、それはFirefoxでは使用できない
+
+        <h3>指定タグの要素を作成</h3>
+        <pre><code>var p = document.createElement('p');</code></pre>
+
+        <h3>指定要素内に文字列を挿入</h3>
+        <pre><code>var p = document.createTextNode('hoge');</code></pre>
+
+        <h3>指定要素内の末尾に要素を追加</h3>
+        <pre><code>var p   = document.createElement('p'),
+    txt = document.createTextNode('foo');
+document.body.appendChild(p).appendChild(txt);</code></pre>
+
+        <h3>指定要素内のHTMLを取得 / 変更</h3>
+        <pre><code>html = e.innerHTML;</code></pre>
+        <pre><code>e.innerHTML = '&lt;p&gt;foo&lt;/p&gt;';</code></pre>
+
+        <h3>指定要素のCSSを変更</h3>
+        <pre><code>e.style.color = 'red';</code></pre>
+        <p><span class="glyphicon glyphicon-warning-sign"></span> JavaScriptで指定されたstyleしか取得はできない。
+
+        <h3>指定要素のclassを変更</h3>
+        <pre><code>e.className = 'wrapper';</code></pre>
+
+        <h3>ページのタイトルを変更</h3>
+        <pre><code>document.title = 'title';</code></pre>
+
+        <h3>指定要素の文字列を取得 / 変更</h3>
+        <pre><code>s = e.value;</code></pre>
+        <pre><code>e.value = 'hoge';</code></pre>
+        <p><code>input</code>や<code>textarea</code>の文字列を取得する。
+
+        <h1>URL操作</h1>
+
+        <h3>URLを取得 / 移動</h3>
+        <div class="row">
+          <div class="col-xs-4">
+            <pre><code>var url = location;</code></pre>
+            <pre><code>location = 'https://www.google.co.jp';</code></pre>
+          </div>
+          <div class="col-xs-4">
+            <pre><code>var url = location.href;</code></pre>
+            <pre><code>location.href = 'https://www.google.co.jp';</code></pre>
+          </div>
+          <div class="col-xs-4">
+            <pre><code>location.assign('https://www.google.co.jp');</code></pre>
+          </div>
+        </div>
+
+        <h3>URLを取得 / 変更</h3>
+        <pre><code>location.replace('https://www.google.co.jp');</code></pre>
+        <p>履歴は上書きされ、戻ることができない
+
+        <h3>ホスト名を取得 / 移動</h3>
+        <pre><code>var hostname = location.host;</code></pre>
+        <pre><code>location.hostname = 'www.google.co.jp';</code></pre>
+
+        <h3>ポートを取得 / 移動</h3>
+        <pre><code>var port = location.port;</code></pre>
+        <pre><code>location.port = '80';</code></pre>
+
+        <h3>ホスト:ポートを取得 / 移動</h3>
+        <pre><code>var host = location.host;</code></pre>
+        <pre><code>location.host = 'www.google.co.jp:80';</code></pre>
+
+        <h3>プロトコルを取得 / 移動</h3>
+        <pre><code>var protocol = location.protocol;    // 末尾に:が付く</code></pre>
+        <pre><code>location.protocol = 'http';</code></pre>
+
+        <h3>指定ハッシュ（#）を取得 / 移動</h3>
+        <pre><code>var hash = location.hash;</code></pre>
+        <pre><code>location.hash = 'hash';</code></pre>
+
+        <h3>パラメータを取得 / 移動</h3>
+        <pre><code>var search = location.search;    // ?から始まる</code></pre>
+        <pre><code>location.search = 'q=Google';</code></pre>
+
+        <h3>パスを取得 / 移動</h3>
+        <pre><code>var paht = location.path;</code></pre>
+        <pre><code>location.path = '/dir/';</code></pre>
+
+        <h3>ページを再読み込み</h3>
+        <pre><code>location.reload();    // キャッシュを使用</code></pre>
+        <pre><code>location.reload(true);    // キャッシュを使用しない</code></pre>
+
+        <h1>イベント</h1>
+
+        <h3>イベント実行時に実行</h3>
+        <pre><code>document.getElementById('add').addEventListener('click', function() {
+    処理    // #addがクリックされた時に実行される
+});</code></pre>
+        <p>イベント一覧はHTMLのページを参照
+        <p><code>addEventListener</code>はIE8以下は非対応のため、IE8以下では<code>attachEvent</code>を使用する。
+
+        <h3>ページの読み込み時に実行</h3>
+        <pre><code>window.onload = function() {
+  // 処理
+}</code></pre>
+        <p><span class="glyphicon glyphicon-warning-sign"></span> 複数の<code>onload</code>属性を設定すると、最後に設定したものしか実行されない。
+        <p>画像も読み込まれた後に実行される
+
+        <h1>ライブラリ</h1>
+
+        <h3>jQuery</h3>
+        <p><a href="jquery.html" target="_blank">詳細</a>
+
+        <h3>CryptoJS</h3>
+        <p>暗号化 / 復号化ライブラリ
+        <table>
+          <tr> <td>MD5     <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js
+          <tr> <td>SHA-1   <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha1.js
+          <tr> <td>SHA-224 <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha224.js
+          <tr> <td>SHA-256 <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js
+          <tr> <td>SHA-384 <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha384.js
+          <tr> <td>SHA-512 <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha512.js
+          <tr> <td>SHA-3   <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha3.js
+          <tr> <td>AES     <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js
+          <tr> <td>Base64  <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js
+          <tr> <td>UTF-8, Hex, Latin1 <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js
+          <tr> <td>UTF-16  <td>http://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-utf16-min.js
+        </table>
+        <p><code>core-min.js</code>は、MD5, SHA, AESには含まれている。
+        <p><code>enc-base64-min.js</code>は、AESには含まれている。
+        <h4>MD5</h4>
+        <pre><code>var hash = CryptoJS.MD5("message");</code></pre>
+        <h4>SHA-1</h4>
+        <pre><code>var hash = CryptoJS.SHA1("message");</code></pre>
+        <h4>SHA-2</h4>
+        <pre><code>var hash = CryptoJS.SHA224("message");
+var hash = CryptoJS.SHA256("message");
+var hash = CryptoJS.SHA384("message");
+var hash = CryptoJS.SHA512("message");</code></pre>
+        <h4>SHA-3</h4>
+        <pre><code>var hash = CryptoJS.SHA3("message", { outputLength: 224 });
+var hash = CryptoJS.SHA3("message", { outputLength: 256 });
+var hash = CryptoJS.SHA3("message", { outputLength: 384 });
+var hash = CryptoJS.SHA3("message");    // デフォルト：512</code></pre>
+        <h4>AES暗号化 / 復号化</h4>
+        <pre><code>var encrypted = CryptoJS.AES.encrypt("message", "password");
+var decrypted = CryptoJS.AES.decrypt(encrypted, "password").toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>Base64符号化 / 復号化</h4>
+        <pre><code>var base64 = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Base64);
+var words = CryptoJS.enc.Base64.parse(base64).toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>Latin1符号化 / 復号化</h4>
+        <pre><code>var latin1 = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Latin1);
+var words  = CryptoJS.enc.Latin1.parse(latin1).toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>Hex符号化 / 復号化</h4>
+        <pre><code>var hex   = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Hex)
+var words = CryptoJS.enc.Hex.parse(hex).toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>UTF-8符号化 / 復号化</h4>
+        <pre><code>var utf8  = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Utf8);
+var words = CryptoJS.enc.Utf8.parse(utf8).toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>UTF-16符号化 / 復号化</h4>
+        <pre><code>var utf16 = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Utf16);
+var words = CryptoJS.enc.Utf16.parse(utf16).toString(CryptoJS.enc.Utf8);</code></pre>
+        <h4>UTF-16LE符号化 / 復号化</h4>
+        <pre><code>var utf16le = CryptoJS.enc.Utf8.parse("message").toString(CryptoJS.enc.Utf16LE);
+var words = CryptoJS.enc.Utf16LE.parse(utf16le).toString(CryptoJS.enc.Utf8);</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

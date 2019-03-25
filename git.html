@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Git</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Git</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>リポジトリ操作</h1>
+
+      <h3>ローカルリポジトリを作成</h3>
+      <pre><code>$ git init</code></pre>
+
+      <h3>リポジトリを削除</h3>
+      <pre><code>$ rm -rf .git</code></pre>
+
+      <h1>コミット</h1>
+
+      <h3>ファイルをステージングエリアに追加</h3>
+      <pre><code>$ git add file/dir</code></pre>
+      <p>ディレクトリを指定すると、それ以下のファイルをすべて追加する
+      <p>スペースで区切って複数のファイルを指定することもできる
+
+      <h3>ステージングエリアのファイルをリポジトリに追加</h3>
+      <pre><code>$ git commit</code></pre>
+      <p>Vimが起動するのでコメントを入力して保存する
+      <table>
+        <tr> <td><code>-a</code>           <td><code>add</code>してから<code>commit</code>する
+        <tr> <td><code>-m "comment"</code> <td>Vimを起動せずにコメントを書く
+        <tr> <td><code>--amend</code>      <td>直前のcommitに上書きする
+      </table>
+
+      <h3>リポジトリのコミット履歴を表示</h3>
+      <pre><code>$ git log</code></pre>
+      <table>
+        <tr> <td><code>-p</code>        <td>変更箇所を表示
+        <tr> <td><code>--stat</code>    <td>変更されたファイル名・変更箇所数を表示
+        <tr> <td><code>--oneline</code> <td>1行で表示
+      </table>
+
+      <h3>指定コミットの変更点を表示</h3>
+      <pre><code>$ git show commitID/HEAD[:file]</code></pre>
+      <table>
+        <tr> <td><code>--pretty=fuller</code> <td>詳細表示
+      </table>
+
+      <h3>未コミットのファイルを表示</h3>
+      <pre><code>$ git status</code></pre>
+      <table>
+        <tr> <td><code>-s</code> <td>詳細を非表示
+        <tr> <td><code>-b</code> <td><code>-s</code>をつけたときにブランチ名を表示
+      </table>
+
+      <h3>差分を表示</h3>
+      <h4>作業ディレクトリ↔ステージングエリア</h4>
+      <pre><code>$ git diff</code></pre>
+      <h4>ステージングエリア↔HEAD</h4>
+      <pre><code>$ git diff --cached</code></pre>
+      <h4>作業ディレクトリ↔HEAD</h4>
+      <pre><code>$ git diff HEAD</code></pre>
+
+      <h3>差分を左右に並べて表示</h3>
+      <pre><code>$ git difftool</code></pre>
+
+      <h3>過去のコミットに巻き戻す</h3>
+      <h4>HEADを指定コミットに戻す</h4>
+      <pre><code>$ git reset --soft commitID</code></pre>
+      <h4>ステージングエリアをHEADに戻す（<code>add</code>を取り消す）</h4>
+      <pre><code>$ git reset HEAD</code></pre>
+      <h4>HEAD・ステージングエリアを指定コミットに戻す</h4>
+      <pre><code>$ git reset commitID</code></pre>
+      <h4>ステージングエリア・作業ディレクトリをHEADに戻す</h4>
+      <pre><code>$ git reset --hard HEAD</code></pre>
+      <h4>HEAD・ステージングエリア・作業ディレクトリを指定コミットに戻す</h4>
+      <pre><code>$ git reset --hard commitID</code></pre>
+      <h4><code>reset</code>（コミットの巻き戻し）を取り消す</h4>
+      <pre><code>$ git reset --hard ORIG_HEAD</code></pre>
+
+      <h3>指定ファイルをHEADに戻す</h3>
+      <pre><code>$ git checkout -- file</code></pre>
+
+      <h1>ファイル操作</h1>
+
+      <h3>ファイルを削除</h3>
+      <pre><code>$ git rm file</code></pre>
+
+      <h3>ファイルを移動 / ファイル名を変更</h3>
+      <pre><code>$ git mv file dir/new_file</code></pre>
+
+      <h1>ブランチ</h1>
+
+      <h3>branch - ブランチを作成</h3>
+      <pre><code>$ git branch branch_name</code></pre>
+      <p>引数を未指定の場合、ブランチ一覧が表示される
+      <p>現在のブランチを元に複製される
+      <table>
+        <tr> <td><code>-d</code> <td>ブランチを削除
+      </table>
+
+      <h3>ブランチを切り替え</h3>
+      <pre><code>$ git checkout branch_name</code></pre>
+      <table>
+        <tr> <td><code>-b</code> <td>ブランチが存在しない場合、作成してから切り替え
+      </table>
+
+      <h3>ブランチをマージ</h3>
+      <pre><code>$ git merge from_branch</code></pre>
+
+      <h3>マージ時のコンフリクト（衝突）を解決</h3>
+      <pre><code>$ git mergetool</code></pre>
+
+      <h1>タグ</h1>
+
+      <h3>タグを付ける</h3>
+      <pre><code>$ git tag tag_name commitID</code></pre>
+      <p><code>commitID</code>省略時：HEAD
+      <table>
+        <tr> <td><code>-d tag_name</code> <td>タグを削除
+      </table>
+
+      <h1>リモートリポジトリ</h1>
+
+      <h3>リモートリポジトリを作成</h3>
+      <pre><code>$ git init --bare</code></pre>
+
+      <h3>リモートリポジトリを追加</h3>
+      <pre><code>$ git remote add name url/path</code></pre>
+
+      <h3>リモートリポジトリを削除</h3>
+      <pre><code>$ git remote rm name</code></pre>
+
+      <h3>ローカル→リモートに上書き</h3>
+      <pre><code>$ git push remote local_branch</code></pre>
+
+      <h3>リモート→ローカルにfetch+merge</h3>
+      <pre><code>$ git pull remote local_branch</code></pre>
+
+      <h3>リモート→ローカルに完全コピー</h3>
+      <pre><code>$ git clone url/path dir</code></pre>
+
+      <h3>リモート→ローカルにfetch</h3>
+      <pre><code>$ git fetch remote</code></pre>
+      <p>最新情報を取得する
+      <p><code>git diff</code>や<code>git log</code>などは<code>FETCH_HEAD</code>で取得できる
+
+      <h1>設定</h1>
+
+      <h3>名前 / メールアドレスを設定</h3>
+      <pre><code>$ git config --global user.name "Name"
+$ git config --global user.email "example@example.com"</code></pre>
+
+      <h3>カラーリングをオン</h3>
+      <pre><code>$ git config --global color.ui always</code></pre>
+
+      <h3>MergeTool使用時にバックアップファイル（.orig）を作成しない</h3>
+      <pre><code>$ git config --global mergetool.keepBackup false</code></pre>
+
+      <h3>Gitコマンドにエイリアスをつける</h3>
+      <pre><code>$ git config --global alias.alias_name alias_command</code></pre>
+
+      <h3>設定値の一覧を表示</h3>
+      <pre><code>$ git config -l</code></pre>
+
+      <h3>指定したファイルをGitの管理から除外する</h3>
+      <pre><code>$ vim .gitignore</code></pre>
+      <p>ワイルドカード（<code>*</code>）も使用できる
+
+      <h3>空ディレクトリを管理対象にする</h3>
+      <pre><code>$ touch .gitkeep</code></pre>
+      <p>適当なファイルを置く必要がある
+
+      <h1>用語</h1>
+
+      <h3>リポジトリ</h3>
+      <p>ファイルの変更履歴を保存する場所
+
+      <h3>ステージングエリア / インデックス</h3>
+      <p>コミット前のファイルの一時保管場所
+
+      <h3>作業ディレクトリ / ワークツリー / ワーキングツリー</h3>
+      <p>ファイルがあるディレクトリ
+
+      <h3>HEAD</h3>
+      <p>最終コミット
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

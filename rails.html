@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Ruby on Rails</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Ruby on Rails</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>初期設定</h1>
+
+      <h3>新規Webアプリを作成</h3>
+      <pre><code>$ rails new app_name
+$ cd app_name</code></pre>
+      <p>必要なファイルやライブラリがインストールされる
+      <p>ライブラリのインストールをスキップ：<code>--no-bundle</code>
+
+      <h3>サーバーを起動</h3>
+      <pre><code>$ rails s[erver]</code></pre>
+
+      <h3>サーバー起動時のエラーを修正</h3>
+      <pre><code>$ vi Gemfile</code></pre>
+      <p><code>therubyracer</code>のコメントアウトを外す
+      <p>修正し終わったら、以下のコマンドを実行する
+      <pre><code>$ bundle install</code></pre>
+
+      <h3>必要なファイルの作成</h3>
+      <pre><code>$ rails g[enerate] command parameters</code></pre>
+      <table>
+        <tr> <td>コマンド名 <td>コントローラー <td>ビュー <td>モデル <td>マイグレーション <td>アセット <td>ルート <td>テスト <td>ヘルパー
+        <tr> <td>scaffold            <td>○ <td>○ <td>○ <td>○ <td>○ <td>○ <td>○ <td>○
+        <tr> <td>scaffold_controller <td>○ <td>○ <td>×  <td>×  <td>×  <td>×  <td>○ <td>○
+        <tr> <td>controller          <td>○ <td>○ <td>×  <td>×  <td>○ <td>○ <td>○ <td>○
+        <tr> <td>model               <td>×  <td>×  <td>○ <td>○ <td>×  <td>×  <td>○ <td>×
+        <tr> <td>migration           <td>×  <td>×  <td>×  <td>○ <td>×  <td>×  <td>○ <td>×
+      </table>
+      <pre><code>$ rails g[enerate] scaffold name field[:type][:index]... options</code></pre>
+      <pre><code>$ rails g[enerate] scaffold_controller name options</code></pre>
+      <pre><code>$ rails g[enerate] controller name action... options</code></pre>
+      <pre><code>$ rails g[enerate] model name field[:type][:index]... options</code></pre>
+      <pre><code>$ rails g[enerate] migration name field[:type][:index]... options</code></pre>
+
+      <h3>ルート（/）にアクセスしたときに表示させるページを変更</h3>
+      <p><code>config/routes.rb</code>の<code>Appname::Application.routes.draw do</code>内に以下のように書く
+      <pre><code>root 'welcome#index'</code></pre>
+
+      <h1>データベース</h1>
+
+      <h3>データベースにアクセス</h3>
+      <pre><code>$ rails db[console]</code></pre>
+
+      <h3>データベースのマイグレーションを実行</h3>
+      <pre><code>$ rake db:migrate</code></pre>
+      <p>テーブルなどの作成を行う
+
+      <h3>データベースやオブジェクトをインタラクティブに操作</h3>
+      <pre><code>$ rails c[onsole]</code></pre>
+
+      <h1>ファイルの編集</h1>
+
+      <h3>ファイルの場所</h3>
+      <table>
+        <tr> <td>ビュー(共通)      <td>app/views/layouts/application.html.erb
+        <tr> <td>ビューのCSS(共通) <td>app/assets/stylesheets/application.css
+        <tr> <td>ビュー            <td>app/views/projects/action_name.html.erb
+        <tr> <td>コントローラー    <td>app/contollers/name_controller.rb
+        <tr> <td>モデル            <td>app/models/name.rb
+      </table>
+
+      <h3>コントローラーを設定</h3>
+      <code>app/controllers/projects_controller.rb</code>
+
+      <h3>HTMLへの埋め込み</h3>
+      <pre><code>&lt;% %&gt;</code></pre>
+      <pre><code>&lt;%= %&gt;</code></pre>
+
+      <h3>画像</h3>
+      <pre><code>&lt;%= image_tag "image.jpg" %&gt;</code></pre>
+
+      <h3>リンク</h3>
+      <pre><code>&lt;%= link_to "Text", "/" %&gt;</code></pre>
+      <pre><code>&lt;%= link_to "Text", projects_path %&gt;</code></pre>
+
+      <h1>用語</h1>
+
+      <h3>MVCアーキテクチャ</h3>
+      <ul>
+        <li>Model：処理
+        <li>View：表示
+        <li>Controller：ModelとViewを制御
+      </ul>
+
+      <h3>DRY（Don't Repeat Yourself）</h3>
+      <p>同じことを繰り返さない
+
+      <h3>CoC（Convention over Configuration）</h3>
+      <p>設定より規約
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

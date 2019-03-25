@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>HTML</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">HTML</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>タグ省略</h1>
+
+      <h3>開始・終了タグを省略可能</h3>
+      <p><code>html, head, body, tbody, colgroup</code>
+
+      <h3>終了タグのみ省略可能</h3>
+      <p><code>li, dt, dd, p, tr, td, th，rt, rp, optgroup, option, thead, tfoot</code>
+
+      <h1>tableの属性</h1>
+
+      <h3>colspan</h3>
+      <p>水平方向の結合：
+      <table>
+        <tr> <td colspan="2">colspan
+        <tr> <td>1 <td>2
+      </table>
+      <pre><code>&lt;table&gt;
+  &lt;tr&gt; &lt;td colspan="2"&gt;colspan
+  &lt;tr&gt; &lt;td&gt;1 &lt;td&gt;2
+&lt;/table&gt;</code></pre>
+
+      <h3>rowspan</h3>
+      <p>垂直方向の結合：
+      <table>
+        <tr> <td rowspan="2">rowspan <td>1
+        <tr> <td>2
+      </table>
+      <pre><code>&lt;table&gt;
+  &lt;tr&gt; &lt;td rowspan="2"&gt;rowspan &lt;td&gt;1
+  &lt;tr&gt; &lt;td&gt;2
+&lt;/table&gt;</code></pre>
+
+      <h1>イベント一覧</h1>
+
+      <table>
+        <tr> <th>イベント名       <th>説明
+        <tr> <td>abort            <td>読み込み中止
+        <tr> <td>blur             <td>フォーカスを失う
+        <tr> <td>click            <td>クリック終了
+        <tr> <td>contextmenu      <td>右クリック
+        <tr> <td>copy             <td>コピー
+        <tr> <td>cut              <td>カット
+        <tr> <td>dblclick         <td>ダブルクリック
+        <tr> <td>DOMContentLoaded <td>DOM構築完了
+        <tr> <td>drag             <td>ドラッグ中
+        <tr> <td>focus            <td>フォーカス（子要素を含まない）
+        <tr> <td>focusin          <td>フォーカス（子要素を含む）
+        <tr> <td>focusout         <td>フォーカスを失った時（子要素を含む）
+        <tr> <td>input            <td>DOM更新
+        <tr> <td>keydown          <td>文字を入力
+        <tr> <td>keypress         <td>キーを押す
+        <tr> <td>keyup            <td>キーを離す
+        <tr> <td>load             <td>DOM要素・画像の読み込み完了
+        <tr> <td>mousedown        <td>クリック開始（子要素を含む）
+        <tr> <td>mouseup          <td>クリック終了（子要素を含む）
+        <tr> <td>mouseenter       <td>カーソルが乗る（子要素を含まない）
+        <tr> <td>mouseleave       <td>カーソルが外れる（子要素を含まない）
+        <tr> <td>mouseover        <td>カーソルが乗る（子要素を含む）
+        <tr> <td>mouseout         <td>カーソルが外れる（子要素を含む）
+        <tr> <td>mousemove        <td>カーソルが動く
+        <tr> <td>paste            <td>ペースト
+        <tr> <td>resize           <td>ウインドウをリサイズ
+        <tr> <td>scroll           <td>スクロール
+        <tr> <td>select           <td>テキストを選択終了
+        <tr> <td>sunmit           <td>フォーム送信
+      </table>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

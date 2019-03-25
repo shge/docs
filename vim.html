@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Vim</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Vim</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>ファイル操作</h1>
+
+      <h3>未変更のファイルを閉じる</h3>
+      <pre><code>:q / C-w q</code></pre>
+
+      <h3>変更を破棄してファイルを閉じる</h3>
+      <pre><code>:q! / ZQ</code></pre>
+
+      <h3>上書き保存</h3>
+      <pre><code>:w</code></pre>
+
+      <h3>上書き保存をして閉じる</h3>
+      <pre><code>:wq</code></pre>
+
+      <h3>変更されている場合は保存してから閉じる</h3>
+      <pre><code>:x / ZZ</code></pre>
+
+      <h3>ファイルを開く</h3>
+      <pre><code>:e [ファイル名]</code></pre>
+
+      <h3>カレントディレクトリのファイル一覧を表示</h3>
+      <pre><code>:e .</code></pre>
+
+      <h1>カーソル操作</h1>
+
+      <h3>左 / 上の行 / 下の行 / 右に移動</h3>
+      <pre><code>h / j / k / l</code></pre>
+
+      <h3>画面上での上の行 / 下の行に移動</h3>
+      <pre><code>gj / gk</code></pre>
+
+      <h3>ファイル先頭 / 末尾に移動</h3>
+      <pre><code>gg / G</code></pre>
+
+      <h3>指定行目に移動</h3>
+      <pre><code>[行数]G / :[行数]</code></pre>
+
+      <h3>行頭へ移動</h3>
+      <pre><code>0</code></pre>
+
+      <h3>行で最初の非空白文字へ移動</h3>
+      <pre><code>^</code></pre>
+
+      <h3>行末へ移動</h3>
+      <pre><code>$</code></pre>
+
+      <h3>カーソルより右にある指定文字に移動</h3>
+      <pre><code>f[文字]</code></pre>
+      <p><code>F[文字]：カーソルより左にある指定文字に移動</code>
+
+      <h3>カーソルより右にある指定文字の左に移動</h3>
+      <pre><code>t[文字]</code></pre>
+      <p><code>T[文字]：カーソルより左にある指定文字の右に移動</code>
+
+      <h3>直前の f F t T を繰り返す</h3>
+      <pre><code>;</code></pre>
+
+      <h3>直前の f F t T を逆方向に繰り返す</h3>
+      <pre><code>,</code></pre>
+
+      <h3>前 / 次の単語の先頭へ移動</h3>
+      <pre><code>b / w</code></pre>
+
+      <h3>前 / 次の単語の末尾へ移動</h3>
+      <pre><code>ge / e</code></pre>
+
+      <h3>前 / 次の段落へ移動</h3>
+      <pre><code>( / )</code></pre>
+
+      <h3>対応する括弧へ移動</h3>
+      <pre><code>%</code></pre>
+      <p>if-endなどもプラグインによって可能。
+
+      <h3>前 / 次に編集した場所へ移動</h3>
+      <pre><code>g; / g,</code></pre>
+
+      <h3>カーソルのある行が画面の上 / 中央 / 下になるようにスクロールする</h3>
+      <pre><code>zt / zz / zb</code></pre>
+
+      <h3>画面の上 / 中央 / 下にカーソルを移動</h3>
+      <pre><code>H / M / L</code></pre>
+      <p>Home / Middle / Last
+
+      <h3>半画面上 / 下にスクロールする</h3>
+      <pre><code>C-u / C-d</code></pre>
+      <p>Up / Down
+
+      <h3>1画面上 / 下にスクロールする</h3>
+      <pre><code>C-b / C-f</code></pre>
+      <p>Back / Forward
+
+      <h3>1行上 / 下にスクロールする</h3>
+      <pre><code>C-e / C-y</code></pre>
+      <p>Back / Forward
+
+      <h1>検索 / 置換</h1>
+
+      <h3>下方向に検索</h3>
+      <pre><code>/[文字列]</code></pre>
+      <p>正規表現が使用可能。
+
+      <h3>上方向に検索</h3>
+      <pre><code>?[文字列]</code></pre>
+
+      <h3>次 / 前の候補に移動</h3>
+      <pre><code>n / N</code></pre>
+
+      <h3>すべての行を置換</h3>
+      <pre><code>:%s/[置換前文字列]/[置換後文字列]/g</code></pre>
+      <p>正規表現が使用可能。
+      <p>スラッシュの代わりにセミコロンも使用可能。
+
+      <h3>選択範囲を置換</h3>
+      <pre><code>:'&lt;,'&gt;s/[置換前文字列]/[置換後文字列]/g</code></pre>
+
+      <h3>カーソルがある行を置換</h3>
+      <pre><code>:s/[置換前文字列]/[置換後文字列]/g</code></pre>
+
+      <h1>文字列の挿入 / 削除</h1>
+
+      <h3>カーソルの前に文字列を挿入（インサート）</h3>
+      <pre><code>i</code></pre>
+
+      <h3>カーソルの後に文字列を挿入（インサート）</h3>
+      <pre><code>a</code></pre>
+
+      <h3>行頭 / 行末に文字列を挿入（インサート）</h3>
+      <pre><code>I / A</code></pre>
+
+      <h3>現在行の上 / 下に新規行を挿入後、文字列を挿入（インサート）</h3>
+      <pre><code>o / O</code></pre>
+
+      <h3>カーソルの下の文字を置換</h3>
+      <pre><code>r[文字]</code></pre>
+
+      <h3>リプレースモードへ切り替え</h3>
+      <pre><code>R</code></pre>
+
+      <h3>インデントを増やす / 減らす</h3>
+      <pre><code>(インサート中) C-t / C-d</code></pre>
+
+      <h3>カーソルの下の文字列をカット</h3>
+      <pre><code>x</code></pre>
+
+      <h3>カーソルがある行をカット</h3>
+      <pre><code>dd</code></pre>
+
+      <h3>行末までカット</h3>
+      <pre><code>D</code></pre>
+
+      <h3>次の行と結合</h3>
+      <pre><code>J</code></pre>
+      <p><code>gJ</code>：間にスペースを入れない
+
+      <h3>インクリメント / デクリメント</h3>
+      <pre><code>C-a / C-x</code></pre>
+      <p>数字を増やす / 減らす
+
+      <h1>ヤンク / ペースト</h1>
+
+      <h3>選択された範囲をヤンク</h3>
+      <pre><code>y</code></pre>
+
+      <h3>1行ヤンク</h3>
+      <pre><code>yy / Y</code></pre>
+
+      <h3>カーソルの後にペースト</h3>
+      <pre><code>p</code></pre>
+
+      <h1>ビジュアルモード</h1>
+
+      <h3>ビジュアルモードに切り替え</h3>
+      <pre><code>v</code></pre>
+
+      <h3>行単位ビジュアルモードに切り替え</h3>
+      <pre><code>V</code></pre>
+
+      <h3>短形ビジュアルモードに切り替え</h3>
+      <pre><code>C-v</code></pre>
+
+      <h3>インデントを増やす / 減らす</h3>
+      <pre><code>&gt; / &lt;</code></pre>
+
+      <h3>大文字 / 小文字を変換</h3>
+      <pre><code>~</code></pre>
+
+      <h3>大文字 / 小文字に変換</h3>
+      <pre><code>U / u</code></pre>
+
+      <h3>指定範囲を選択</h3>
+      <pre><code>(テキストオブジェクト)</code></pre>
+
+      <h3>自動インデント</h3>
+      <pre><code>=</code></pre>
+
+      <h3>選択範囲の先頭(末尾)にカーソルを移動</h3>
+      <pre><code>o</code></pre>
+
+      <h3>選択範囲の別の角にカーソルを移動</h3>
+      <pre><code>O</code></pre>
+      <p>矩形選択時に実行
+
+      <h1>Undo / Redo</h1>
+
+      <h3>Undo</h3>
+      <pre><code>u</code></pre>
+
+      <h3>Redo</h3>
+      <pre><code>C-r</code></pre>
+
+      <h1>オペレータ / テキストオブジェクト</h1>
+
+      <h3>オペレータ</h3>
+      <table>
+          <tr> <td>c <td>変更   <td>change
+          <tr> <td>d <td>カット <td>delete
+          <tr> <td>y <td>ヤンク <td>yank
+      </table>
+      <p>オペレータに続けて、テキストオブジェクトを入力する。
+
+      <h3>テキストオブジェクト</h3>
+      <p>a：範囲／i：範囲の内部
+      <table>
+          <tr> <td>aw iw                   <td>単語                     <td>aはスペースも含む
+          <tr> <td>as is                   <td>文                       <td>ピリオドで区切られた文
+          <tr> <td>ap ip                   <td>段落                     <td>連続している行
+          <tr> <td>a[ a] i[ i]             <td>[]括弧                   <td>
+          <tr> <td>a( a) ab i( i) ib       <td>()括弧                   <td>
+          <tr> <td>a{ a} ab i{ i} ib       <td>{}括弧                   <td>
+          <tr> <td>a&lt; a&gt; i&lt; i&gt; <td>&lt;&gt;括弧             <td>
+          <tr> <td>at it                   <td>HTML/XMLタグ             <td>
+          <tr> <td>a" i"                   <td>ダブルクォーテーション   <td>
+          <tr> <td>a' i'                   <td>シングルクォーテーション <td>
+          <tr> <td>a` i`                   <td>バッククォート           <td>
+      </table>
+
+      <h1>ウインドウ分割</h1>
+
+      <h3>ウインドウを横分割</h3>
+      <pre><code>:sp / C-w s</code></pre>
+
+      <h3>ウインドウを横分割</h3>
+      <pre><code>:vs / C-w v</code></pre>
+
+      <h3>ウインドウのフォーカスを移動</h3>
+      <pre><code>C-w h / j / k / l / w</code></pre>
+
+      <h3>ウインドウのフォーカスを移動</h3>
+      <pre><code>C-w h / j / k / l / w / W</code></pre>
+
+      <h3>アクティブなウインドウを移動</h3>
+      <pre><code>C-w H / J / K / L</code></pre>
+
+      <h1>タブ</h1>
+
+      <h3>新規タブ</h3>
+      <pre><code>:tabe (ファイル名)</code></pre>
+
+      <h3>次 / 前のタブに移動</h3>
+      <pre><code>gt / gT</code></pre>
+
+      <h3>アクティブなタブの移動</h3>
+      <pre><code>:tabm [数]</code></pre>
+      <p><code>[数]</code>は左から0から始まる。
+
+      <h1>折りたたみ</h1>
+      <p>設定をしない場合、終了時に折りたたみ情報は削除される。
+
+      <h3>折りたたみを作成</h3>
+      <pre><code>zf</code></pre>
+
+      <h3>折りたたみを開閉</h3>
+      <pre><code>za</code></pre>
+
+      <h3>折りたたみを削除</h3>
+      <pre><code>zd</code></pre>
+
+      <h3>すべての折りたたみを開く</h3>
+      <pre><code>zR</code></pre>
+
+      <h3>すべての折りたたみを閉じる</h3>
+      <pre><code>zM</code></pre>
+
+      <h3>すべての折りたたみを削除</h3>
+      <pre><code>zD</code></pre>
+
+      <h1>キーマッピング / 短縮</h1>
+
+      <h3>キーマッピングを割り当て</h3>
+      <pre><code>:no[remap] / :nn[oremap] / :vn[oremap] / :xn[oremap] / :snor[emap] / :ono[remap] / :ino[remap] / :ln[oremap] / :cno[remap] [新] [元]</code></pre>
+      <p>他のキーマッピングに影響しない。例：
+      <pre><code>[vim.rc]
+nn &lt;C-a&gt; &lt;C-x&gt; " &lt;C-a&gt;に&lt;C-x&gt;の動作を割り当て
+nn t &lt;C-a&gt; " tに&lt;C-a&gt;の動作を割り当て（&lt;C-x&gt;ではない）</code></pre>
+
+      <h3>キーマッピングを割り当て</h3>
+      <pre><code>:map / :nm[ap] / :vm[ap] / :xm[ap] / :smap / :om[ap] / :im[ap] / :lm[ap] / :cm[ap] [新] [元]</code></pre>
+      <p>他のキーマッピングに影響する。例：
+      <pre><code>[vim.rc]
+nm &lt;C-a&gt; &lt;C-x&gt; " &lt;C-a&gt;に&lt;C-x&gt;の動作を割り当て
+nm t &lt;C-a&gt; " tに&lt;C-x&gt;の動作を割り当て（&lt;C-a&gt;ではない）</code></pre>
+
+      <h3>キーマッピングを解除</h3>
+      <pre><code>:unm[ap] / :nun[map] / :vu[nmap] / :xu[nmap] / :sunm[ap] / :ou[nmap] / :iu[nmap] / :lu[nmap] / :cu[nmap] [新] [元]</code></pre>
+
+      <h3>キーマッピングを確認</h3>
+      <pre><code>:map / :nm[ap] / :vm[ap] / :xm[ap] / :smap / :om[ap] / :im[ap] / :lm[ap] / :cm[ap]</code></pre>
+
+      <h3>noremap, mapの前につけるアルファベット</h3>
+      <table>
+        <tr> <td>なし <td>ノーマル・ビジュアル・セレクト・次コマンド待機
+        <tr> <td>n    <td>ノーマル
+        <tr> <td>v    <td>ビジュアル＆セレクト
+        <tr> <td>x    <td>ビジュアル
+        <tr> <td>s    <td>セレクト（実行時に選択していたテキストが使われる）
+        <tr> <td>o    <td>次コマンド待機（<code>d, y, c</code>などの後の待機時間）
+        <tr> <td>i    <td>インサート
+        <tr> <td>l    <td>インサート・コマンドライン
+        <tr> <td>c    <td>コマンドライン
+      </table>
+
+      <h3>コマンドのエイリアスを作成</h3>
+      <pre><code>:ab[breviate]</code></pre>
+
+      <h3>コマンドのエイリアスを削除</h3>
+      <pre><code>:una[bbreviate]</code></pre>
+
+      <h1>その他</h1>
+
+      <h3>シェルを起動</h3>
+      <pre><code>:sh[ell]</code></pre>
+
+      <h3>シェルコマンドを実行</h3>
+      <pre><code>:![コマンド]</code></pre>
+
+      <h3>ヘルプを検索（英語）</h3>
+      <pre><code>:h [文字列]</code></pre>
+
+      <h1>マーク</h1>
+
+      <h3>マークを作成</h3>
+      <pre><code>m[a-z]</code></pre>
+
+      <h3>マークに移動</h3>
+      <pre><code>'[マーク] / `[マーク]</code></pre>
+
+      <h3>マークの一覧を表示</h3>
+      <pre><code>:marks</code></pre>
+
+      <h3>すべてのマークを削除</h3>
+      <pre><code>:delmarks!</code></pre>
+
+      <h1>Surround</h1>
+
+      <h3>選択中の文字列を、括弧/引用符/HTMLタグで囲う</h3>
+      <p>ビジュアルモードで選択時に入力する。
+      <table>
+        <tr> <td>元の文字列 <td>コマンド <td>結果
+        <tr> <td>foo <td>S' <td>'foo'
+        <tr> <td>foo <td>S" <td>"foo""
+        <tr> <td>foo <td>S[ <td>[ foo ]
+        <tr> <td>foo <td>S( <td>( foo )
+        <tr> <td>foo <td>S{ <td>{ foo }
+        <tr> <td>foo <td>S] <td>[foo]
+        <tr> <td>foo <td>S) <td>(foo)
+        <tr> <td>foo <td>S} <td>{foo}
+        <tr> <td>foo <td>S&lt;p&gt; <td>&lt;p&gt;foo&lt;/p&gt;
+      </table>
+
+      <h3>文字列を選択し、括弧/引用符/HTMLタグで囲う</h3>
+      <p><code>ys</code>の後に 選択する文字列 と その文字列を囲うもの を続けて指定する。
+      <table>
+        <tr> <td>元の文字列 <td>コマンド <td>結果
+        <tr> <td>'foo b|ar' <td>ysaw( <td>'foo ( bar )'
+        <tr> <td>'foo b|ar' <td>ysi'( <td>'( foo bar )'
+        <tr> <td>'foo b|ar' <td>ysa'( <td>( 'foo bar' )
+      </table>
+      <p>上の表の<code>|</code>はカーソルを表している。
+
+      <h3>文字列を囲っている、括弧/引用符/HTMLタグを削除・変更</h3>
+      <p><code>d</code>（削除）または<code>c</code>（変更）に続いて<code>s</code>を入力し、さらに続いて入力する。
+      <table>
+        <tr> <td>元の文字列 <td>コマンド <td>結果
+        <tr> <td>'foo' <td>ds' <td>foo
+        <tr> <td>( foo ) <td>ds( <td>foo
+        <tr> <td>&lt;p&gt;foo&lt;/p&gt; <td>dst <td>foo
+        <tr> <td>'foo' <td>cs'" <td>"foo"
+        <tr> <td>'foo' <td>cs'( <td>( foo )
+        <tr> <td>foo <td>S{ <td>{ foo }
+        <tr> <td>'foo' <td>cs'&lt;p&gt; <td>&lt;p&gt;foo&lt;/p&gt;
+      </table>
+
+      <h1>Alignta</h1>
+      <p>通常は<code>:Align</code>コマンドを使用するが、Alignプラグインがインストールされている場合は<code>:Alignta</code>コマンドを使用する。
+
+      <h3>指定文字のの縦を合わせ、左右にスペースをはさむ</h3>
+      <pre><code>:'&lt;,'&gt;Align [文字列]</code></pre>
+      <pre><code>+-------------+-------------+
+| Original    | :Align =    |
++-------------+-------------+
+| a = 1       | a     = 1   |
+| bbb = 10    | bbb   = 10  |
+| ccccc = 100 | ccccc = 100 |
++-------------+-------------+</code></pre>
+
+      <h3>複数指定</h3>
+      <pre><code>:'&lt;,'&gt;Align [文字列] [文字列2] ...</code></pre>
+      <pre><code>+---------------------+-------------------------+
+| Original            | :Align = /* */          |
++---------------------+-------------------------+
+| a = 1 /* AAAAA */   | a     = 1   /* AAAAA */ |
+| bbb = 10 /* BBB */  | bbb   = 10  /* BBB   */ |
+| ccccc = 100 /* C */ | ccccc = 100 /* C     */ |
++---------------------+-------------------------+</code></pre>
+
+      <h3>回数指定</h3>
+      <pre><code>:'&lt;,'&gt;Align [文字列]/[回数]</code></pre>
+  <pre><code>+-----------------------------+---------------------------------+
+| Original                    | :Align =/2                      |
++-----------------------------+---------------------------------+
+| a = bbbbb = c = ddddd = 1   | a     = bbbbb = c = ddddd = 1   |
+| aaa = bbb = ccc = ddd = 10  | aaa   = bbb   = ccc = ddd = 10  |
+| aaaaa = b = ccccc = d = 100 | aaaaa = b     = ccccc = d = 100 |
++-----------------------------+---------------------------------+</code></pre>
+
+      <h3>書式指定</h3>
+      <pre><code>:'&lt;,'&gt;Align [左][中](右) [文字列]</code></pre>
+      <p><code>(右)</code>を省略した場合、<code>[左]</code>と同じになる。
+      <table>
+        <tr> <th>文字 <th>意味
+        <tr> <td>&lt; <td>左揃え
+        <tr> <td>|    <td>中央揃え
+        <tr> <td>&gt; <td>右揃え
+        <tr> <td>=    <td>保持
+      </table>
+      <pre><code>+-------------+----------------+
+| Original    | :Align &lt;&lt; =    |
++-------------+----------------+
+| a =  1      | a     = 1      |
+|  bbb = 10   | bbb   = 10     |
+| ccccc = 100 | ccccc = 100    |
++-------------+----------------+</code></pre>
+      <pre><code>+-------------+----------------+
+| Original    | :Align &gt;&gt; =    |
++-------------+----------------+
+| a =  1      |     a =   1    |
+|  bbb = 10   |   bbb =  10    |
+| ccccc = 100 | ccccc = 100    |
++-------------+----------------+</code></pre>
+      <pre><code>+-------------+-----------------+
+| Original    | :Align <|> =    |
++-------------+-----------------+
+| a =  1      | a     =   1     |
+|  bbb = 10   | bbb   =  10     |
+| ccccc = 100 | ccccc = 100     |
++-------------+-----------------+</code></pre>
+      <pre><code>+-------------+-----------------+
+| Original    | :Align &lt;|&gt; =    |
++-------------+-----------------+
+| a =  1      |     a = 1       |
+|  bbb = 10   |   bbb = 10      |
+| ccccc = 100 | ccccc = 100     |
++-------------+-----------------+</code></pre>
+
+      <h3>空白数を指定</h3>
+      <pre><code>:'&lt;,'&gt;Align [数] [文字列]</code></pre>
+      <pre><code>+-------------+------------------+
+| Original    | :Align &lt;&lt;0:0 =   |
+|             | :Align &lt;&lt;00 =    |
+|             | :Align &lt;&lt;0 =     |
++-------------+------------------+
+| a = 1       | a    =1          |
+| bbb = 10    | bbb  =10         |
+| ccccc = 100 | ccccc=100        |
++-------------+------------------+</code></pre>
+      <pre><code>+-------------+------------------+
+| Original    | :Align &lt;&lt;3:1 =   |
+|             | :Align &lt;&lt;31 =    |
++-------------+------------------+
+| a = 1       | a       = 1      |
+| bbb = 10    | bbb     = 10     |
+| ccccc = 100 | ccccc   = 100    |
++-------------+------------------+</code></pre>
+
+      <h3>パターンの開始位置を揃える</h3>
+      <pre><code>:'&lt;,'&gt;Align &lt;- [文字列]</code></pre>
+          <pre><code>+--------------------+--------------------+
+| Original           | :Align &lt;- b        |
++--------------------+--------------------+
+| a        b c       | a      b c         |
+| aaa       bbb  ccc | aaa    bbb  ccc    |
+| aaaaa  bbbbb ccccc | aaaaa  bbbbb ccccc |
++--------------------+--------------------+</code></pre>
+
+      <h3>書式指定</h3>
+      <pre><code>:'&lt;,'&gt;Align [書式] [文字列]</code></pre>
+      <table>
+        <tr> <th>文字  <th>意味
+        <tr> <td>&lt;- <td>最左の位置で揃える
+        <tr> <td>-&gt; <td>最右の位置で揃える
+      </table>
+      <pre><code>+--------------------+--------------------+
+| Original           | :Align &lt;- b        |
++--------------------+--------------------+
+| a        b c       | a      b c         |
+| aaa       bbb  ccc | aaa    bbb  ccc    |
+| aaaaa  bbbbb ccccc | aaaaa  bbbbb ccccc |
++--------------------+--------------------+</code></pre>
+      <pre><code>+--------------------+-----------------------+
+| Original           | :Align -&gt; b           |
++--------------------+-----------------------+
+| a        b c       | a         b c         |
+| aaa       bbb  ccc | aaa       bbb  ccc    |
+| aaaaa  bbbbb ccccc | aaaaa     bbbbb ccccc |
++--------------------+-----------------------+</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

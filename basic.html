@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>BASIC</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">BASIC</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>操作</h1>
+
+      <h3>行を追加・上書き</h3>
+      <pre><code>10 print "Hello, world!"</code></pre>
+
+      <h3>行を削除</h3>
+      <pre><code>del 10</code></pre>
+
+      <h3>保存</h3>
+      <pre><code>save "hello.bas"</code></pre>
+
+      <h3>開く</h3>
+      <pre><code>load "hello.bas"</code></pre>
+
+      <h3>全体または一部を一覧表示</h3>
+      <div class="row">
+        <div class="col-xs-3"><pre><code>list</code></pre></div>
+        <div class="col-xs-3"><pre><code>list 10-</code></pre></div>
+        <div class="col-xs-3"><pre><code>list -30</code></pre></div>
+        <div class="col-xs-3"><pre><code>list 10-30</code></pre></div>
+      </div>
+
+      <h3>プログラムを削除（初期化）</h3>
+      <pre><code>new</code></pre>
+
+      <h3>終了</h3>
+      <div class="row">
+        <div class="col-xs-4"><pre><code>exit</code></pre></div>
+        <div class="col-xs-4"><pre><code>quit</code></pre></div>
+        <div class="col-xs-4"><pre><code>bye</code></pre></div>
+      </div>
+
+      <h3>行番号の付け直し</h3>
+      <p><code>10 20 25 30</code> <span class="glyphicon glyphicon-arrow-right"></span> <code>10 20 30 40</code>
+      <pre><code>renum</code></pre>
+
+      <h1>基本</h1>
+
+      <h3>文字列の出力</h3>
+      <pre><code>10 print "Hello, world"</code></pre>
+      <p>連結には<code>;</code>を使用する：
+      <pre><code>10 print s1;s2$</code></pre>
+
+      <h3>表示中の文字を消去</h3>
+      <pre><code>cls</code></pre>
+
+      <h3>指定行目に移動</h3>
+      <pre><code>30 goto 10</code></pre>
+      <p><span class="glyphicon glyphicon-warning-sign"></span> 無限ループに注意
+
+      <h3>プログラムを一時停止</h3>
+      <pre><code>30 stop</code></pre>
+
+      <h3>プログラムを再開</h3>
+      <pre><code>40 cont</code></pre>
+
+      <h3>プログラムを終了</h3>
+      <pre><code>40 end</code></pre>
+
+      <h3>コメント</h3>
+      <pre><code>rem コメント</code></pre>
+
+      <h3>処理の連結</h3>
+      <pre><code>10 print "Hello, world!" : end</code></pre>
+
+      <h1>変数</h1>
+
+      <h3>変数を代入（数値）</h3>
+      <pre><code>num = 10</code></pre>
+
+      <h3>変数を代入（文字列）</h3>
+      <pre><code>string$ = "Hello"</code></pre>
+
+      <h1>演算</h1>
+
+      <h3>数値の演算</h3>
+      <pre><code>10 print 1 + 1</code></pre>
+      <table>
+        <tr> <th>記号             <th>意味
+        <tr> <td><code>+</code>   <td>加法
+        <tr> <td><code>-</code>   <td>減法
+        <tr> <td><code>*</code>   <td>乗法
+        <tr> <td><code>/</code>   <td>除法
+        <tr> <td><code>mod</code> <td>剰余（除法のあまり）
+        <tr> <td><code>^</code>   <td>累乗
+      </table>
+
+      <h3>乱数</h3>
+      <p>0〜1の乱数を生成：
+      <pre><code>random = rnd(1)</code></pre>
+      <p>1〜10の乱数を生成：
+      <pre><code>random = int(rnd(1) * 10) + 1</code></pre>
+
+      <h3>文字列の連結</h3>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>10 print "Hello, " + "world!"</code></pre></div>
+        <div class="col-xs-6"><pre><code>10 print a$ + b$</code></pre></div>
+      </div>
+
+      <h1>条件分岐 / 繰り返し</h1>
+
+      <h3>条件分岐（if）</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <pre><code>10 if score &gt; 80 then print "OK"</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <pre><code>10 if score &gt; 80 then print "OK" else print "NG"</code></pre>
+        </div>
+      </div>
+      <p>演算子：<code>&lt;, &gt;, &lt;=, &gt;=, =, &lt;&gt;, and, or, not, xor</code>
+      <p><code>then</code>直後の<code>goto</code>は省略できる。
+
+      <h3>変数に代入しながら繰り返し（for）</h3>
+      <pre><code>10 for i = 1 to 10
+20   print i
+30 next i</code></pre>
+      <p>九九を出力：
+      <pre><code>10 for i = 1 to 9
+20   for j = 1 to 9
+30     print i; "x "; j; "= "; i * j
+40   next j
+50 next i</code></pre>
+
+      <h3>条件が真の間繰り返し（while）</h3>
+      <pre><code>10 i = 1
+20 while i &lt;= 10
+30   print i
+40   i = i + 1
+50 wend</code></pre>
+
+      <h1>サブルーチン / 入力</h1>
+
+      <h3>サブルーチン</h3>
+      <p><code>gosub</code>で指定行目に移動し、<code>return</code>で元の場所に戻る。
+      <pre><code>10  gosub 100
+20  end
+100 print "Hello"
+110 return</code></pre>
+
+      <h3>ユーザーからの入力</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <pre><code>10 input "your age?", age
+20 print "you are "; age; " years old."</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <pre><code>10 input "a, b?", a, b
+20 print "a + b = "; a + b</code></pre>
+        </div>
+      </div>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

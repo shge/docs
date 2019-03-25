@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CoffeeScript</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">CoffeeScript</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>概要</h1>
+      <h3>CoffeeScriptの特徴</h3>
+      <ul>
+        <li>変数宣言の<code>var</code>は不要（自動で宣言される）
+        <li>行末のセミコロンは不要
+        <li>波括弧はインデントで表現
+        <li>丸括弧は曖昧性がない場合は省略可能
+      </ul>
+      <pre><code>message = "Hello, world!"
+if message.length &gt; 1
+  alert message</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var message;
+message = "Hello, world!";
+if (message.length &gt; 1) {
+  alert(message);
+}</code></pre>
+
+      <h1>コメント</h1>
+
+      <h3>1行コメント</h3>
+      <pre><code># コメント</code></pre>
+      <p><span class="glyphicon glyphicon-info-sign"></span>コンパイル時に消去される
+
+      <h3>複数行コメント</h3>
+      <pre><code>### コメント ###</code></pre>
+      <p><span class="glyphicon glyphicon-info-sign"></span>コンパイル時に消去されない
+
+      <h1>変数</h1>
+
+      <h3>変数・式を展開</h3>
+      <p>ダブルクォーテーション内で可能。
+      <div class="row">
+        <div class="col-xs-6">
+          <pre><code>alert "Hi, #{name}!"</code></pre>
+          <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+          <pre><code>alert "Hi, " + name + "!";</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <pre><code>alert "15/3=#{15/3}"</code></pre>
+          <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+          <pre><code>alert("15/3=" + (15 / 3));</code></pre>
+        </div>
+      </div>
+
+      <h1>文字列</h1>
+
+      <h3>改行の扱い</h3>
+      <pre><code>s = "apple
+banana
+orange"</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var s;
+s = "apple banana orange";</code></pre>
+
+      <h3>ヒアドキュメント</h3>
+      <pre><code>s = """apple
+banana
+orange"""</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var s;
+s = "apple\nbanana\norange";</code></pre>
+
+      <h1>配列</h1>
+
+      <h3>配列の定義</h3>
+      <pre><code>a = [1, 2, 3]</code></pre>
+      <p><code>,</code>は改行で代用もできる：
+      <pre><code>a = [
+  1, 3, 5
+  2, 4, 6
+]</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var a;
+a = [1, 3, 5, 2, 4, 6]</code></pre>
+
+      <h3>連想配列の定義</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <pre><code>a = {"yamada": 100, "suzuki": 200}</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <pre><code>a =
+  "yamada": 100
+  "suzuki": 200</code></pre>
+        </div>
+      </div>
+      <p>複雑な連想配列も作成できる：
+      <pre><code>a =
+  "yamada":
+    "sales": 100
+    "cost" : 200
+  "suzuki":
+    "sales": 200
+    "cost" : 300</code></pre>
+
+      <h3>範囲演算子</h3>
+      <p>1から5までの配列を作成：</p>
+      <pre><code>a = [1..5]</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var a;
+a = [1, 2, 3, 4, 5];</code></pre>
+      <p><code>...</code>は、最後の数値は含まない：</p>
+      <pre><code>a = [1...5]</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var a;
+a = [1, 2, 3, 4];</code></pre>
+
+      <h1>条件分岐</h1>
+      <h3>if</h3>
+      <div class="row">
+        <div class="col-xs-4"><pre><code>if 条件式
+  真の場合の処理</code></pre></div>
+        <div class="col-xs-4"><pre><code>if 条件式
+  真の場合の処理
+else
+  偽の場合の処理
+</code></pre></div>
+        <div class="col-xs-4"><pre><code>if 条件式
+  真の場合の処理
+else if 条件式
+  真の場合の処理
+else
+  偽の場合の処理
+</code></pre></div>
+      </div>
+      <pre><code>score = 70
+if score &gt; 80
+  alert 'OK'
+else if score &gt; 60
+  alert 'So-so'
+else
+  alert 'NG' </code></pre>
+
+        <h3>後置if</h3>
+        <pre><code>alert "OK" if score &gt; 80</code></pre>
+
+        <h3>switch（値に一致した場合に実行）</h3>
+        <pre><code>switch 変数
+  when '値'           # 値に一致した場合
+    処理
+  when '値', '値'     # 複数の値を指定できる
+    処理
+  else               # どの値にも一致しない場合
+    処理</code></pre>
+        <pre><code>signal = 'red'
+switch signal
+  when 'red'
+    alert 'stop!'
+  when 'green'
+    alert 'go!'
+  else
+    alert 'caution!'</code></pre>
+        <p><code>when 値 then 処理</code>と1行でも書ける：
+        <pre><code>when 'red' then alert 'stop!'</code></pre>
+
+        <h3>変数が定義済みかどうか</h3>
+        <pre><code>alert 'OK' if name?</code></pre>
+        <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+        <pre><code>if (typeof name !== 'undefined' &amp;&amp; name !== null) alert('OK');</code></pre>
+
+        <h1>繰り返し</h1>
+
+        <h3>for（条件が真の間繰り返し）</h3>
+        <pre><code>for 変数 in 配列
+  処理</code></pre>
+        <div class="row">
+          <div class="col-xs-6">
+            <pre><code>for i in [1..3]
+  alert i</code></pre>
+            <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+            <pre><code>var i, _i;
+for (i = _i = 1; _i &lt;= 3; i = ++_i) {
+  alert(i);
+}</code></pre>
+          </div>
+          <div class="col-xs-6">
+            <pre><code>a = ['yamada', 'tanaka', 'suzuki']
+for i in a
+  alert "Hi, #{i}"</code></pre>
+            <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+            <pre><code>var a, i, _i, _len;
+a = ['yamada', 'tanaka', 'suzuki'];
+for (_i = 0, _len = a.length; _i &lt; _len; _i++) {
+  i = a[_i];
+  alert("Hi, " + i);
+}</code></pre>
+          </div>
+        </div>
+        <p>インデックスを取得（0〜）：</p>
+        <pre><code>a = ['yamada', 'tanaka', 'suzuki']
+for i, index in a
+  alert "Hi, #{index}: #{i}"</code></pre>
+        <pre><code>var a, i, index, _i, _len;
+a = ['yamada', 'tanaka', 'suzuki'];
+for (index = _i = 0, _len = a.length; _i &lt; _len; index = ++_i) {
+  i = a[index];
+  alert("Hi, " + index + ": " + i);
+}</code></pre>
+
+        <h3>連想配列のループ</h3>
+        <pre><code>for key, value of 連想配列
+  処理</code></pre>
+        <pre><code>sales =
+  'yamada': 100
+  'tanaka': 200
+  'suzuki': 300
+for key, value of sales
+  alert "#{key}: #{value}"</code></pre>
+        <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+        <pre><code>var key, sales, value;
+sales = {
+  'yamada': 100,
+  'tanaka': 200,
+  'suzuki': 300
+};
+for (key in sales) {
+  value = sales[key];
+  alert("" + key + ": " + value);
+}</code></pre>
+
+      <h1>演算子</h1>
+
+      <h3>比較演算子</h3>
+      <table>
+        <tr> <td><code>is</code>   <td><code>===</code>
+        <tr> <td><code>isnt</code> <td><code>!==</code>
+      </table>
+      <pre><code>score = 70
+if score is 80
+  alert 'OK'
+else
+  alert 'NG'</code></pre>
+
+      <h3>論理演算子</h3>
+      <table>
+        <tr> <td><code>and </code><td><code>&amp;&amp;</code>
+        <tr> <td><code>or</code>  <td><code>||</code>
+        <tr> <td><code>not</code> <td><code>!</code>
+      </table>
+
+      <h3>連結比較式</h3>
+      <pre><code>alert "OK" if 80 &lt; score &lt; 90</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>if ((80 &lt; score) &amp;&amp; (score &lt; 90)) {
+  alert("OK");
+}</code></pre>
+
+      <h1>関数</h1>
+
+      <h3>関数の定義</h3>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>変数名 = -&gt;
+  処理</code></pre></div>
+        <div class="col-xs-6"><pre><code>変数名 = (引数1, 引数2...) -&gt;
+  処理</code></pre></div>
+      </div>
+      <p>例：
+      <div class="row">
+        <div class="col-xs-6">
+          <pre><code>hello = -&gt;
+  alert 'Hello!'</code></pre>
+          <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+          <pre><code>var hello;
+hello = function() {
+  return alert('Hello!');
+};</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <pre><code>hello = (s) -&gt;
+  alert "Hello, #{s}"</code></pre>
+          <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+          <pre><code>var hello;
+hello = function(s) {
+  return alert('Hello, ' + s);
+};</code></pre>
+        </div>
+      </div>
+      <p>変数に無名関数を代入するように変換される。
+
+      <h3>関数の実行</h3>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>変数名</code></pre></div>
+        <div class="col-xs-6"><pre><code>変数名 引数1, 引数2...</code></pre></div>
+      </div>
+      <p>例：
+      <div class="row">
+        <div class="col-xs-6"><pre><code>hello</code></pre></div>
+        <div class="col-xs-6"><pre><code>hello "yamada", "tanaka"</code></pre></div>
+      </div>
+
+      <h3>引数の初期値</h3>
+      <p>引数を指定しない場合の処理
+      <pre class="coffeescript"><code>変数名 = (引数1 = 初期値1, 引数2 = 初期値2...) -&gt;
+  処理</code></pre>
+      <p>例：
+      <pre><code>hello = (s = "yamada") -&gt;
+  alert 'Hello!'</code></pre>
+      <span class="glyphicon glyphicon-arrow-down" style="margin-left:100px;"></span>
+      <pre><code>var hello;
+hello = function(s) {
+  if (s == null) {
+    s = "yamada";
+  }
+  return alert('Hello!');
+};</code></pre>
+
+      <h3>返り値</h3>
+      <p>最後に実行されたものが返り値となるので、明示的に返り値を指定する場合以外は、<code>return</code>を付ける必要はない
+
+      <h3>返り値付き関数の実行</h3>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>var foo = hello();</code></pre></div>
+        <div class="col-xs-6"><pre><code>console.log(hello());</code></pre></div>
+      </div>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

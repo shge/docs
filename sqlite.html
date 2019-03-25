@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>SQLite</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">SQLite</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>基本操作</h1>
+
+      <h3>ファイルを開く</h3>
+      <pre><code>sqlite3 [file.sqlite3]</code></pre>
+
+      <h3>終了</h3>
+      <pre><code>.exit / .quit</code></pre>
+
+      <h3>ヘルプ</h3>
+      <pre><code>.help</code></pre>
+
+      <h1>テーブル操作</h1>
+
+      <h3>テーブルを作成</h3>
+      <pre><code>create table [テーブル名](フィールド1, フィールド2...);</code></pre>
+      <p>カラム名は省略可能。例：
+      <pre><code>create table users(name, email);</code></pre>
+
+      <h3>テーブル一覧を表示</h3>
+      <pre><code>.tables</code></pre>
+
+      <h3>テーブルを削除</h3>
+      <pre><code>drop table users;</code></pre>
+
+      <h3>テーブル名の変更</h3>
+      <pre><code>alter table [テーブル名] rename to [新テーブル名];</code></pre>
+
+      <h3>テーブルの構造を表示</h3>
+      <pre><code>.schema [テーブル名]</code></pre>
+      <p>テーブル名を指定しない場合は、全テーブルを表示。
+
+      <h1>カラム操作</h1>
+
+      <h3>カラムを末尾に追加</h3>
+      <pre><code>alter table [テーブル名] add column [カラム名];</code></pre>
+
+      <h3>カラムのオプション</h3>
+      <table>
+          <tr> <td>[カラム名] integer primary key autoincrement <td>自動連番
+          <tr> <td>[カラム名] text not null                     <td>空欄エラー
+          <tr> <td>[カラム名] text unique                       <td>ユニークな文字列以外エラー
+          <tr> <td>[カラム名] integer default 20                <td>デフォルト値
+          <tr> <td>[カラム名] check(カラム名&gt;0)              <td>0より小さいとエラー（例）
+      </table>
+      <p>テーブル作成時にも使用可能。
+      <p>挿入場所を指定：
+      <table>
+          <tr> <td>[カラム名] first             <td>最初
+          <tr> <td>[カラム名] after [カラム名2] <td>カラム名2の後に追加
+      </table>
+
+      <h1>データ操作</h1>
+
+      <h3>データを追加</h3>
+      <pre><code>insert into [テーブル名](カラム1, カラム2...) values(値1, 値2...);</code></pre>
+      <pre><code>insert into users values('yamada', 25);</code></pre>
+      <pre><code>insert into users(age) values(25);</code></pre>
+      <p>シングルクォーテーションを書く場合は、2回続けて（<code>'It''s a pen.'</code>）書く。
+      <p>nullはシングルクォーテーションで囲わない。
+
+      <h3>データを変更</h3>
+      <pre><code>update [テーブル名] set [カラム名] = [値] where [条件];</code></pre>
+      <pre><code>update users set name = 'tanaka' where name = 'yamada';</code></pre>
+      <pre><code>update users set name = 'tanaka', score = 500 where name = 'yamada';</code></pre>
+
+      <h3>データを削除</h3>
+      <pre><code>delete from [テーブル名] where [条件];</code></pre>
+      <pre><code>delete from users where score &lt;= 100;</code></pre>
+
+      <h3>ROWID</h3>
+      <p>データ番号
+      <p>取得：
+      <pre><code>select ROWID, * from users;</code></pre>
+      <p>削除：
+      <pre><code>delete from users where ROWID = 4;</code></pre>
+
+      <h1>データ取得（select）</h1>
+
+      <h3>データを取得</h3>
+      <pre><code>select [カラム名] from [テーブル名];</code></pre>
+      <pre><code>select * from users;</code></pre>
+      <pre><code>select name from users;</code></pre>
+
+      <h3>並び替え昇順（A→ Z） / 降順（Z→ A）</h3>
+      <pre><code>order by [カラム名] / order by [カラム名] desc</code></pre>
+      <div class="row">
+        <div class="col-xs-6"><pre><code>select * order by score;</code></pre></div>
+        <div class="col-xs-6"><pre><code>select * order by score desc;</code></pre></div>
+      </div>
+
+      <h3>表示件数を指定</h3>
+      <p><code>limit [数]</code>
+      <pre><code>select * order by score desc limit 5;</code></pre>
+
+      <h3>条件を指定</h3>
+      <p><code>where</code>
+      <pre><code>select * where score &gt;= 200 order by score;</code></pre>
+      <pre><code>select * where score is null;</code></pre>
+
+      <p><code>null</code>を取得するには、<code>is null (isnull)</code>や<code>is not null (not null, notnull)</code>を使う。
+      <p>演算子：<code>+, -, *, /, %</code>、<code>=, ==, !=, &lt;&gt;, &lt;, &lt;=, &gt;, &gt;=</code>、<code>and, or, not</code>
+
+      <h3>重複行を削除</h3>
+      <p><code>distinct</code>
+      <pre><code>select distinct team from users;</code></pre>
+
+      <h3>countやsumをグループごとに行う</h3>
+      <p><code>group by [カラム名]</code>
+      <pre><code>select team, sum(score) from users group by team;</code></pre>
+
+      <h3>表示するカラム名を変更</h3>
+      <p><code>as [別名]</code>
+      <pre><code>select id, name as username from users;</code></pre>
+
+      <h3>複数テーブルにまたがる操作</h3>
+      <pre><code>select id, name, team, sum(score) from users, games where users.id = games.user_id group by users.id;</code></pre>
+
+      <h1>組み込み関数</h1>
+
+      <h3>データの個数を表示</h3>
+      <p><code>count(*)</code>
+      <pre><code>select count(*) from users;</code></pre>
+
+      <h3>最大値 / 最小値を表示</h3>
+      <p><code>max(カラム名) / min(カラム名)</code>
+      <pre><code>select max(*) from users;</code></pre>
+      <pre><code>select max(*) from users;</code></pre>
+
+      <h3>乱数を生成</h3>
+      <p><code>random()</code>
+      <pre><code>select * from users order by random() limit 1;   -- 1つランダムに選ぶ</code></pre>
+
+      <h3>文字列の長さを表示</h3>
+      <p><code>length(カラム名)</code>
+      <pre><code>select name, length(name) from users;</code></pre>
+
+      <h3>合計を計算</h3>
+      <p><code>sum(カラム名)</code>
+      <pre><code>select sum(score) from users;</code></pre>
+
+      <h3>平均を計算</h3>
+      <p><code>avg(カラム名)</code>
+      <pre><code>select avg(score) from users;</code></pre>
+
+      <h3>データ型を表示</h3>
+      <p><code>typeof(カラム名)</code>
+      <pre><code>select name, typeof(name) from users;</code></pre>
+
+      <h1>日付・時刻</h1>
+
+      <h3>日付 / 時刻 / 日付と時刻</h3>
+      <p><code>current_date / current_time / current_timestamp</code>
+      <pre><code>insert into users(name, created) values('yamada', current_timestamp);</code></pre>
+
+      <h3>日付 / 時刻を指定フォーマットに変換</h3>
+      <p><code>strfttime()</code>
+      <pre><code>select strfttime('%Y年%m月%d日', current_timestamp);</code></pre>
+      <table>
+        <tr> <td>%Y <td>年
+        <tr> <td>%m <td>月(01-)
+        <tr> <td>%d <td>日(00-)
+        <tr> <td>%W <td>年の初めからの週(00-53)
+        <tr> <td>%j <td>年の初めからの経過日数(001-366)
+        <tr> <td>%w <td>曜日(0-6, 日-土)
+        <tr> <td>%H <td>時(00-24)
+        <tr> <td>%M <td>分(00-59)
+        <tr> <td>%S <td>秒(00-59)
+        <tr> <td>%f <td>秒+ミリ秒(SS.SSS)
+        <tr> <td>%s <td>1970/1/1からの経過秒数
+        <tr> <td>%% <td>%
+      </table>
+
+      <h1>画面表示の変更</h1>
+
+      <h3>ヘッダー（カラム名）を表示 / 非表示</h3>
+      <pre><code>.header [on|off]</code></pre>
+
+      <h3>現在の設定内容を表示</h3>
+      <pre><code>.show</code></pre>
+
+      <h3>モード（selectの出力形式）を変更</h3>
+      <pre><code>.mode [モード]</code></pre>
+      <table>
+        <tr> <td>mode <td>書式 <td>メモ
+        <tr> <td>csv    <td>カンマ区切り <td>文字列は""で囲われる
+        <tr> <td>column <td>指定幅で表示 <td>幅は.widthで変更可能
+        <tr> <td>html   <td>HTMLのTABLE <td><code>&lt;table&gt;</code>は出力されない
+        <tr> <td>insert <td>insert文 <td>
+        <tr> <td>line   <td>カラムごとに行を分けて中央揃え <td>カラム名と値の間は=
+        <tr> <td>list   <td>区切り文字で区切る <td>区切り文字は.separatorで変更可能
+        <tr> <td>tabs   <td>タブ区切り <td>タブは8文字
+        <tr> <td>tcl    <td>|で区切る <td>すべて文字列扱い(""で囲われる)
+      </table>
+
+      <h3>columnの幅を指定</h3>
+      <pre><code>.width 10</code></pre>
+      <pre><code>.width 10 5 30</code></pre>
+
+
+      <h3>区切り文字を指定</h3>
+      <pre><code>.separator ,</code></pre>
+
+      <h1>ファイル操作</h1>
+
+      <h3>外部ファイルから読み込み</h3>
+      <p><code>.import [ファイル名] [テーブル名]</code>
+      <pre><code>.import users.txt users</code></pre>
+      <p>区切り文字を<code>.separator</code>で変更しておく必要がある。
+
+      <h3>SQL文で書き出し</h3>
+      <p><code>.dump [テーブル名]</code>
+      <pre><code>.dump users</code></pre>
+      <p>出力先ファイルを<code>.output</code>で指定しておく必要がある。
+
+      <h3>SQL文を読み込み</h3>
+      <p><code>.read [ファイル名]</code>
+      <pre><code>.read users.txt</code></pre>
+
+      <h1>用語</h1>
+
+      <h3>テーブル</h3>
+      <p>データベースの中のカテゴリ（Excelのシート）
+
+      <h3>フィールド / カラム</h3>
+      <p>列
+
+      <h3>レコード</h3>
+      <p>行
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

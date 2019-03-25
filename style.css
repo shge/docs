@@ -1,0 +1,33 @@
+body {
+  margin-bottom: 50px;
+  padding-top: 20px;
+  background: #fafafa;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.navbar-default {
+  background: rgba(248, 248, 248, .92);
+}
+
+.tocify-item {
+  white-space: nowrap;
+}
+
+.tocify-item:hover {
+  background-color: #f5f5f5;
+}
+
+.tocify-item a:hover {
+  text-decoration: none;
+}
+
+.nav-pills > li {
+  cursor: pointer;
+}
+
+p {
+  margin-top: 10px;
+}

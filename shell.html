@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Shell</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Shell</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>ディレクトリ操作</h1>
+
+      <h3>現在ディレクトリのフルパス表示</h3>
+      <pre><code>pwd</code></pre>
+
+      <h3>指定ディレクトリへ移動</h3>
+      <pre><code>cd dir</code></pre>
+      <p><code>cd</code>：<code>~</code>に移動
+      <p><code>cd -</code>：移動前のディレクトリに戻る
+
+      <h3>現在ディレクトリのファイル一覧表示</h3>
+      <pre><code>ls</code></pre>
+      <p><code>ls dir</code>：指定ディレクトリのファイル一覧表示
+      <table>
+        <tr> <td><code>-l</code> <td>詳細情報を表示
+        <tr> <td><code>-o</code> <td>グループ名を非表示（それ以外は<code>-l</code>と同じ）
+        <tr> <td><code>-a</code> <td><code>.</code>から始まるファイルを表示
+        <tr> <td><code>-A</code> <td><code>.</code>から始まるファイルを表示（<code>.</code>と<code>..</code>は表示しない）
+        <tr> <td><code>-F</code> <td><code>/</code>（ディレクトリ）・<code>*</code>（実行ファイル）・<code>@</code>（シンボリックリンク）を表示
+        <tr> <td><code>-G</code> <td>色付け
+        <tr> <td><code>-@</code> <td>ファイルの拡張属性を表示（詳細は<code>xattr</code>コマンド）
+        <tr> <td><code>-i</code> <td>ファイルの<code>inode</code>を表示
+        <tr> <td><code>-m</code> <td>ファイルを<code>, </code>で区切って表示
+        <tr> <td><code>-R</code> <td>ディレクトリの内部を再帰的に表示
+        <tr> <td><code>-t</code> <td>時間で並び替え（デフォルトでは<code>mtime</code>）
+        <tr> <td><code>-u</code> <td><code>-l</code>の時間表示・並び替えの順番を<code>atime</code>に変更
+        <tr> <td><code>-c</code> <td><code>-l</code>の時間表示・並び替えの順番を<code>ctime</code>に変更
+        <tr> <td><code>-U</code> <td><code>-l</code>の時間表示・並び替えの順番をファイル作成日時に変更（Linuxでは並び替えを無効にする）
+      </table>
+      <h4>mtime / atime / ctimeについて</h4>
+      <table>
+        <tr> <td>mtime    <td>ファイルの内容が変更された日時
+        <tr> <td>atime    <td>ファイルに最後にアクセスした日時
+        <tr> <td>ctime    <td>ファイルの属性（アクセス権/<code>inode</code>など）が変更された日時
+        <tr> <td>作成日時 <td>ファイルが作成された日時（OS Xのみ）
+      </table>
+
+      <h3>現在ディレクトリを記憶し、ディレクトリ移動</h3>
+      <pre><code>pushd dir</code></pre>
+      <p>別のディレクトリに移動し、戻ってくるときに<code>popd</code>と合わせて使用する。
+
+      <h3>pushdで記憶したディレクトリに戻る</h3>
+      <pre><code>pushd</code></pre>
+
+      <h3>pushdで記憶したディレクトリ一覧を表示</h3>
+      <pre><code>dirs</code></pre>
+
+      <h3>新規ディレクトリを作成</h3>
+      <pre><code>mkdir dir</code></pre>
+      <p><code>-p</code>：ディレクトリを再帰的に作成（例：<code>mkdir -p files/img</code>）
+      <p><code>-m</code>：アクセス権を指定（例：<code>mkdir -m u+x files</code>）
+
+      <h3>空のディレクトリを削除</h3>
+      <pre><code>rmdir dir</code></pre>
+
+      <h3>指定ディレクトリとサブディレクトリの容量を表示</h3>
+      <pre><code>du dir</code></pre>
+      <p><code>-h</code>：適切な単位をつける
+      <p><code>-s</code>：指定ディレクトリのみを表示（下階層のディレクトリは表示しない）
+      <p><code>-c</code>：指定ディレクトリの中身の合計の容量を表示
+
+      <h3>現在ディレクトリ以下のファイルをツリー状に表示</h3>
+      <pre><code>tree</code></pre>
+      <p>Homebrewによって追加
+
+      <h1>ファイル操作</h1>
+
+      <h3>ファイル・ディレクトリを削除</h3>
+      <pre><code>rm file/dir</code></pre>
+      <p><code>-r</code>：ディレクトリを再帰的に削除
+      <p><code>-f</code>：確認をせずに削除
+
+      <h3>ファイル・ディレクトリの移動 / ファイル名の変更</h3>
+      <pre><code>mv file/dir new_name/go_dir</code></pre>
+      <p><code>-f</code>：同名のファイルがある場合、上書きする
+      <p><code>-i</code>：同名のファイルがある場合、確認する
+      <p><code>-u</code>：同名のファイルがある場合、[後]が新しい場合は上書きしない
+
+      <h3>ファイル・ディレクトリのコピー</h3>
+      <pre><code>cp file/dir new_name/go_dir</code></pre>
+      <p><code>-a</code>：ディレクトリ構造や属性を保持（<code>-pPR</code>）
+      <p><code>-d</code>：シンボリックリンクの実体をコピー
+      <p><code>-f</code>：同名のファイルがある場合、上書きする
+      <p><code>-i</code>：同名のファイルがある場合、確認する
+      <p><code>-r</code>：ディレクトリを再帰的にコピーする
+
+      <h3>空ファイルを作成 / アクセス・変更日時を更新</h3>
+      <pre><code>touch file</code></pre>
+      <table>
+        <tr> <td><code>-a</code> <td>アクセス日時（<code>atime</code>）のみ更新
+        <tr> <td><code>-m</code> <td>変更日時（<code>mtime</code>）のみ更新
+        <tr> <td><code>-c</code> <td>ファイルが存在しない場合、ファイルを作成しない
+        <tr> <td><code>-t [[CC]YY]MMDDhhmm[.ss]</code> <td>指定日時にアクセス日時・変更日時を変更
+        <tr> <td><code>-r file</code> <td>指定ファイルと同じアクセス・変更日時に変更
+      </table>
+
+      <h3>作成・変更日時を更新</h3>
+      <pre><code>setfile file</code></pre>
+      <table>
+        <tr> <td><code>-d mm/dd/[yy]yy [hh:mm:[:ss]</code> <td>作成日時を変更
+        <tr> <td><code>-m mm/dd/[yy]yy [hh:mm:[:ss]</code> <td>変更日時（<code>mtime</code>）を変更
+      </table>
+
+      <h3>ファイルの情報を表示</h3>
+      <pre><code>getfileinfo file</code></pre>
+
+      <h3>アクセス権を変更</h3>
+      <pre><code>chmod permission file</code></pre>
+      <p>アクセス権には<code>[ugoa][+-][rwx]</code>が入る。3桁の数字も使用できる。
+      <p><code>u g o a</code>：ユーザー・グループ・その他・すべて
+      <p><code>+ -</code>：権限を追加・削除
+      <p><code>r w x</code>：読み出し・書き込み・実行
+
+      <h3>ファイルの属性を変更</h3>
+      <pre><code>chflags flag file</code></pre>
+      <p><code>hidden, nohidden</code>：非表示 / 表示
+
+      <h3>ファイルの種類を調べる</h3>
+      <pre><code>file file</code></pre>
+
+      <h3>ファイルの内容表示</h3>
+      <pre><code>less file</code></pre>
+      <p><code>-R</code>：色を変換
+
+      <h3>ファイルの拡張属性を表示</h3>
+      <pre><code>xattr command</code></pre>
+      <p><code>xattr -l file</code>：拡張属性の一覧を表示
+      <p><code>xattr -d attr file</code>：拡張属性を削除
+
+      <h3>ファイルやフォルダを開く</h3>
+      <pre><code>open file/dir</code></pre>
+      <p><code>-a app</code>：指定アプリケーションで開く
+      <p><code>-b bundle</code>：<code>com.apple.TextEdit</code>形式
+      <p><code>-e</code>：テキストエディットで開く
+      <p><code>-W</code>：アプリケーションが終了するまで<code>open</code>も終了しない
+      <p><code>-n</code>：アプリのコピーを起動
+      <p><code>-R</code>：Finderに表示
+
+      <h3>2つのディレクトリを同期</h3>
+      <pre><code>rsync file/dir go_dir</code></pre>
+      <table>
+        <tr> <td><code>-a</code> <td>ディレクトリ構造や属性を保持（<code>-rlptgoD</code>と同じ）
+        <tr> <td><code>-r</code> <td>ディレクトリを再帰的にコピー
+        <tr> <td><code>-l</code> <td>シンボリックリンクを保持（指定しないと実体がコピーされる）
+        <tr> <td><code>-p</code> <td>パーミッションを保持
+        <tr> <td><code>-t</code> <td>タイムスタンプを保持
+        <tr> <td><code>-g</code> <td>グループを保持（指定しないとコピーしたユーザーのものになる）
+        <tr> <td><code>-o</code> <td>所有者を保持（指定しないとコピーしたユーザーのものになる）
+        <tr> <td><code>-D</code> <td>デバイスファイル（スペシャルファイル）を保持（<code>--devices --specials</code>と同じ）
+        <tr> <td><code>-H</code> <td>ハードリンクを保持（指定しないと実体がコピーされる）
+        <tr> <td><code>-v</code> <td>コピー中のファイル名を標準出力（<code>-vv, -vvv</code>とするとさらに詳細な情報を出力する）
+        <tr> <td><code>-I</code> <td>すべてのファイルを同期（指定しないと同じファイルサイズ・修正時間のファイルは同期しない）
+        <tr> <td><code>-n</code> <td>実際には同期せずに、同期後の結果をシミュレーションする
+        <tr> <td><code>-z</code> <td>転送時にgzip圧縮する
+        <tr> <td><code>-h</code> <td><code>--progress</code>や<code>--stats</code>で表示される単位をわかりやすくする
+        <tr> <td><code>-u</code> <td>同期元よりも同期先のファイルの方が新しい場合、そのファイルは同期しない
+        <tr> <td><code>-c</code> <td>同期元と同期先のファイルの比較の際、128ビットのMD4を使用する（デフォルトではファイルサイズと変更日）
+        <tr> <td><code>-q</code> <td>同期中に情報を表示しない
+        <tr> <td><code>--delete</code> <td>同期元にないファイルが同期先にあった場合、そのファイルを削除する
+        <tr> <td><code>--delete-excluded</code> <td><code>--exclude</code>に一致しているファイルも、同期先にあった場合は削除する
+        <tr> <td><code>--exclude=パターン</code> <td>パターンに一致するファイルを同期しない
+        <tr> <td><code>--progress</code> <td>同期中にファイルの転送速度を表示
+        <tr> <td><code>--partial</code> <td>転送が中断された場合に不完全なファイルを残す
+        <tr> <td><code>--stats</code> <td>同期終了後に統計情報を表示
+        <tr> <td><code>--existing</code> <td>同期先にないファイルは同期しない（同期元に新規作成されたファイルは対象外にする）
+        <tr> <td><code>--ignore-existing</code> <td>同期先にあるファイルは同期しない（同期元に新規作成されたファイルのみを対象とする）
+        <tr> <td><code>--no-オプション</code> <td>指定オプションを無効にする（例：<code>--no-D</code>）
+      </table>
+      <p>ローカルからローカルにコピー：
+      <pre><code>rsync -av sourcedir destdir</code></pre>
+      <p>ローカルからリモートにコピー：
+      <pre><code>rsync -avz localdir user@host:remotedir</code></pre>
+      <p>文字化けするときは以下をする（rsync3以上）：
+      <pre><code>--iconv=UTF8-MAC,UTF-8</code></pre>
+
+      <h3>ハードリンク・シンボリックリンクを作成</h3>
+      <pre><code>ln target_file/dir file/dir</code></pre>
+      <p><code>-s</code>：シンボリックリンクを作成（デフォルト：ハードリンク）
+      <p><code>-f</code>：同名のファイルがある場合、上書きする
+      <p><code>-i</code>：同名のファイルがある場合、確認する
+      <p>シンボリックリンクはFinderでエイリアスとして扱われる。元ファイルがなくなるとアクセスできなくなる。
+      <p>ハードリンクは片方を削除しても元ファイルは消えない。すべて削除すると元ファイルは消える。
+
+      <h3>ファイルのバイナリデータを表示</h3>
+      <pre><code>od file</code></pre>
+      <p><code>od -tx1c file</code>：文字ごとにバイナリを表示
+
+      <h3>MP3のID3タグを編集</h3>
+      <pre><code>eyed3 file</code></pre>
+      <h4>すべてのタグを削除</h4>
+      <pre><code>eyed3 --remove-all file</code></pre>
+
+      <h1>ファイルの圧縮/解凍/暗号化</h1>
+
+      <h3>ファイルをZIP圧縮</h3>
+      <pre><code>zip file/dir new_file/dir</code></pre>
+      <p><code>-e</code>：暗号化
+      <p><code>-r</code>：ディレクトリを再帰的に処理
+      <p><code>-q</code>：処理内容を非表示
+
+      <h3>ZIPファイルを解凍</h3>
+      <pre><code>unzip file</code></pre>
+
+      <h3>ZIPファイルをパスワード付きに変更</h3>
+      <pre><code>zipcloak file</code></pre>
+
+      <h3>ファイルを圧縮/解凍</h3>
+      <pre><code>tar [zjJ][xct]vf file.tar file</code></pre>
+      <div class="row">
+        <div class="col-xs-4">
+          <p><code>z</code>：gzip（.tar.gz）
+          <p><code>j</code>：bzip2（.tar.bz2）
+          <p><code>J</code>：lzma（.tar.xz）
+          <p><code>x</code>：解凍（extract）
+        </div>
+        <div class="col-xs-4">
+          <p><code>c</code>：圧縮（create）
+          <p><code>t</code>：一覧（list）
+          <p><code>v</code>：詳細表示（verbose）
+          <p><code>f</code>：ファイル指定（file）
+        </div>
+      </div>
+
+      <h3>ファイルをJar圧縮/解凍</h3>
+      <pre><code>jar [xct]vf file.jar file</code></pre>
+      <p><code>x</code>：解凍（extract）
+      <p><code>c</code>：圧縮（create）
+      <p><code>t</code>：一覧（list）
+      <p><code>v</code>：詳細表示（verbose）
+      <p><code>f</code>：ファイル指定（file）
+
+      <h3>ファイルを暗号化・復号化など</h3>
+      <pre><code>openssl command</code></pre>
+      <table>
+        <tr> <td><code>openssl enc -e -aes-[128|192|256]-cbc -in in_file -out out_file</code> <td>AESで暗号化
+        <tr> <td><code>openssl enc -d -aes-[128|192|256]-cbc -in in_file -out out_file</code> <td>AESで復号化
+        <tr> <td><code>openssl dgst -[md5|sha256|sha512] file</code>                          <td>ファイルのハッシュを表示
+      </table>
+
+      <h3>ファイル移動/コピーコマンドの挙動</h3>
+      <p>元のディレクトリ構造：
+      <pre><code>bar/
+foo/
+├── a
+├── b
+└── c</code></pre>
+      <table>
+        <tr> <td><code>cp foo bar</code> <td colspan="4">エラー（foo/ is a directory）
+        <tr> <td><code>cp foo bar/</code>
+        <tr> <td><code>cp foo/ bar</code>
+        <tr> <td><code>cp foo/ bar/</code>
+        <tr> <td><code>cp foo/* bar</code> <td colspan="2">bar/a, b, c
+        <tr> <td><code>cp foo/* bar/</code>
+        <tr> <td><code>cp -r foo bar</code> <td colspan="2">bar/foo/a, b, c
+        <tr> <td><code>cp -r foo bar/</code>
+        <tr> <td><code>cp -r foo/ bar</code> <td colspan="2">bar/a, b, c
+        <tr> <td><code>cp -r foo/ bar/</code>
+      </table>
+      <table>
+        <tr> <td><code>mv foo baz</code> <td colspan="2">foo/→baz/
+        <tr> <td><code>mv foo baz/</code>
+        <tr> <td><code>mv foo/ bar</code> <td colspan="2">bar/foo
+        <tr> <td><code>mv foo/ bar/</code>
+      </table>
+      <table>
+        <tr> <td><code>rm foo</code> <td colspan="2">エラー（foo: is a directory）
+        <tr> <td><code>rm foo/</code>
+        <tr> <td><code>rm foo/*</code> <td>foo/a, b, c→foo/
+        <tr> <td><code>rm -r foo</code> <td colspan="2">foo→削除
+        <tr> <td><code>rm -r foo/</code>
+      </table>
+
+      <h1>ファイル検索</h1>
+
+      <h3>指定ディレクトリ以下の、条件に一致するファイルを表示</h3>
+      <pre><code>find dir</code></pre>
+      <p><code>-name "word"</code>：ファイル名一致（<code>-name "*[文字列]*"</code>：ファイル名を含む）
+      <p><code>-size [+-][size][ckMG]</code>：ファイルサイズ（<code>+-</code>は以上, 以下、<code>ckMG</code>はByte, KB, MB, GB）
+      <p><code>-atime [+-][time][smhdw]</code>：最終アクセス日時（<code>smhdw</code>は秒, 分, 時間, 日, 週）
+      <p><code>-mtime [+-][time][smhdw]</code>：最終更新日時
+
+      <h3>Spotlight検索</h3>
+      <pre><code>mdfind dir</code></pre>
+      <p><code>-name "[文字列]"</code>：ファイル名を含む
+      <p><code>-onlyin [ディレクトリ名]</code>：指定ディレクトリ内を検索
+
+      <h3>高速検索</h3>
+      <pre><code>locate word</code></pre>
+      <p>データベースを更新するには<code>sudo /usr/libexec/locate.updatedb</code>を実行する
+      <p><code>alias</code>：<code>updatedb</code>=<code>sudo /usr/libexec/locate.updatedb</code>
+
+      <h1>テキスト処理</h1>
+      <p>ほとんどのものは ファイル名 を省略可能。その場合標準入力から入力する。
+
+      <h3>先頭から指定行出力</h3>
+      <pre><code>head -number file</code></pre>
+
+      <h3>ファイルの末尾指定行数 / 指定行以降を出力</h3>
+      <pre><code>tail [-+]num file</code></pre>
+      <p><code>-</code>：ファイルの末尾指定行数を表示
+      <p><code>+</code>：ファイルの指定行以降を表示
+
+      <h3>ファイルの内容を出力</h3>
+      <pre><code>cat file</code></pre>
+      <p>ファイル名をスペースで区切り、複数指定すると、連結することができる。
+      <p><code>-n</code>：行番号を付加
+
+      <h3>指定文字列がある行だけを表示</h3>
+      <pre><code>grep "word" file</code></pre>
+      <p><code>-v</code>：マッチしない行を表示
+      <p><code>-c</code>：マッチした行数を表示
+      <p><code>-[行数]</code>：マッチした行の前後の指定行数を表示
+      <p><code>-A</code>：マッチした行の前の指定行数を表示
+      <p><code>-B</code>：マッチした行の後ろの指定行数を表示
+      <p>正規表現も使用できる。
+
+      <h3>各行から文字を切り出す</h3>
+      <pre><code>cut -c[num] file</code></pre>
+      <p><code>-c5</code>：5文字目
+      <p><code>-c1,3</code>：1, 3文字目
+      <p><code>-c2-5</code>：2〜5文字目
+      <p><code>-c-3</code>：先頭から3文字
+      <p><code>-c5-</code>：5文字目以降
+
+      <h3>各行の文字列の置換をする</h3>
+      <pre><code>sed 's/word/replaced_word/'</code></pre>
+      <p>正規表現も使用できる。
+      <p><code>sed -i '' 's/word/replaced_word/' file</code>：ファイルを上書き
+
+      <h3>各行の文字の置換をする</h3>
+      <pre><code>tr char replaced_char</code></pre>
+      <p><code>tr -d [文字]</code>：指定文字を削除
+      <p><code>tr -s [文字]</code>：指定文字の繰り返しを1文字にまとめる
+      <p><code>tr a-z A-Z</code>：すべて大文字に置換
+
+      <h3>様々なテキスト処理を行う</h3>
+      <pre><code>awk '条件/処理' file</code></pre>
+      <p><code>awk '{print $[列]}'</code>：各行の指定列目を出力（無指定の場合は行全体、<code>$1〜$n</code>はそれぞれの行を表す）
+      <p><code>awk '{print $[列,列]}'</code>：区切り文字で区切って出力
+      <p><code>awk '{print $[列 列]}'</code>：文字を連結して出力（スペースを間に挟まない）
+      <p><code>awk '/[文字列]/{print $0}'</code>：指定文字列を含む行のみ出力
+      <p><code>awk '$1=="[文字列]"{print $0}'</code>：1列目が指定文字列の行のみ出力
+      <p><code>awk 'NR==[行]{print $0}'</code>：指定行目のときのみ出力（<code>NR</code>には現在処理中の行番号が代入される）
+      <p><code>awk '/^[文字1]/{print $0}/^[文字2]/{print $0}'</code>：文字1から始まる行と文字2から始まる行を出力
+      <p><code>awk -F',' '{print}'</code>：入力区切り文字を変更（デフォルトは1文字以上の連続するスペース/タブ・正規表現も使用できる）
+      <p><code>awk -F '[(,{}]' '{print}'</code>：入力区切り文字を複数指定（<code>( , { }</code>が例では指定されている）
+
+      <h3>行単位で並べ替えを行う</h3>
+      <pre><code>sort file</code></pre>
+      <div class="row">
+        <div class="col-xs-6">
+          <p><code>-b</code>：行頭の空白を無視
+          <p><code>-f</code>：大文字小文字を区別しない
+          <p><code>-r</code>：降順
+          <p><code>-u</code>：重複行を削除
+        </div>
+        <div class="col-xs-6">
+          <p><code>-n</code>：先頭の数字や記号を数値とみなす（<code>-b</code>も設定される）
+          <p><code>-k 列1[,列2]</code>：指定列を基準にしてソート
+          <p><code>-t 区切り文字</code>：区切り文字を指定
+          <p><code>LANG=lang sort file</code>とすると言語を指定できる。
+        </div>
+      </div>
+      <p><code>C</code>：文字コード順（速度はen_US.UTF8と同じ）
+      <p><code>en_US.UTF8</code>：文字コード順（速度はCと同じ）
+      <p><code>ja_JP.UTF-8</code>：アルファベットはアルファベット順。それ以外は長さで比較し、同じだった場合は文字コード順。（最も遅い）
+
+      <h3>ファイルの行数・単語数・バイト数を表示</h3>
+      <pre><code>wc file</code></pre>
+      <p><code>-l</code>：行数のみ
+      <p><code>-w</code>：単語数のみ
+      <p><code>-c</code>：バイト数のみ
+
+      <h3>差分を表示</h3>
+      <pre><code>diff fileA fileB</code></pre>
+
+      <h3>重複行を削除して表示</h3>
+      <pre><code>uniq file</code></pre>
+
+      <h3>文字コード変換・確認</h3>
+      <pre><code>nkf file</code></pre>
+      <p><code>-g</code>：文字コード確認
+      <p><code>-w</code>：UTF-8（BOMあり）に変換
+      <p><code>-w8</code>：UTF-8（BOMなし）に変換
+      <p><code>-s</code>：Shift-JISに変換
+      <p><code>-e</code>：EUCに変換
+      <p><code>-j</code>：JISに変換
+
+      <h3>漢字・ひらがな・カタカナ・アルファベット変換</h3>
+      <pre><code>kakasi -[option][replaced_option]</code></pre>
+      <p><code>a</code>：アスキー文字（アルファベット）
+      <p><code>H</code>：ひらがな
+      <p><code>K</code>：カタカナ
+      <p><code>J</code>：漢字
+      <p>標準入力から入力する。文字化けする場合は<code>nkf</code>を挟む。
+
+      <h3>XMLの指定パス部分を出力</h3>
+      <pre><code>xpath file xml_path</code></pre>
+      <p><code>xpath a.xml /html/body/h1</code>：<code>&lt;html&gt;&lt;body&gt;&lt;h1&gt;test&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code>というHTMLのh1を出力
+      <p><code>-w</code>：UTF-8（BOMあり）に変換
+      <p><code>-w8</code>：UTF-8（BOMなし）に変換
+
+      <h3>Base64のエンコード・デコード</h3>
+      <pre><code>base64</code></pre>
+      <p><code>-D</code>：デコード
+
+      <h1>コマンド</h1>
+
+      <h3>コマンドの使用方法を表示</h3>
+      <pre><code>man command</code></pre>
+
+      <h3>コマンドの絶対パスを表示</h3>
+      <pre><code>which command</code></pre>
+      <p><code>alias</code>が設定されている場合も元コマンドのパスを返す。
+
+      <h3>コマンドの情報・絶対パスを表示</h3>
+      <pre><code>type command</code></pre>
+      <p><code>alias</code>が設定されている場合は<code>alias</code>のコマンドを返す。
+
+      <h3>コマンドの実行にかかった時間を表示</h3>
+      <pre><code>time command</code></pre>
+
+      <h3>コマンドの履歴を表示</h3>
+      <pre><code>history</code></pre>
+      <p><code>-c</code>：履歴を削除
+
+      <h1>ネットワーク</h1>
+
+      <h3>Webファイルダウンローダ / アップローダ</h3>
+      <pre><code>curl URL</code></pre>
+      <p><code>img[000-009].jpg</code>：<code>img000.jpg</code>から<code>img009.jpg</code>までダウンロードする
+      <p><code>img{004,008}.jpg</code>：<code>img004.jpg</code>と<code>img008.jpg</code>をダウンロードする
+      <p><code>-o [ファイル名]</code>：ファイルを保存（初期設定では出力のみ）
+      <p><code>-O</code>：URL上のファイル名で保存
+      <p><code>-i</code>：HTTPヘッダー情報も表示
+      <p><code>-I</code>：HTTPヘッダー情報のみ表示
+      <p><code>-#</code>：プログレスメータではなくプログレスバーを表示
+      <p><code>-s</code>：プログレスメータを非表示
+
+      <h3>Webファイルダウンローダ</h3>
+      <pre><code>wget URL</code></pre>
+      <p><code>-O [ファイル名]</code>：ファイル名を指定して保存（ディレクトリ指定も可能だが、存在しないとエラーになる）
+      <p><code>-P [ディレクトリ名]</code>：ディレクトリ名を指定して保存（存在しない場合自動で作成する）
+      <p><code>-O -</code>：ファイルに保存せずに、出力のみする
+
+      <h3>Webサイトのスクリーンショットを保存</h3>
+      <pre><code>webkit2png URL</code></pre>
+      <p>Homebrewによって追加
+
+      <h3>指定ホスト/IPへの接続確認</h3>
+      <pre><code>ping host/IP</code></pre>
+
+      <h3>ネットワーク設定状況を表示</h3>
+      <pre><code>ifconfig</code></pre>
+      <p><code>ifconfig en1</code>：インターフェース名で絞り込み
+
+      <h3>DNSサーバへの問い合わせ</h3>
+      <pre><code>nslookup host</code></pre>
+
+      <h3>パケットの経路を表示</h3>
+      <pre><code>traceroute host</code></pre>
+
+      <h3>hostsファイル</h3>
+      <p>ホスト名とIPアドレスを結びつけるもの
+      <p>DNSの前に参照される
+      <p><code>/etc/hosts</code>に以下の書式で書く。
+      <pre><code>IPアドレス ホスト名</code></pre>
+      <p>例：
+      <pre><code>127.0.0.1 localhost</code></pre>
+      <p>間には1つ以上のスペースまたはタブ文字を入れる。
+
+      <h3>FTP接続</h3>
+      <pre><code>ftp host</code></pre>
+      <p>コマンド一覧
+      <table>
+        <tr> <td>ls            <td>リモートls
+        <tr> <td>cd dir        <td>リモートcd
+        <tr> <td>pwd           <td>リモートpwd
+        <tr> <td>mkdir         <td>リモートmkdir
+        <tr> <td>rename        <td>リモートmv
+        <tr> <td>!ls           <td>ローカルls
+        <tr> <td>lcd dir       <td>ローカルcd
+        <tr> <td>lpwd          <td>ローカルpwd
+        <tr> <td>!mkdir        <td>ローカルmkdir
+        <tr> <td>get file      <td>ダウンロード
+        <tr> <td>put file      <td>アップロード
+        <tr> <td>delete file   <td>削除
+        <tr> <td>ascii         <td>asciiモード
+        <tr> <td>binary        <td>binaryモード
+        <tr> <td>type          <td>モード表示
+        <tr> <td>exit / bye    <td>切断
+      </table>
+
+      <h3>Time Capsuleをマウント</h3>
+      <pre><code>mkdir /Volumes/dir
+mount_afp afp://user:pw@192.168.1.2/dir /Volumes/dir</code></pre>
+
+      <h1>パッケージ管理</h1>
+
+      <h3>Homebrew</h3>
+      <pre><code>brew command</code></pre>
+      <table>
+        <tr> <td>doctor                 <td>診断
+        <tr> <td>-v                     <td>バージョン表示
+        <tr> <td>search [パッケージ名]  <td>パッケージの検索
+        <tr> <td>install [パッケージ名] <td>パッケージのインストール
+        <tr> <td>remove [パッケージ名]  <td>パッケージのアンインストール
+        <tr> <td>link [パッケージ名]    <td>パッケージの有効化
+        <tr> <td>unlink [パッケージ名]  <td>パッケージの無効化
+        <tr> <td>update                 <td>Homebrewのアップデート
+        <tr> <td>upgrade                <td>パッケージのアップデート
+        <tr> <td>list                   <td>インストール済みパッケージ一覧
+      </table>
+
+      <h3>Homebrew Cask</h3>
+      <pre><code>brew cask command</code></pre>
+      <table>
+        <tr> <td>install [アプリ名]   <td>アプリをインストール
+        <tr> <td>uninstall [アプリ名] <td>アプリをアンインストール
+        <tr> <td>search [アプリ名]    <td>アプリを検索
+        <tr> <td>list                 <td>インストール済みアプリ一覧
+        <tr> <td>cleanup              <td>不要なdmgファイルを削除
+      </table>
+
+      <h3>Yum (Yellowdog Updater Modified)</h3>
+      <pre><code>yum command</code></pre>
+      <table>
+          <tr> <td>search [パッケージ名]  <td>パッケージの検索
+          <tr> <td>install [パッケージ名] <td>パッケージのインストール
+          <tr> <td>remove [パッケージ名]  <td>パッケージのアンインストール
+          <tr> <td>update                 <td>パッケージのアップデート
+          <tr> <td>list                   <td>インストール可能なパッケージ一覧
+          <tr> <td>list installed         <td>インストール済みパッケージ一覧
+          <tr> <td>info [パッケージ名]    <td>パッケージの情報を表示
+      </table>
+      <p><code>-y</code>：問い合わせにすべてyと答える
+      <p>UNIXで使用される。
+
+      <h3>RubyGems</h3>
+      <pre><code>gem command</code></pre>
+      <table>
+          <tr> <td>list [文字列]             <td>指定文字列から始まるパッケージを検索
+          <tr> <td>search [文字列]           <td>指定正規表現に一致するパッケージを検索
+          <tr> <td>install [パッケージ名]    <td>パッケージのインストール
+          <tr> <td>uninstall [パッケージ名]  <td>パッケージのアンインストール
+          <tr> <td>which [パッケージ名]      <td>パッケージの場所を表示
+          <tr> <td>-v                        <td>バージョン表示
+          <tr> <td>update --system           <td>gemのアップデート
+      </table>
+      <p><code>-b</code>：<code>list, search</code>検索時に、ローカル以外も対象とする
+
+      <h2>npm [コマンド]</h2>
+      <h3>Node.js Package Manager</h3>
+      <table>
+          <tr> <td>s [パッケージ名]    <td>パッケージの検索
+          <tr> <td>i [パッケージ名]    <td>パッケージのインストール
+          <tr> <td>r [パッケージ名]    <td>パッケージのアンインストール
+          <tr> <td>info [パッケージ名] <td>パッケージの情報を表示
+          <tr> <td>ls                  <td>インストール済みパッケージ一覧
+          <tr> <td>init                <td>package.jsonの生成
+          <tr> <td>-v                  <td>バージョン表示
+      </table>
+      <p><code>-g</code>：グローバル
+      <p>パッケージ名はスペース区切りで複数指定可能。バージョン指定はパッケージ名の後に＠を付けて行う。例：
+      <pre><code>$ sudo npm i -g パッケージ名@バージョン</code></pre>
+
+      <h1>システム</h1>
+
+      <h3>ログイン履歴を表示</h3>
+      <pre><code>last</code></pre>
+      <p><code>last console</code>：コンピュータにログイン・ログアウトした時刻を表示
+
+      <h3>ディスクの容量を表示</h3>
+      <pre><code>df</code></pre>
+      <p><code>-h</code>：適切な単位をつける
+
+      <h3>実行中はスリープしない</h3>
+      <pre><code>caffeinate</code></pre>
+      <p><code>-d</code>：ディスプレイをスリープしない
+      <p><code>-i</code>：システムをスリープしない
+      <p><code>-m</code>：ディスクをスリープしない
+
+      <h3>アプリケーションを強制終了</h3>
+      <pre><code>killall app</code></pre>
+      <p>注意：アプリケーション名の最初は大文字で指定する。（<code>Finder</code>、<code>Dock</code>）
+
+      <h3>自分のユーザ名を表示</h3>
+      <pre><code>whoami</code></pre>
+
+      <h3>初期設定ファイルの変更</h3>
+      <pre><code>defaults command</code></pre>
+      <p><code>~/Library/Preferences/</code>以下のplistファイルが変更される。
+      <p><code>defaults write file 設定項目 設定値</code>：設定値の追加と変更
+      <p><code>defaults delete file 設定項目</code>：設定項目の削除
+      <p><code>defaults read file</code>：設定ファイルを表示
+
+      <h3>音声ファイルを再生</h3>
+      <pre><code>afplay file</code></pre>
+      <p><code>-r</code>：速度調整（標準：1）
+      <p><code>-v</code>：音量調整
+      <p><code>-q</code>：音質調整（高音質：1）
+      <p><code>-r</code>をつけたときは<code>-q 1</code>をつける。
+
+      <h3>文字列を読み上げ</h3>
+      <pre><code>say word</code></pre>
+      <p><code>-v [声]</code>：声の変更（<code>?</code>を指定すると一覧が表示される・デフォルト：Kyoko）
+      <p><code>-f [ファイル名]</code>：ファイルから入力
+      <p><code>-o [ファイル名]</code>：ファイルに出力
+      <p><code>-r [速さ]</code>：速さを変更（1分間に読み上げる単語数）
+
+      <h3>UUIDを生成</h3>
+      <pre><code>uuidgen</code></pre>
+
+      <h3>通知を表示</h3>
+      <pre><code>terminal-notifier [オプション]</code></pre>
+      <p><code>-title [文字列]</code>：タイトル
+      <p><code>-subtitle [文字列]</code>：サブタイトル
+      <p><code>-message [文字列]</code>：メッセージ（必須）
+      <p><code>-activate [アプリケーション名]</code>：クリック時にアプリを起動（<code>com.apple.Safari</code>などと指定）
+      <p><code>-appIcon [ファイルURL]</code>：左に表示するアイコン
+      <p><code>-contentImage [ファイルURL]</code>：右に表示するアイコン
+      <p><code>-open [URL]</code>：クリック時にURLを開く
+      <p><code>-execute [コマンド]</code>：クリック時にコマンドを実行
+      <p>Homebrewによって追加
+
+      <h3>標準入力の内容をクリップボードにコピー</h3>
+      <pre><code>pbcopy</code></pre>
+
+      <h3>クリップボードに入っているものを標準出力へ渡す</h3>
+      <pre><code>pbpaste</code></pre>
+
+      <h3>コンピュータの情報を表示</h3>
+      <pre><code>sysctl -a</code></pre>
+
+      <h3>標準入力を元にして生成したコマンドを実行する</h3>
+      <pre><code>xargs command</code></pre>
+      <h4>条件に一致したファイルに対して、コマンドを実行する</h4>
+      <p><code>a</code>から始まるファイルの詳細情報を表示する：
+      <pre><code>find . -name "a*" | xargs ls -la</code></pre>
+
+      <h1>FFmpeg</h1>
+
+      <h3>動画を変換</h3>
+      <pre><code>ffmpeg -i file options new_file</code></pre>
+
+      <h3>コーデックを指定</h3>
+      <pre><code>-c:[v,a] codec</code></pre>
+      <div class="row">
+        <div class="col-xs-6">
+          <table>
+            <tr> <td>H.264 <td><code>libx264</code>
+            <tr> <td>H.265 <td><code>libx265</code>
+            <tr> <td>MPEG4 <td><code>mpeg4</code>
+          </table>
+        </div>
+        <div class="col-xs-6">
+          <table>
+            <tr> <td>AAC   <td><code>libfaac</code>
+            <tr> <td>MP3   <td><code>libmp3lame</code>
+          </table>
+        </div>
+      </div>
+
+      <h3>ビットレートを指定（kbps）</h3>
+      <pre><code>-b:[v,a] [bitrate]k</code></pre>
+
+      <h3>解像度を指定</h3>
+      <pre><code>-s 横x縦</code></pre>
+      <p>縦横比は保持される（縦の値が優先される）
+
+      <h3>アスペクト比を指定</h3>
+      <pre><code>-aspect 横:縦</code></pre>
+      <p>縦横比は保持されない（引き伸ばされる）
+
+      <h3>指定範囲をトリミング</h3>
+      <h4>トリミング開始地点を指定</h4>
+      <pre><code>-ss [秒]</code></pre>
+      <p><code>-i</code>より前に書く
+      <h4>トリミング終了地点をトリミング開始地点からの経過時間で指定：</h4>
+      <pre><code>-t [秒]</code></pre>
+      <h4>トリミング終了地点を動画開始地点からの経過時間で指定</h4>
+      <pre><code>-to [秒]</code></pre>
+      <p>時間指定は<code>hh:mm:ss[.xxx]</code>でもできる
+
+      <h3>フレームレートを指定</h3>
+      <pre><code>-r [fps]</code></pre>
+
+      <h3>映像 / 音声をOFF</h3>
+      <pre><code>-vn / -an</code></pre>
+
+      <h3>映像 / 音声にフィルターを付ける</h3>
+      <pre><code>-filter:[v,a] filter</code></pre>
+      <p>ダブルクォーテーションで囲むとカンマ区切りで複数指定できる
+      <div class="row">
+        <div class="col-xs-6">
+          <h4>映像</h4>
+          <table>
+            <tr> <td><code>hflip</code>                 <td>水平反転
+            <tr> <td><code>vflip</code>                 <td>垂直反転
+            <tr> <td><code>setpts=n*PTS</code>          <td>速度変更（n倍の長さ）
+            <tr> <td><code>unsharp=luma_amount=n</code> <td>ぼかし / シャープ<br>（+：シャープ / -：ぼかし）
+            <tr> <td><code>rotate=度*PI/180</code>      <td>回転
+          </table>
+        </div>
+        <div class="col-xs-6">
+          <h4>音声</h4>
+          <table>
+            <tr> <td><code>volume=n</code> <td>音量変更（n倍の音量）
+            <tr> <td><code>atempo=n</code> <td>速度変更（n倍の速さ）
+          </table>
+          <p><code>volume</code>は表示される時間がおかしくなる場合があるので、<br>その場合は再エンコードする
+          <p><code>atempo</code>は<code>0.5〜2</code>までしか指定できないが、複数指定できる
+        </div>
+      </div>
+
+      <h3>複数の入力にまとめてフィルターを付ける</h3>
+      <pre><code>-filter_complex filter</code></pre>
+      <table>
+        <tr> <td><code>overlay=x:y</code> <td>動画/画像などを重ねる（x, yは左上からの距離）
+      </table>
+      <p><code>overlay</code>は複数指定すると、2個目と3個目のファイルなどを重ねられる
+
+      <h3>H.264の品質を指定</h3>
+      <pre><code>-preset option</code></pre>
+      <p><code>ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow, placebo</code>がある
+      <p><code>veryfast</code>が1番良い
+
+      <h3>エラーの対処</h3>
+      <pre><code>-pix_fmt yuv420p</code></pre>
+      <pre><code>-vsync 2</code></pre>
+      <p>32kbps未満はエラーが出ることがある
+      <pre><code>-b:a 32k</code></pre>
+
+      <h1>プログラム実行・構文チェック</h1>
+
+      <h3>Shell Sciriptを実行</h3>
+      <p>ファイルを実行する場合：<code>./shell.sh</code>
+
+      <h3>Rubyを実行</h3>
+      <pre><code>ruby -e 'puts "Hello World!"'</code></pre>
+      <p>ファイルを実行する場合：<code>ruby ruby.rb</code>
+
+      <h3>インタラクティブにRubyを実行</h3>
+      <pre><code>irb</code></pre>
+      <p>コードを入力すると、すぐに結果が帰ってくる。Interactive Rubyの略。
+
+      <h3>PHPファイルを実行</h3>
+      <pre><code>php php.php</code></pre>
+
+      <h3>Perlを実行</h3>
+      <pre><code>perl -e 'print "Hello, world!\n"'</code></pre>
+      <p>ファイルを実行する場合：<code>perl perl.pl</code>
+
+      <h3>Pythonを実行</h3>
+      <pre><code>python -c 'print "Hello World!"'</code></pre>
+      <p>ファイルを実行する場合：<code>python python.py</code>
+
+      <h3>AppleScriptを実行</h3>
+      <pre><code>osascript -e 'display dialog "Hello world!"'</code></pre>
+      <p>ファイルを実行する場合：<code>osascript applescript.scpt</code>
+
+      <h3>AppleScriptをコンパイル</h3>
+      <pre><code>osacompile [ファイル名]</code></pre>
+      <p><code>-o</code>：出力ファイル名（<code>.scpt</code>, <code>.app</code>などでファイル形式を決定）
+      <p><code>-x</code>：実行専用ファイル
+
+      <h1>文字列の表示</h1>
+
+      <h3>文字列を出力（末尾に改行が挿入される）</h3>
+      <p><code>echo $s</code>：変数の文字列を出力
+      <p><code>echo ${s}</code>：変数の文字列を出力
+      <p><code>echo "$s"</code>：ダブルクォーテーション...変数展開あり
+      <p><code>echo '$s'</code>：シングルクォーテーション...変数展開なし
+      <p><code>echo $s$s</code>：文字列の連結
+
+      <h3>文字列を出力（末尾に改行が挿入されない）</h3>
+      <p><code>printf $s</code>：変数の文字列を出力
+      <p><code>printf ${s}</code>：変数の文字列を出力
+      <p><code>printf "$s"</code>：ダブルクォーテーション...変数展開あり
+      <p><code>printf '$s'</code>：シングルクォーテーション...変数展開なし
+      <p><code>printf $s$s</code>：文字列の連結
+
+      <h1>コメント</h1>
+
+      <h3>#から行末までをコメントアウト</h3>
+      <pre><code># コメント</code></pre>
+
+      <h3>囲まれている行をコメントアウト</h3>
+      <pre><code>&lt;&lt; "#__CO__"
+aaa
+bbb
+ccc
+#__CO__</code></pre>
+
+      <h1>変数 / 文字列操作</h1>
+
+      <h3>変数を代入</h3>
+      <pre><code>s="Hello, world!"</code></pre>
+      <p><code>''</code>（シングルクォーテーション）で囲った場合、変数展開がされない。
+      <p><code>=</code>（イコール）の両側にはスペースを書いてはいけない。
+
+      <h3>読み込み専用変数を代入</h3>
+      <pre><code>readonly FILE_NAME="hello.sh"</code></pre>
+
+      <h3>特殊変数</h3>
+
+      <p><code>$1~9</code>：指定個目のコマンドライン引数
+      <p><code>$#</code>：コマンドライン引数の数
+      <p><code>$$</code>：現在のシェルのプロセスID
+      <p><code>$*</code>：すべての変数（IFSで区切り文字を変更可能）
+      <p><code>$@</code>：すべての変数（IFSの影響を受けない）
+      <p><code>$?</code>：直前のコマンドの終了ステータス
+
+      <h3>文字列連結</h3>
+      <pre><code>$x$y</code></pre>
+
+      <h3>文字列の長さを取得</h3>
+      <pre><code>${#str}</code></pre>
+
+      <h3>文字列を切り出し</h3>
+      <pre><code>${str:0:2}</code></pre>
+      <p><code>${str:0:2}</code>：1文字目から2文字
+      <p><code>${str:1:2}</code>：2文字目から2文字
+      <p><code>${str:0:3}</code>：1文字目から3文字
+
+      <h3>文字列を分割して配列に代入</h3>
+      <pre><code>oldifs=IFS
+IFS=','
+str='aaa,bbb,ccc'
+array=($str)
+IFS=oldifs</code></pre>
+
+      <h1>演算</h1>
+
+      <h3>整数の四則演算をする</h3>
+      <pre><code>expr [式]</code></pre>
+      <p><code>1 + 2</code>：加算
+      <p><code>1 - 2</code>：減算
+      <p><code>1 \* 2</code>：乗算
+      <p><code>1 / 2</code>：除算
+      <p><code>1 % 2</code>：剰余（除算の余り）
+      <p>演算子の両側にはスペースをあける。
+      <p>括弧で計算順序を指定するときは、括弧の前に<code>\</code>（バックスラッシュ）を付ける。
+
+      <h3>複雑な演算をする</h3>
+      <pre><code>bc</code></pre>
+      <p><code>1+2</code>：加算
+      <p><code>1-2</code>：減算
+      <p><code>1*2</code>：乗算
+      <p><code>1/2</code>：除算
+      <p><code>1%2</code>：剰余（除算の余り）
+      <p><code>1^2</code>：累乗
+      <p><code>sqrt(1)</code>：平方根
+      <p><code>scale=1</code>：小数点以下の桁数設定
+      <p>標準入力から式は入力する。<code>bc foo.txt</code>ともできる。
+      <p>改行は<code>;</code>（セミコロン）で1行にすることもできる。
+
+      <h1>記号</h1>
+
+      <h3>リダイレクト</h3>
+      <p><code>[コマンド] &lt; [ファイル名]</code>：標準入力にファイルを読み込み
+      <p><code>[コマンド] &gt; [ファイル名]</code>：標準出力をファイルに上書き
+      <p><code>[コマンド] &gt;&gt; [ファイル名]</code>：標準出力をファイルに追記
+      <p><code>[コマンド] 2&gt; [ファイル名]</code>：標準エラー出力をファイルに上書き
+      <p><code>[コマンド] 2&gt;&gt; [ファイル名]</code>：標準エラー出力をファイルに追記
+      <p><code>[コマンド] &amp;&gt; [ファイル名]</code>：標準出力と標準エラー出力をファイルに上書き
+      <p><code>[コマンド] &amp;&gt;&gt; [ファイル名]</code>：標準出力と標準エラー出力をファイルに追記
+      <p><code>[コマンド] 1&gt; [ファイル1] 2&gt; [ファイル2]</code>：標準出力と標準エラー出力を別々のファイルに上書き
+      <p><code>[コマンド] 1&gt;&gt; [ファイル1] 2&gt;&gt; [ファイル2]</code>：標準出力と標準エラー出力を別々のファイルに追記
+      <p>出力先に<code>/dev/null</code>を指定すると、出力が破棄される。
+
+      <h3>パイプ・コマンド連結</h3>
+      <p><code>[コマンド1] | [コマンド2]</code>：コマンド1の標準出力をコマンド2の標準入力に入れる
+      <p><code>[コマンド1] ; [コマンド2]</code>：コマンド1が終わり次第、コマンド2を実行
+      <p><code>[コマンド1] &amp;&amp; [コマンド2]</code>：コマンド1の終了ステータスが0（成功）なら、コマンド2を実行
+      <p><code>[コマンド1] || [コマンド2]</code>：コマンド1の終了ステータスが0以外（失敗）なら、コマンド2を実行
+
+      <h3>ヒアドキュメント</h3>
+      <pre><code>echo &lt;&lt;'_EOT_'
+foo
+bar
+_EOT_</code></pre>
+      <p><code>&lt;&lt;_EOT_</code>：変数・コマンド置換利用可能（<code>$</code>を表示するには<code>\$</code>のようにエスケープする）
+      <p><code>&lt;&lt;'_EOT_'</code>：変数・コマンド置換利用不可
+
+      <h3>コマンド置換</h3>
+      <pre><code>echo `date`</code></pre>
+      <pre><code>echo $(date)</code></pre>
+
+      <h1>配列</h1>
+
+      <h3>変数に配列を代入</h3>
+      <pre><code>array=(a b c)</code></pre>
+
+      <h3>配列の指定個目の要素を参照</h3>
+      <pre><code>${array[0]}</code></pre>
+      <p>最初は0から始まる。（zshの場合1）
+
+      <h3>配列のすべての要素をスペース区切りで取り出す</h3>
+      <pre><code>"${array[@]}"</code></pre>
+
+      <h3>配列の先頭に要素を追加</h3>
+      <pre><code>array=(d "${array[@]}")</code></pre>
+
+      <h3>配列の末尾に要素を追加</h3>
+      <pre><code>array+=( d )</code></pre>
+
+      <h3>配列の先頭以外を取り出す</h3>
+      <pre><code>array=("${array[@]:1}")</code></pre>
+
+      <h3>配列の末尾以外を取り出す</h3>
+      <pre><code>echo ${array[((${#array[@]}-1))]}</code></pre>
+
+      <h3>配列の要素数を取り出す</h3>
+      <pre><code>${#array[@]}</code></pre>
+
+      <h3>配列の要素を上書き</h3>
+      <pre><code>array[2]=4</code></pre>
+
+      <h1>制御文</h1>
+
+      <h3>if</h3>
+      <div class="row">
+        <div class="col-xs-4">
+          <pre><code>if [ 条件 ]; then
+  # 処理
+fi</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if [ 条件 ]; then
+  # 真の場合の処理
+else
+  # 偽の場合の処理
+fi</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if [ 条件 ]; then
+  # 真の場合の処理
+elif [ 条件 ]; then
+  # 真の場合の処理
+fi</code></pre>
+        </div>
+      </div>
+
+      <h2>case</h2>
+      <h3>条件分岐</h3>
+      <pre><code>case 値 in
+  パターン1 ) 処理1 ;;
+  パターン2 ) 処理2 ;;
+  ...
+  パターンn ) 処理n ;;
+esac</code></pre>
+
+      <h3>while</h3>
+      <p>条件が真の間繰り返す
+      <pre><code>while [ 条件 ]; do
+  # 処理
+done</code></pre>
+
+      <h3>until</h3>
+      <p>条件が偽の間繰り返す
+      <pre><code>until [ 条件 ]; do
+  # 処理
+done</code></pre>
+
+      <h3>for</h3>
+      <p>変数に値を入れながら繰り返す
+      <pre><code>for 変数 in 値リスト ; do
+  # 処理
+done</code></pre>
+
+      <h3>break</h3>
+      <p>ループを抜ける
+      <p><code>break 3</code>で多重ループも抜けられる。
+
+      <h3>continue</h3>
+      <p>ループを1回スキップ
+      <p><code>continue 2</code>のようにすると多重ループもスキップできる。
+
+      <h3>条件式評価</h3>
+      <pre><code>test [式]</code></pre>
+      <p><code>test</code>コマンドは真（0）か偽（1）のステータスを返す。
+      <p><code>[ 条件 ]</code>と略すことがある（その時<code>[ ]</code>の内側にはスペースを入れる）。
+      <p>以下の条件に一致したら真（0）が返される。
+      <p><code>num1 -eq num2</code>：num1とnum2が等しい（num1=num2）
+      <p><code>num1 -ne num2</code>：num1とnum2が等しくない（num1≠num2）
+      <p><code>num1 -lt num2</code>：num1がnum2より小さい（num1&lt;num2）
+      <p><code>num1 -le num2</code>：num1がnum2以下（num1≦num2）
+      <p><code>num1 -gt num2</code>：num1がnum2より大きい（num1&gt;num2）
+      <p><code>num1 -ge num2</code>：num1がnum2以上（num1≧num2）
+      <p><code>文字列1 = 文字列2</code>：文字列1と文字列2が等しい
+      <p><code>文字列1 != 文字列2</code>：文字列1と文字列2が等しくない
+      <p><code>条件式1 -a 条件式2</code>：AND条件（&amp;&amp;と表記することもできる）
+      <p><code>条件式1 -o 条件式2</code>：OR条件（||と表記することもできる）
+
+      <h3>関数</h3>
+      <p>関数の定義
+      <pre><code>関数名(引数1, 引数2...) {
+  # 処理
+  return 終了ステータス（成功：0・失敗：1）
+}</code></pre>
+      <p>関数の呼び出し（<code>()</code>を付ける必要はない）：
+      <pre><code>関数名 引数</code></pre>
+      <p>戻り値が存在しないため、<code>rtn=`func`</code>とコマンド置換を使い、出力を取得する。
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

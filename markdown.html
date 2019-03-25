@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Markdown</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Markdown</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+    <h1>見出し</h1>
+
+    <h3>h1 / h2 / h3 / h4 / h5 / h6</h3>
+    <pre><code># Title (h1)
+## Title (h2)
+### Title (h3)
+#### Title (h4)
+##### Title (h5)
+###### Title (h6)</code></pre>
+
+    <h3>h1 / h2</h3>
+    <pre><code>Title (h1)
+==========
+Title (h2)
+----------</code></pre>
+    <p><code>=, -</code>は1つ以上あれば良い。
+
+    <h1>段落 / 改行 / 水平線</h1>
+
+    <h3>p</h3>
+    <p>1行空ける。
+    <pre><code>Paragraph
+
+Paragraph</code></pre>
+
+    <h3>改行の扱い</h3>
+    <p>空行を入れずに改行をすると、連結して表示される（半角スペースが入る）
+    <pre><code>Paragraph
+Paragraph</code></pre>
+
+    <h3>br</h3>
+    <p>行末に半角スペースを2個以上入れる
+    <pre><code>Paragraph__
+Paragraph</code></pre>
+
+    <h3>hr</h3>
+    <p>3つ以上の - * _
+    <pre><code>---
+***
+___
+- - - </code></pre>
+
+    <h1>強調 / 引用 / コード</h1>
+
+    <h3>em（斜体）</h3>
+    <p>文字列を * _ で囲む
+    <pre><code>*em*</code></pre>
+
+    <h3>strong（太字）</h3>
+    <p>文字列を ** __ で囲む
+    <pre><code>**strong**</code></pre>
+
+    <h3>blockquote</h3>
+    <p>行頭に &gt; をつける
+    <pre><code>&gt; blockquote
+&gt; &gt; blockquote lv2</code></pre>
+
+    <h3>code</h3>
+    <p>文字列を ` で囲む`
+    <pre><code>`var x = 1;`
+
+`
+var x = 1;
+`</code></pre>
+
+    <h3>pre &gt; code</h3>
+    <p>半角スペース4文字でインデント / 上下行に ``` を書く
+    <pre class="markdown harf"><code>The code:
+    var x = 1;
+    var y = 2;</code></pre>
+    <pre class="markdown harf"><code>```
+var x = 1;
+var y = 2;
+```</code></pre>
+    <div class="clear"></div>
+    <p>開始の<code>```</code>の後に言語名を指定するとシンタックスハイライトしてくれるものもある。
+
+    <h1>リスト</h1>
+
+    <h3>ul &gt; li</h3>
+    <p>* + - を文字列の前につける
+    <pre><code>- item1
+- item2
+- item3
+    * item3-1
+    * item3-2
+        + item3-2-1</code></pre>
+
+    <h3>ol &gt; li</h3>
+    <p>数字. を文字列の前につける
+    <pre><code>1. item1
+2. item2
+3. item3</code></pre>
+    <p>数字の順番は適当でも順番通りに表示される。
+
+    <h1>リンク</h1>
+
+    <h3>自動リンク</h3>
+    <p>文字列を &lt; &gt; で囲む
+    <pre><code>&lt;https://www.google.co.jp&gt;</code></pre>
+    <p>メールアドレスにも対応（<code>mailto:</code>）
+
+    <h3>インラインリンク</h3>
+    <p>表示させたい文字列を [ ] で、URLを ( ) で囲む
+    <pre><code>[Google](https://www.google.co.jp)</code></pre>
+    <pre><code>[Google](https://www.google.co.jp "Title")</code></pre>
+    <p>URLの後に<code>title</code>属性（ツールチップ）を指定可能。メールアドレスは非対応。
+
+    <h3>外部参照リンク</h3>
+    <pre><code>[Google][1]
+[1]: https://www.google.co.jp</code></pre>
+    <pre><code>[Google][1]
+[1]: https://www.google.co.jp "Title"</code></pre>
+    <p>URLの後に<code>title</code>属性（ツールチップ）を指定可能。<code>title</code>属性は改行して書くことも可能。メールアドレスは非対応。
+
+    <h1>画像</h1>
+
+    <h3>img</h3>
+    <pre><code>![alt](img.jpg)</code></pre>
+    <p><code>[]</code>に何も書かなかった場合、<code>alt</code>属性は空欄となる。
+
+    <h3>img（外部参照）</h3>
+    <pre><code>![alt][1]
+[1]: img.jpg</code></pre>
+
+    <h3>a &lt; img</h3>
+    <pre><code>[![alt](img.jpg)](https://www.google.co.jp)</code></pre>
+    <p><code>a</code>のリンク文字列部分に画像を指定する。
+
+    <h1>インラインHTML / エスケープ</h1>
+
+    <h3>インラインHTML</h3>
+    <p>通常通りHTMLを書く
+    <pre><code>&lt;a href="https://www.google.co.jp" target="_blank"&gt;Google&lt;/a&gt;</code></pre>
+
+    <h3>エスケープ</h3>
+    <p>記号はバックスラッシュでエスケープ
+    <pre><code>\# Not h1</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>PHP</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">PHP</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>基本</h1>
+
+      <h3>&lt;?php ... ?&gt;</h3>
+      <p>PHPファイル内にはHTMLも共存できる。
+      <pre><code>&lt;?php
+  // 処理
+?&gt;</code></pre>
+      <p>PHPの終了タグはファイルの終了なら省略可能。
+
+      <h3>行末のセミコロン</h3>
+      <p>行末にはセミコロンを付ける
+      <pre><code>&lt;?php
+  echo "Hello, world!";
+?&gt;</code></pre>
+
+      <h1>文字列の表示</h1>
+
+      <h3>文字列を出力</h3>
+      <pre><code>echo "Hello, world!";</code></pre>
+      <pre><code>echo $message;</code></pre>
+      <pre><code>echo 10 / 5;</code></pre>
+      <p>末尾に改行はされない。
+
+      <h3>フォーマット化された文字列を出力</h3>
+      <p><code>printf("文字列", 変数1, 変数2...);</code>
+      <pre><code>$s = 'banana';
+$n = 40;
+$p = 5.23;
+printf("We have %d $ss for $%.2f", $n, $s, $p);    # We have 40 bananas for $5.23</code></pre>
+      <table>
+        <tr> <td>%d <td>整数
+        <tr> <td>%f <td>浮動小数点数
+        <tr> <td>%s <td>文字列
+      </table>
+      <p><code>%5d</code>と書くと、5桁まで表示する。
+      <p><code>%05d</code>と書くと、5桁まで表示する（5桁に満たない場合は0をつける）。
+      <p><code>%.2f</code>と書くと、小数点以下2桁まで表示する。
+      <p><code>sprintf</code>を使うと、文字列を表示するのではなく、返すだけになる。
+
+      <h3>変数のデータ型も含めて内容を表示</h3>
+      <pre><code>var_dump($message);</code></pre>
+
+      <h1>コメント</h1>
+
+      <h3>1行コメント</h3>
+      <pre><code>// コメント</code></pre>
+      <pre><code># コメント</code></pre>
+
+      <h3>複数行コメント</h3>
+      <pre><code>/* コメント */</code></pre>
+      <p>入れ子にはできない。
+
+    <h1>変数 / データ型</h1>
+
+      <h3>変数を代入</h3>
+      <pre><code>$message = "Hello, world!";</code></pre>
+      <ul>
+        <li>$から始まる
+        <li>英数字とアンダーバーが使用可能
+        <li>$の後は数字は使えない
+        <li>大文字小文字は区別される
+      </ul>
+
+      <h3>変数を取得</h3>
+      <pre><code>echo $msg;</code></pre>
+      <pre><code>echo "$msg";</code></pre>
+      <pre><code>echo "${msg}";</code></pre>
+
+      <h3>定数を代入</h3>
+      <pre><code>define("ADMIN_EMAIL", "example@gmail.com");</code></pre>
+      <p>定数名はすべて大文字。
+      <p>使用するときはそのまま書く：
+      <pre><code>echo ADMIN_EMAIL;</code></pre>
+
+      <h3>データ型</h3>
+      <ul>
+        <li>文字列
+        <li>数値（整数・小数）
+        <li>配列
+        <li>オブジェクト
+        <li>論理値（<code>true / false</code>）
+        <li><code>null</code>（空データ）
+      </ul>
+
+      <h3>文字列のダブルクォーテーションとシングルクォーテーション</h3>
+      <table>
+        <tr> <td>                         <td>変数展開 <td>特殊文字（<code>\n, \t</code>）
+        <tr> <td>ダブルクォーテーション   <td>○       <td>○
+        <tr> <td>シングルクォーテーション <td>×        <td>×
+      </table>
+
+      <h1>演算子</h1>
+
+      <h3>代数演算子</h3>
+      <table>
+        <tr> <td><code>+</code> <td>加算
+        <tr> <td><code>-</code> <td>減算
+        <tr> <td><code>*</code> <td>乗算
+        <tr> <td><code>/</code> <td>除算
+        <tr> <td><code>%</code> <td>剰余（除算の余り）
+      </table>
+      <p><code>()</code>で優先順位を指定可能。
+
+      <h3>文字列演算子</h3>
+      <table>
+        <tr> <td><code>.</code> <td>連結
+      </table>
+      <pre><code>echo "Hello, " . "world!";</code></pre>
+
+      <h3>単項演算子</h3>
+      <p>加算子（インクリメント） / 減算子（デクリメント）
+      <table>
+        <tr> <td><code>$変数++</code> <td>1を加え、変数を返す
+        <tr> <td><code>++$変数</code> <td>変数を返し、1を加える
+        <tr> <td><code>$変数--</code> <td>1を引き、変数を返す
+        <tr> <td><code>--$変数</code> <td>変数を返し、1を引く
+      </table>
+
+      <h3>代入演算子</h3>
+      <table>
+        <tr> <th>短縮した演算子       <th>意味
+        <tr> <td><code>x += y;</code> <td><code>x = x + y;</code>
+        <tr> <td><code>x -= y;</code> <td><code>x = x - y;</code>
+        <tr> <td><code>x *= y;</code> <td><code>x = x * y;</code>
+        <tr> <td><code>x /= y;</code> <td><code>x = x / y;</code>
+        <tr> <td><code>x %= y;</code> <td><code>x = x % y;</code>
+        <tr> <td><code>x .= y;</code> <td><code>x = x . y;</code>
+      </table>
+
+      <h3>比較演算子</h3>
+      <table>
+        <tr> <td><code>==</code>    <td>等しい
+        <tr> <td><code>!=</code>    <td>等しくない
+        <tr> <td><code>==</code>    <td>厳密に等しい
+        <tr> <td><code>!=</code>    <td>厳密には等しくない
+        <tr> <td><code>&gt;</code>  <td>左が右より大きい
+        <tr> <td><code>&lt;</code>  <td>左が右より小さい
+        <tr> <td><code>&gt;=</code> <td>左が右以上
+        <tr> <td><code>&lt;=</code> <td>左が右以下
+      </table>
+      <p>厳密に等しい・等しくないとは、型も含めて比較する。
+
+      <h3>論理演算子</h3>
+      <table>
+        <tr> <td><code>&amp;&amp;</code> <td>AND
+        <tr> <td><code>||</code>         <td>OR
+        <tr> <td><code>!</code>          <td>NOT
+      </table>
+      <p>例：
+      <pre><code>score &lt; 80 &amp;&amp; score &gt; 60    // 60より大きく80より小さい</code></pre>
+
+      <h1>条件分岐</h1>
+
+      <h3>if</h3>
+      <div class="row">
+        <div class="col-xs-4">
+          <pre><code>if (条件) {
+  真の場合の処理
+}</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件) {
+  真の場合の処理
+} else {
+  偽の場合の処理
+}</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件) {
+  真の場合の処理
+} elseif (条件) {
+  真の場合の処理
+} else {
+  偽の場合の処理
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-4">
+          <pre><code>if (条件):
+  真の場合の処理
+endif;</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件):
+  真の場合の処理
+else:
+  偽の場合の処理
+endif;</code></pre>
+        </div>
+        <div class="col-xs-4">
+          <pre><code>if (条件):
+  真の場合の処理
+elseif (条件):
+  真の場合の処理
+else:
+  偽の場合の処理
+endif;</code></pre>
+        </div>
+      </div>
+
+      <p>例：
+      <pre><code>$age = 23;
+if ($age &gt; 20){
+  echo "ok"
+}</code></pre>
+
+      <h3>三項演算子</h3>
+      <p><code>変数 = (条件) ? b : c</code>
+      <p>例：
+      <pre><code>b, c = 10, 20
+a = (b &gt; c) ? b : c    # 大きい方をaに代入</code></pre>
+
+      <h3>switch</h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <p>変数が値に一致した場合に実行する
+          <pre><code>switch (オブジェクト) {
+  case '値':           # 値に一致した場合
+    処理
+    break;
+  case '値':           # 複数の値を指定することも可能
+  case '値':
+    処理
+    break;
+  default:               # どの値にも一致しない場合
+    処理
+    break;
+}</code></pre>
+        </div>
+        <div class="col-xs-6">
+          <p>例：
+          <pre><code>$signal = 'red'
+switch ($signal) {
+  case 'red':
+    echo 'stop!';
+    break;
+  case 'blue':
+  case 'green':
+    echo 'go!';
+    break;
+  case 'yellow':
+    echo 'caution!'
+    break;
+  default:
+    echo 'wrong signal!';
+    break;
+}</code></pre>
+        </div>
+      </div>
+
+      <h1>繰り返し</h1>
+
+      <h3>while</h3>
+      <p>条件が真の間繰り返す
+      <pre><code>while (条件) {
+  処理
+}</code></pre>
+      <p>例：
+      <pre><code>$i = 0;
+while ($i &lt; 3) {
+  echo $i;
+  $i++;
+}</code></pre>
+
+      <h3>do-while</h3>
+      <p>条件が真の間繰り返す
+      <pre><code>do {
+  処理
+} while (条件);</code></pre>
+      <p>例：
+      <pre><code>$i = 0;
+do {
+  echo $i;
+  $i++;
+} while ($i &lt; 3);</code></pre>
+      <p>最低1回は実行される。
+
+      <h3>for</h3>
+      <p>繰り返す
+      <pre><code>for (変数初期化; 条件; 終了後の処理) {
+  処理
+}</code></pre>
+      <p>例：
+      <pre><code>for ($i = 0; $i &lt; 10; $i++) {
+  echo $i;
+}</code></pre>
+
+      <h3>break</h3>
+      <p>ループから抜ける
+
+      <h3>continue</h3>
+      <p>ループを1回スキップ
+
+      <h3>foreach（配列）</h3>
+      <p>配列をループ
+      <pre><code>foreach ($配列 as $変数){
+  処理
+}</code></pre>
+      <p>例：
+      <pre><code>foreach ($youbi as $y){
+  echo $y;
+}</code></pre>
+
+      <h3>foreach（連想配列）</h3>
+      <p>連想配列をループ
+      <pre><code>foreach ($連想配列 as $変数1 =&gt; 変数2){
+  処理
+}</code></pre>
+      <p>例：
+      <pre><code>foreach ($sales as $key =&gt; $value){
+  echo $key, $value;
+}</code></pre>
+
+      <h1>配列</h1>
+
+      <h3>配列の代入</h3>
+      <pre><code>$youbi = array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");</code></pre>
+
+      <h3>配列の指定番目の要素を取得</h3>
+      <pre><code>echo $youbi[0];</code></pre>
+      <p>添字は0から始まる。
+
+      <h3>配列の値を変更</h3>
+      <pre><code>$youbi[0] = "Sunday";</code></pre>
+
+      <h3>配列の末尾に要素を追加</h3>
+      <pre><code>$youbi[] = "Sun";</code></pre>
+
+      <h3>要素を削除</h3>
+      <pre><code>unset($youbi[1]);</code></pre>
+      <p>他の要素の添字は変更されない。
+
+      <h1>連想配列</h1>
+
+      <h3>連想配列の代入</h3>
+      <pre><code>$sales = array("yamada"=&gt;100, "tanaka"=&gt;200);</code></pre>
+
+      <h3>配列の指定キーの要素を取得</h3>
+      <pre><code>echo $sales["yamada"];</code></pre>
+
+      <h3>配列の値を変更</h3>
+      <pre><code>$sales["yamada"] = 300;</code></pre>
+
+      <h3>要素を削除</h3>
+      <pre><code>unset($sales["yamada"]);</code></pre>
+
+      <h1>関数</h1>
+
+      <h3>関数の定義</h3>
+      <pre><code>function 関数名($変数1, $変数2...) {
+  処理
+}</code></pre>
+      <p>例：
+      <pre><code>function hello($name) {
+  echo "Hello, $name";
+}</code></pre>
+
+      <h3>関数の実行</h3>
+      <pre><code>関数名(引数1, 引数2...);</code></pre>
+      <p>例：</p>
+      <pre><code>hello("yamada");</code></pre>
+
+      <h3>返り値</h3>
+      <p>関数内で<code>return</code>を使用して、返り値を指定できる。
+      <pre><code>return 'Hello!';</code></pre>
+
+      <h3>初期値</h3>
+      <p>関数呼び出し時に引数が設定されなかった場合の値
+      <pre><code>function($変数 = 初期値) {
+}</code></pre>
+      <p>例：</p>
+      <pre><code>function($name = "yamada") {
+}</code></pre>
+
+      <h3>返り値付き関数の実行</h3>
+      <pre><code>$foo = hello();</code></pre>
+      <pre><code>echo hello();</code></pre>
+
+
+      <h3>ローカル変数</h3>
+      <p>関数内で宣言した関数は、その関数内でしか利用できない。また、関数外の変数を関数内では利用できない。
+
+      <h1>組み込み関数</h1>
+
+      <h3>文字列関数</h3>
+      <table>
+        <tr> <td>関数                    <td>説明                     <td>備考
+        <tr> <td>strlen(s)               <td>バイト数                 <td>
+        <tr> <td>strpos(s, c)            <td>指定文字の出現場所       <td rowspan="2">添字は0から始まる
+        <tr> <td>substr(s, n1)           <td>指定文字目以降
+        <tr> <td>substr(s, n1, n2)       <td>指定文字目から指定文字数 <td>-は末尾から<br>添字は0から始まる
+        <tr> <td>str_replace(s1, s2, s3) <td>s3の中のs1をs2に置換     <td>
+      </table>
+      <p><code>mb_strlen(s)</code>のように<code>mb_</code>をつけると、マルチバイト文字に対応する。
+
+      <h3>数学関数</h3>
+      <table>
+        <tr> <td>abs(n)          <td>絶対値   <td>
+        <tr> <td>ceil(n)         <td>切り上げ <td>
+        <tr> <td>floor(n)        <td>切り捨て <td>
+        <tr> <td>round(n)        <td>四捨五入 <td>
+        <tr> <td>pi()            <td>円周率   <td>
+        <tr> <td>mt_rand(n1, n2) <td>乱数     <td>指定範囲内
+      </table>
+
+      <h3>配列関数</h3>
+      <table>
+        <tr> <td>count(a)        <td>要素数                     <td>
+        <tr> <td>sort(a)         <td>並べ替え                   <td>
+        <tr> <td>in_array(ns, a) <td>存在するか                 <td>true / false
+        <tr> <td>implode(s, a)   <td>配列を指定区切り文字で出力 <td>
+        <tr> <td>explode(s, a)   <td>配列に指定区切り文字で変換 <td>
+      </table>
+
+      <h3>日付/時刻関数</h3>
+      <table>
+        <tr> <td>time()                            <td>現在時刻をUNIX出力     <td>
+        <tr> <td>mktime(時, 分, 秒, 月, 日, 年)    <td>指定時刻をUNIX出力     <td>
+        <tr> <td>strtotime(時, 分, 秒, 月, 日, 年) <td>指定時刻をUNIX出力     <td>
+        <tr> <td>date(s, t)                        <td>指定フォーマットに変換 <td>tを省略時は現在時刻
+      </table>
+      <p>時刻はPHPではUNIXタイムスタンプで扱われる。
+      <table>
+        <tr> <th colspan="2">strtotimeの指定可能書式
+        <tr> <td>2001/01/01 00:00:00  <td>now
+        <tr> <td>2001-01-01 00:00:00  <td>tomorrow
+        <tr> <td>Jan 1, 2001 00:00:00 <td>+2 day
+        <tr> <td>1 Jan 2001 00:00:00  <td>last Monday
+        <tr> <td>2014-2-4 1.14 pm     <td>next Month
+      </table>
+      <table>
+        <tr> <th colspan="4">dateの指定可能書式
+        <tr> <td colspan="4">例：<code>date("Y-m-d H:i:s")</code>
+        <tr> <td>d      <td>2桁の日           <td>L <td>うるう年(0/1)
+        <tr> <td>j      <td>1-2桁の日         <td>Y <td>年(4桁)
+        <tr> <td>D      <td>3文字の曜日       <td>y <td>年(2桁)
+        <tr> <td>l(小L) <td>曜日              <td>a <td>am / pm
+        <tr> <td>w      <td>曜日(日0-月6)     <td>A <td>AM / PM
+        <tr> <td>N      <td>曜日(月1-日7)     <td>g <td>12時間制の時(1-12)
+        <tr> <td>S      <td>序数(st,nd,rd,th) <td>G <td>24時間制の時(0-23)
+        <tr> <td>z      <td>年間通算日(0-365) <td>h <td>24時間制の時(01-12)
+        <tr> <td>W      <td>年の週番号        <td>H <td>24時間制の時(00-23)
+        <tr> <td>F      <td>英語月            <td>i <td>分(00-59)
+        <tr> <td>M      <td>英語月(3文字)     <td>s <td>秒(00-59)
+        <tr> <td>m      <td>月(01-12)         <td>c <td>2001-01-01T00:00:00+00:00
+        <tr> <td>n      <td>月(1-12)          <td>r <td>Mon, 01 Jan 2001 00:00:00 +0000
+        <tr> <td>t      <td>月の日数(28-31)   <td>U <td>UNIX秒(1970/1/1からの秒数)
+      </table>
+
+      <h1>ファイル読み書き</h1>
+
+      <h3>ファイルの書き込み</h3>
+      <pre><code>$file = 'test.txt';
+$contents = 'text'
+file_put_contents($file, $contents);</code></pre>
+      <p><code>fopen(), fwrite(), fclose()</code>を自動で実行する。ファイルが存在しない場合は作成し、存在する場合は上書きする。
+      <p>フラグも使用できる（<code>FILE_APPEND</code>：追記、<code>LOCK_EX</code>：同時書き込み禁止）：
+      <pre><code>file_put_contents($file, $contents, FILE_APPEND | LOCK_EX);</code></pre>
+
+      <h3>ファイルの読み込み</h3>
+      <pre><code>$contents = file_get_contents("test.txt");</code></pre>
+      <pre><code>$contents = file_get_contents("http://www.example.com/");</code></pre>
+
+      <h3>ファイルを読み込んで1行ごとに配列で返す</h3>
+      <pre><code>$contents = file("test.txt");</code></pre>
+
+      <h1>フォーム処理</h1>
+
+      <h3>HTMLのPOSTからPHPにデータを受け取る</h3>
+      <pre><code>&lt;form action="get_info.php" method="post"&gt;
+  &lt;input type="text" name="birthday" value=""&gt;
+  &lt;input type="submite" value="送信"&gt;
+&lt;/form&gt;</code></pre>
+      <pre><code>&lt;?php
+$birthday = $_POST['birthday'];
+$youbi = date("l", strtotime($birthday));
+?&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;PHP&lt;/title&gt;
+&lt;p&gt;&lt;?php echo htmlspecialchars($youbi); ?&gt;&lt;/p&gt;</code></pre>
+    <p>文字をエスケープするために<code>htmlspecialchars()</code>を使う。
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

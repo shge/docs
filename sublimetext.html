@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Sublime Text</title>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">Sublime Text</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>スニペット</h1>
+
+      <h3>スニペット作成</h3>
+      <p>Tools → New Snippet... を選択
+      <pre><code>&lt;snippet&gt;
+  &lt;content&gt;&lt;![CDATA[ここに呼び出すものを書く]]&gt;&lt;/content&gt;
+  &lt;tabTrigger&gt;呼び出し名&lt;/tabTrigger&gt;
+  &lt;scope&gt;Command-Option-pでステータスバーに出るscopeを入れる&lt;/scope&gt;
+  &lt;description&gt;説明&lt;/description&gt;
+&lt;/snippet&gt;</code></pre>
+      <p><code>~/Library/Application Support/Sublime Text 3/Packages/User/xxx.sublime-snippet</code>という名前で保存する
+
+      <h3>フォーカス</h3>
+      <pre><code>&lt;![CDATA[&lt;!DOCTYPE html&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;$1&lt;/title&gt;
+&lt;link rel="stylesheet" href="${2:style}.css"&gt;
+&lt;script src="${3:script}.js"&gt;&lt;/script&gt;
+
+$0]]&gt;</code></pre>
+      <p><code>$1</code>：最初にフォーカス
+      <p><code>$2</code>：2回目にフォーカス
+      <p><code>$0</code>：最後にフォーカス
+      <p><code>${1:default}</code>：初期値設定
+      <p><kbd>Tab</kbd> で移動できる
+
+      <h3>エスケープ</h3>
+      <p><code>$</code>は<code>\$</code>と書く
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

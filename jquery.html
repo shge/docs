@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>jQuery</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">jQuery</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>基本</h1>
+
+      <pre><code>$('セレクタ').メソッド(パラメータ);</code></pre>
+      <p>例：
+      <pre><code>$('p').css('color', 'red');</code></pre>
+      <p>メソッドチェーン：メソッドをつなげて書いたもの（例：<code>$('p').css('color', 'red').hide('slow');</code>
+
+      <h1>セレクタ / フィルタ</h1>
+
+      <h3>セレクタ指定</h3>
+      <pre><code>$('#main')</code></pre>
+      <pre><code>$('.sub')</code></pre>
+      <p><code>&gt; + , ~ [] [=""] [!=""] [*=""] [^=""] [$=""]</code>などが使用可能。
+      <p>ここで得られるオブジェクトはjQuery独自のものである。
+      <p><code>getElement...</code>と同じオブジェクトを得るには、<code>$("#foo").get(0);</code>または<code>$("#foo")[0];</code>とする。
+
+      <h3>指定個目の要素</h3>
+      <pre><code>$('#main &gt; li:eq(2)');</code></pre>
+      <p><code>n</code>は0から始まる。
+
+      <h3>最初 / 最後</h3>
+      <pre><code>$('#main &gt; li:first');</code></pre>
+      <pre><code>$('#main &gt; li:last');</code></pre>
+
+      <h3>nより大きい / 小さい</h3>
+      <pre><code>$('#main &gt; li:gt(2)');</code></pre>
+      <pre><code>$('#main &gt; li:lt(2)');</code></pre>
+      <p><code>n</code>は0から始まる。
+
+      <h3>偶数 / 奇数</h3>
+      <pre><code>$('#main &gt; li:even');</code></pre>
+      <pre><code>$('#main &gt; li:odd');</code></pre>
+      <p>個数のカウントは0から始まるため、1個目の要素は偶数となる。
+
+      <h3>要素の内容に含まれている</h3>
+      <pre><code>$('#main &gt; li:contains("foo")');</code></pre>
+      <p><code>n</code>は0から始まる。
+
+      <h1>メソッド - CSS / 属性</h1>
+
+      <h3>要素のCSSを取得 / 変更</h3>
+      <p>CSSを取得：
+      <pre><code>$('#sub').css('color');</code></pre>
+      <p>CSSを変更：
+      <pre><code>$('#sub').css('color', 'red');</code></pre>
+      <p>CSSを変更（複数）：
+      <pre><code>$('#sub').css({'color': 'red', 'text-decoration': 'none' });</code></pre>
+
+      <h3>幅を取得 / 変更</h3>
+      <p>幅を取得：
+      <pre><code>$('#sub').width();    // 150</code></pre>
+      <p>幅を変更：
+      <pre><code>$('#sub').width(150);</code></pre>
+      <pre><code>$('#sub').width('150px');</code></pre>
+      <p><span class="glyphicon glyphicon-info-sign"></span> <code>$('#sub').css('width');</code>では<code>px</code>付きの数値が返される。
+
+      <h3>classを追加</h3>
+      <pre><code>$('#sub').addClass('nav');</code></pre>
+      <p>スペースで区切って複数指定できる。
+
+      <h3>classを削除</h3>
+      <pre><code>$('#sub').removeClass('nav');</code></pre>
+
+      <h3>classの追加 / 削除を交互に行う</h3>
+      <pre><code>$('#sub').toggleClass('nav');</code></pre>
+
+      <h3>指定classがあるかどうか</h3>
+      <pre><code>if ($('p').hasClass('text'))</code></pre>
+
+      <h3>属性を取得 / 変更</h3>
+      <p>属性を取得：
+      <pre><code>$('#sub').attr('href');    // foo.html</code></pre>
+      <pre><code>$('#sub').attr('checked');    // undefind / "checked"</code></pre>
+      <p>属性を変更：
+      <pre><code>$('#sub').attr('href', 'foo.html');</code></pre>
+      <pre><code>$('#sub').attr('checked', 'checked');</code></pre>
+
+      <h3>プロパティを取得 / 変更</h3>
+      <p>プロパティを取得：
+      <pre><code>$('#sub').prop('href');    // http://www.example.com/foo.html</code></pre>
+      <pre><code>$('#sub').prop('checked');    // false / true</code></pre>
+      <p>プロパティを変更：
+      <pre><code>$('#sub').prop('href', 'foo.html');</code></pre>
+      <pre><code>$('#sub').prop('checked', true);</code></pre>
+
+      <h3>attrとpropの違い</h3>
+      <table>
+        <tr> <th>                  <th colspan="2"><code>&lt;input type="checkbox"&gt;</code> <th colspan="2"><code>&lt;input type="checkbox" checked&gt;</code>
+        <tr> <td>現在の状態        <td><input type="checkbox"> <td><input type="checkbox" checked> <td><input type="checkbox"> <td><input type="checkbox" checked>
+        <tr> <td><code>attr</code> <td colspan="2"><code>undefined</code> <td colspan="2"><code>"checked"</code>
+        <tr> <td><code>prop</code> <td><code>false</code> <td><code>true</code> <td><code>false</code> <td><code>true</code>
+      </table>
+      <table>
+        <tr> <th>                  <th><code>&lt;a href="foo.html"&gt;</code>
+        <tr> <td><code>attr</code> <td><code>"foo.html"</code>
+        <tr> <td><code>prop</code> <td><code>"http://www.example.com/foo.html"</code>
+      </table>
+
+      <h3>要素のdata属性を取得</h3>
+      <pre><code>&lt;div data-foo="bar"&gt;&lt;/div&gt;</code></pre>
+      <pre><code>console.log($('a').data('foo'));</code></pre>
+      <p>暗黙の型変換がされる（<code>"007"</code>→<code>7</code>）。
+      <p>data属性を変更するときは、ネイティブのJavaScriptで行う。例：
+      <pre><code>var d = e.dataset.foo;</code></pre>
+      <pre><code>e.dataset.foo = 'hoge';</code></pre>
+      <p><code>dataset</code>はキャメルケース（<code>data-dog-breed</code>→ <code>dogBreed</code>）を使用する。
+
+      <h1>メソッド - 要素指定</h1>
+
+      <h3>親要素 / すべての子要素</h3>
+      <pre><code>$('#sub').parent();</code></pre>
+      <pre><code>$('#sub').children();</code></pre>
+
+      <h3>前 / 次の要素</h3>
+      <pre><code>$('#sub li:eq(2)').prev();</code></pre>
+      <pre><code>$('#sub li:eq(2)').next();</code></pre>
+
+      <h3>最初 / 最後の要素</h3>
+      <pre><code>$('#sub li').first();</code></pre>
+      <pre><code>$('#sub li').last();</code></pre>
+
+      <h3>指定要素以外の同階層の要素すべて</h3>
+      <pre><code>$('#sub li:eq(2)').siblings();</code></pre>
+
+      <h1>メソッド - DOM操作</h1>
+
+      <h3>タグの中身を取得 / 変更</h3>
+      <pre><code>$('p').text();    // タグは削除して表示される</code></pre>
+      <pre><code>$('p').text('foo');    // &lt;, &gt;, &amp;はエスケープされる</code></pre>
+
+      <h3>タグの中身を取得 / 変更</h3>
+      <pre><code>$('p').html();    // タグもそのまま表示される</code></pre>
+      <pre><code>$('p').html('&lt;a href="#"&gt;foo&lt;/a&gt;')    // エスケープされずに変更される;</code></pre>
+
+      <h3>input, textareaの値を取得 / 変更</h3>
+      <pre><code>$('input').val();</code></pre>
+      <pre><code>$('input').val('foo');</code></pre>
+
+      <h3>タグの中身を削除</h3>
+      <pre><code>$('p').empty();</code></pre>
+
+      <h3>要素を削除</h3>
+      <pre><code>$('p').remove();</code></pre>
+
+      <h3>カレント要素の前 / 後に指定要素を追加</h3>
+      <pre><code>$('.foo').before($('&lt;p&gt;').text('foo'));</code></pre>
+      <pre><code>$('.foo').after($('&lt;p&gt;').text('foo'));</code></pre>
+      <p><code>.foo</code>の前 / 後に<code>&lt;p&gt;foo&lt;/p&gt;</code>が挿入される。
+
+      <h3>指定要素をカレント要素の前 / 後に追加</h3>
+      <pre><code>$('&lt;p&gt;').text('foo').insertBefore($('.foo'));</code></pre>
+      <pre><code>$('&lt;p&gt;').text('foo').insertAfter($('.foo'));</code></pre>
+      <p><code>&lt;p&gt;foo&lt;/p&gt;</code>が<code>.foo</code>の前 / 後に挿入される。
+
+      <h3>カレント要素の子要素として、指定要素を先頭 / 末尾に追加</h3>
+      <pre><code>$('div').prepend($('&lt;p&gt;').text('foo'));</code></pre>
+      <pre><code>$('div').append($('&lt;p&gt;').text('foo'));</code></pre>
+      <p><code>div</code>内の前 / 後に<code>&lt;p&gt;foo&lt;/p&gt;</code>が挿入される。
+
+      <h3>指定要素を子要素として、カレント要素を先頭 / 末尾に追加</h3>
+      <pre><code>$('&lt;p&gt;').text('foo').prependTo('div');</code></pre>
+      <pre><code>$('&lt;p&gt;').text('foo').appendTo('div');</code></pre>
+      <p><code>&lt;p&gt;foo&lt;/p&gt;</code>が<code>div</code>内の前 / 後に挿入される。
+
+      <h3>カレント要素を1つずつ指定要素で囲む</h3>
+      <pre><code>$('p').wrap('&lt;div&gt;&lt;/div&gt;');</code></pre>
+
+      <h3>すべてのカレント要素を1つの指定要素で囲む</h3>
+      <pre><code>$('p').wrapAll('&lt;div&gt;&lt;/div&gt;');</code></pre>
+
+      <h3>カレント要素の子要素を指定要素で囲む</h3>
+      <pre><code>$('p').wrap('&lt;b&gt;&lt;/b&gt;');</code></pre>
+
+      <h1>メソッド - エフェクト</h1>
+
+      <h3>要素を表示 / 非表示</h3>
+      <pre><code>$('p').show();</code></pre>
+      <pre><code>$('p').hide();</code></pre>
+      <p><code>slow, fast</code>を指定したり、数値（ミリ秒）を指定したりできる。
+
+      <h3>表示 / 非表示を切り替える</h3>
+      <pre><code>$('p').toggle();</code></pre>
+      <p><code>slow, fast</code>を指定したり、数値（ミリ秒）を指定したりできる。
+
+      <h3>要素をアニメーションしながら表示 / 非表示</h3>
+      <pre><code>$('p').fadeIn();</code></pre>
+      <pre><code>$('p').fadeOut();</code></pre>
+      <p><code>slow, fast</code>を指定したり、数値（ミリ秒）を指定したりできる。
+
+      <h3>CSSをアニメーションしながら変更</h3>
+      <pre><code>$('img').animate({ "height" : "100px" });</code></pre>
+      <pre><code>$('img').animate({ "height" : "100px" }, "slow");</code></pre>
+      <pre><code>$('img').animate({ "height" : "100px" }, "swing");</code></pre>
+      <p>第2引数に<code>slow, fast</code>を指定したり、数値（ミリ秒）を指定したりできる。
+      <p>第3引数に<code>linear, swing</code>を指定できる。
+
+      <h1>メソッド - イベント</h1>
+
+      <h3>イベント実行時に実行</h3>
+      <pre><code>$().on('イベント', function() {
+  // 処理
+});</code></pre>
+      <pre><code>$().on({
+  イベント1: function() {
+    // 処理
+  }, イベント2: function() {
+    // 処理2
+}
+});</code></pre>
+      <p>イベント一覧はHTMLのページを参照
+
+      <h1>Ajax</h1>
+
+      <h3>カレント要素にファイル内容を読み込む</h3>
+      <pre><code>$('#result').load('more.html');</code></pre>
+      <pre><code>$('#result').load('more.html', function() {
+  // 終了後の処理（コールバック関数）
+});</code></pre>
+
+      <h3>ファイル内容を読み込む（get）</h3>
+      <pre><code>$.get('greet.php', {
+  name: $('#name').val()
+}, function(data) {
+  $('$result').html(data);
+});</code></pre>
+
+      <h3>JSONファイルを読み込む</h3>
+      <pre><code>$.getJSON('greet.php', {
+  name: $('#name').val()
+}, function(data) {
+  $('$result').html(data);
+});</code></pre>
+
+      <h3>ファイル内容を読み込む</h3>
+      <pre><code>$.ajax({
+  url:"greet.php",
+  type: "POST",    // 通信方法（デフォルト："GET"）
+  data: {"id": 8},    // JSON形式 または GET形式（"key1=value1&amp;key2=value2"）
+  cache: false,    // キャッシュ（デフォルト：true）
+  async: false    // 非同期通信にする（デフォルト：true）
+})
+  .done(function(data) {
+    alert('Success!');
+  })
+  .fail(function() {
+    alert('Error!');
+  });</code></pre>
+
+      <h1>CDN</h1>
+
+      <h3>jQuery</h3>
+      <p><a href="https://developers.google.com/speed/libraries/devguide?hl=ja" target="_blank">Google Hosted Libraries</a>
+      <pre><code>&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h3>jQueryプラグインCDN</h3>
+      <p><a href="http://cdnjs.com" target="_blank">cdnjs</a>
+      <p><a href="http://www.jsdelivr.com" target="_blank">jsDelivr</a>
+
+      <h1>プラグイン</h1>
+
+      <h3><a href="http://leanmodal.finelysliced.com.au/" target="_blank">leanModal</a></h3>
+      <p>モーダルダイアログを表示</p>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#leanModalSrc">サンプルコードを表示</button>
+      <div class="modal fade" id="leanModalSrc" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title">leanModalのサンプルコード</h4>
+            </div>
+            <div class="modal-body">
+              <pre><code>&lt;script src="http://cdn.jsdelivr.net/jquery.leanmodal/1.1/jquery.leanmodal.min.js"&gt;&lt;/script&gt;</code></pre>
+              <pre><code>&lt;a href="#foo" rel="leanModal"&gt;&lt;/a&gt;
+&lt;div id="foo"&gt;
+  &lt;p&gt;test&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+              <pre><code>#lean_overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none;
+}</code></pre>
+              <pre><code>$(function() {
+  $("a[rel*=leanModal]").leanModal();
+});</code></pre>
+              <pre><code>$(function() {
+  $("a[rel*=leanModal]").leanModal({ top: 50 }); // 上からの距離を指定
+});</code></pre>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+            </div>
+          <!-- /.modal-content --></div>
+        <!-- /.modal-dialog --></div>
+      <!-- /.modal --></div>
+
+      <h3><a href="http://www.mathjax.org/" target="_blank">MathJax</a></h3>
+      <p>数式を表示
+      <p>ダブルクォーテーションでLaTex式を囲む。
+      <pre><code>&lt;script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"&gt;&lt;/script&gt;</code></pre>
+      <p><a href="http://www.mathjax.org/demos/scaling-math/" target="_blank">デモ</a>
+      <p><a href="http://checkmyworking.com/misc/makebigmaths/" target="_blank">デモ2</a>
+
+      <h3><a href="https://flowplayer.org/player/" target="_blank">Flowplayer</a></h3>
+      <p>HTML5ビデオプレーヤー</p>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#flowplayerSrc">サンプルコードを表示</button>
+      <div class="modal fade" id="flowplayerSrc" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+              <h4 class="modal-title">Flowplayerのサンプルコード</h4>
+            </div>
+            <div class="modal-body">
+              <pre><code>&lt;link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/flowplayer/5.4.6/skin/minimalist.min.css"&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/flowplayer/5.4.6/flowplayer.min.js"&gt;&lt;/script&gt;</code></pre>
+<pre><code>&lt;div class="flowplayer"&gt;
+  &lt;video&gt;
+    &lt;source type="video/webm" src="movie.webm"&gt;
+    &lt;source type="video/mp4"  src="movie.mp4"&gt;
+  &lt;/video&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+            </div>
+          <!-- /.modal-content --></div>
+        <!-- /.modal-dialog --></div>
+      <!-- /.modal --></div>
+      <h4>速度の変更</h4>
+      <p>再生中に <kbd>Shift</kbd> と左右矢印キーを押す
+      <h4>Videoタグの属性</h4>
+      <table>
+        <tr> <td><code>autoplay</code>  <td>自動再生
+        <tr> <td><code>loop</code>      <td>ループ
+        <tr> <td><code>data-logo</code> <td>ロゴのURLを指定
+      </table>
+      <pre><code>&lt;video autoplay loop&gt;</code></pre>
+      <h4>divのclass</h4>
+      <table>
+        <tr> <td><code>no-volume</code>     <td>音量変更スライダーを非表示
+        <tr> <td><code>no-mute</code>       <td>ミュートボタンを非表示
+        <tr> <td><code>no-background</code> <td>コントローラーの背景を非表示
+      </table>
+      <h4>JavaScriptのconf</h4>
+      <pre><code>flowplayer.conf = {
+  tooltip: false,    // ツールチップを非表示
+  splash: true,    // コントローラーを再生するまで非表示
+  fullscreen: false    // フルスクリーンボタンを非表示
+};</code></pre>
+      <h4>スキン</h4>
+      <ul>
+        <li><code>http://cdnjs.cloudflare.com/ajax/libs/flowplayer/5.4.6/skin/minimalist.min.css</code>
+        <li><code>http://cdnjs.cloudflare.com/ajax/libs/flowplayer/5.4.6/skin/functional.min.css</code>
+        <li><code>http://cdnjs.cloudflare.com/ajax/libs/flowplayer/5.4.6/skin/playful.min.css</code>
+      </ul>
+      <h4>ロゴを非表示</h4>
+      <pre><code>a[href="http://flowplayer.org"] {
+  visibility: hidden;
+}</code></pre>
+
+      <h3><a href="http://www.highcharts.com/" target="_blank">Highcharts</a></h3>
+      <p>グラフを表示
+      <p><a href="http://www.highcharts.com/demo" target="_blank">デモ</a>
+      <p><a href="http://www.highcharts.com/docs" target="_blank">ドキュメント</a>
+      <p><a href="http://api.highcharts.com/highcharts" target="_blank">APIドキュメント</a>
+      <pre><code>&lt;script src="http://cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.4/highcharts.js"&gt;&lt;/script&gt;</code></pre>
+      <h4>グラフで順序が逆になったときに戻す</h4>
+      <pre><code>legend: { reversed: true }</code></pre>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

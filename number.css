@@ -1,0 +1,31 @@
+.col-xs-12 {
+  margin-top: 80px;
+}
+
+.inputp {
+  height: 100px;
+  text-align: center;
+}
+
+.input {
+  font-size: 55px;
+  width: 280px;
+  height: 100%;
+  margin: 150px auto;
+  text-align: center;
+}
+
+.disp {
+  font-size: 55px;
+  width: 280px;
+  height: 100%;
+  margin: 70px auto;
+  text-align: center;
+}
+
+.btn-start {
+  font-size: 45px;
+  width: 280px;
+  height: 100%;
+  margin: 150px auto;
+}

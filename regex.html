@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>正規表現</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">正規表現</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>基本</h1>
+
+      <h3>文字列を含む</h3>
+      <pre><code>/文字列/</code></pre>
+
+      <h1>メタ文字</h1>
+
+      <h3>どれかの文字</h3>
+      <pre><code>foo[abc]bar</code></pre>
+      <pre><code>foo[a-c]bar    # 範囲</code></pre>
+      <pre><code>foo[^abc]bar    # a, b, c以外</code></pre>
+
+      <h3>任意の1文字</h3>
+      <pre><code>foo.bar    # 任意の1文字</code></pre>
+      <pre><code>foo...bar    # 任意の3文字</code></pre>
+
+      <h3>行頭 / 行末</h3>
+      <pre><code>^foo    # 行頭</code></pre>
+      <pre><code>foo$    # 行末</code></pre>
+      <pre><code>^foo$    # 一致</code></pre>
+
+      <h3>直前の文字の繰り返し回数</h3>
+      <pre><code>0{2}    # 2文字（00）</code></pre>
+      <pre><code>0{2,}    # 2文字以上（00, 000, 000000）</code></pre>
+      <pre><code>0{2,4}    # 2〜4文字（00, 000, 0000）</code></pre>
+      <pre><code>[a-z]{6,8}    # 6〜8文字の英小文字</code></pre>
+
+      <h3>直前の文字が0文字または1文字</h3>
+      <pre><code>do?g    # dog, dg</code></pre>
+
+      <h3>直前の文字が0文字以上</h3>
+      <pre><code>go*gle    # ggle, gooooogle</code></pre>
+
+      <h3>直前の文字が1文字以上</h3>
+      <pre><code>goo+gle    # google, gooooogle</code></pre>
+
+      <h3>文字をグループ化</h3>
+      <pre><code>(abc)+    # abc, abcabc, abcabcabc</code></pre>
+
+      <h3>どれかの文字列</h3>
+      <pre><code>(abc|def)    # abc, def</code></pre>
+
+      <h3>バックスラッシュから始まるメタ文字</h3>
+      <table>
+        <tr> <td><code>\n</code>        <td>改行
+        <tr> <td><code>\t</code>        <td>タブ
+        <tr> <td><code>\d</code>        <td>数字（<code>[0-9]</code>）
+        <tr> <td><code>\D</code>        <td>数字以外（<code>[^\d]</code>）
+        <tr> <td><code>\w</code>        <td>英数字・アンダースコア（<code>[a-zA-Z0-9_]</code>）
+        <tr> <td><code>\W</code>        <td>英数字・アンダースコア以外（<code>[^\w]</code>）
+        <tr> <td><code>\s</code>        <td>スペース・タブ・改行（<code>[ \t\n\r\f\v]</code>）
+        <tr> <td><code>\S</code>        <td>スペース・タブ・改行以外（<code>[^\s]</code>）
+        <tr> <td><code>\メタ文字</code> <td>メタ文字をエスケープ（例：<code>^\^_\^$</code>）
+      </table>
+
+
+      <h1>フラグ</h1>
+
+      <h3>フラグ</h3>
+      <pre><code>/正規表現/フラグ</code></pre>
+      <table>
+        <tr> <td><code>i</code> <td>大文字小文字を区別しない
+        <tr> <td><code>g</code> <td>すべてのマッチした要素を配列で返す
+        <tr> <td><code>m</code> <td>複数行として扱う
+      </table>
+
+      <h1>例</h1>
+
+      <h3>Twitter ID</h3>
+      <p><code>/@([A-Za-z0-9_]{1,15})/</code>
+
+      <h3>タグ（title）の抽出</h3>
+      <p><code>/&lt;title&gt;([^&lt;]+)&lt;\/title&gt;</code>
+
+      <h3>日付の抽出</h3>
+      <p><code>/\d{4}[-\/]\d{2}[-\/]\d{2}/</code>
+      <p>年月日を配列で：<code>/(\d{4})[-\/](\d{2})[-\/](\d{2})/</code>
+      <p><code>YYYY-MM-DD</code>と<code>YYYY/MM/DD</code>に対応。
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>

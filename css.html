@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>CSS</title>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+<link rel="stylesheet" href="style.css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.7.0/jquery.tocify.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+<script src="script.js"></script>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a class="navbar-brand">CSS</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav" id="menu"></ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <div id="toc" style="margin-top:50px;width:230px;"></div>
+    <!-- /.col-md-3 --></div>
+
+    <div class="col-xs-9">
+
+      <h1>セレクタ</h1>
+
+      <table>
+        <tr> <td>記号 <td>適用要素 <td>備考
+        <tr> <td><code>*</code> <td>すべての要素 <td>
+        <tr> <td><code>div</code> <td>div要素 <td>
+        <tr> <td><code>div[class]</code> <td>class属性を持つdiv要素 <td>
+        <tr> <td><code>div[class="foo"]</code> <td>値がfooだけのclass属性を持つdiv要素 <td>値はfooのみ
+        <tr> <td><code>div[class-="foo"]</code> <td>値にfooが1つでもあるclass属性を持つdiv要素 <td>いくつでも可
+        <tr> <td><code>a:link</code> <td>未訪問のリンクのアンカーであるa要素 <td>
+        <tr> <td><code>a:visited</code> <td>訪問済みのリンクのアンカーであるa要素 <td>
+        <tr> <td><code>a:hover</code> <td>a要素にカーソルを合わせたとき <td>
+        <tr> <td><code>a:active</code> <td>a要素のクリック時 <td>クリックしている間適用
+        <tr> <td><code>input:focus</code> <td>Tabなどでのフォーカス時 <td>テキストボックスなど
+        <tr> <td><code>input:checked</code> <td>チェックボックス・ラジオボタンのチェック時 <td>チェックされている時適用
+        <tr> <td><code>p::first-line</code> <td>p要素の最初の1行 <td>
+        <tr> <td><code>p::first-letter</code> <td>p要素の最初の1文字 <td>
+        <tr> <td><code>p:nth-child(n)</code> <td>親要素のn番目の要素がpならばそれに適用 <td rowspan="4">それ以外の要素なら何も起こらない
+        <tr> <td><code>p:first-child</code> <td>親要素の最初の要素がpならばそれに適用
+        <tr> <td><code>p:nth-last-child(n)</code> <td>親要素の最後からn番目の要素がpならばそれに適用
+        <tr> <td><code>p:last-child</code> <td>親要素の最後の要素がpならばそれに適用
+        <tr> <td><code>p:nth-of-type(n)</code> <td>親要素でn番目に現れるp <td>
+        <tr> <td><code>p:first-of-type</code> <td>親要素で最初に現れるp <td>
+        <tr> <td><code>p:nth-last-of-type(n)</code> <td>親要素の最後からn番目に現れるp <td>
+        <tr> <td><code>p:last-of-type</code> <td>親要素の最後に現れるp <td>
+        <tr> <td><code>p::before</code> <td>p要素の前に文字/画像を追加 <td rowspan="2">文字：<code>content: "テキスト";</code><br>画像：<code>content: url("img.png");</code><br>追加した文字の書式も変更可能
+        <tr> <td><code>p::after</code> <td>p要素の後に文字/画像を追加
+        <tr> <td><code>p::selection</code> <td>テキストの選択時 <td>Firefox：<code>::-moz-selection</code>
+        <tr> <td><code>p:not(s)</code> <td>セレクタsに一致しないp要素 <td>sにはセレクタを書く
+        <tr> <td><code>div p</code> <td>子孫関係 <td>
+        <tr> <td><code>div &gt; p</code> <td>子関係 <td>
+        <tr> <td><code>img + p</code> <td>同階層で直後 <td>
+        <tr> <td><code>img ~ p</code> <td>同階層でそれ以降 <td>
+        <tr> <td><code>p, a</code> <td>複数の要素 <td>
+    </table>
+    <p><code>::</code>のものは、旧ブラウザでは<code>:</code>しか対応していない。
+
+    <h1>プロパティ</h1>
+
+    <h3>アンチエイリアス（Safari）</h3>
+    <pre><code>-webkit-font-smoothing:</code></pre>
+    <table class="table table-condensed">
+      <tr> <td><code>none</code>                 <td>アンチエイリアスなし
+      <tr> <td><code>antialiased</code>          <td>アンチエイリアス弱
+      <tr> <td><code>subpixel-antialiased</code> <td>アンチエイリアス強（デフォルト）
+    </table>
+
+    <h1>単位</h1>
+
+    <h3>vw, vh, vmin, vmax</h3>
+    <pre><code>width: 10vw;</code></pre>
+    <table>
+      <tr> <td><code>vw</code>   <td>ビューポートの幅に対する割合
+      <tr> <td><code>vh</code>   <td>ビューポートの高さに対する割合
+      <tr> <td><code>vmin</code> <td>ビューポートの幅と高さのうち、値が小さい方に対する割合
+      <tr> <td><code>vmax</code> <td>ビューポートの幅と高さのうち、値が大きい方に対する割合
+    </table>
+    <p>※ビューポート：画面の幅や高さ
+
+    <h1>便利ツール</h1>
+
+    <h3>Font Awesome</h3>
+    <ol type="1">
+      <li>HTMLに以下のコードを追加：
+      <pre><code>&lt;link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"&gt;</code></pre></li>
+      <li><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">アイコン一覧</a>からクラス名をコピーし次のように書く：
+      <pre><code>&lt;i class="fa fa-bars"&gt;&lt;/i&gt;</code></pre></li>
+    </ol>
+    <h4>サイズ変更</h4>
+    <table>
+      <tr> <td><code>fa-lg</code> <td>1.33倍
+      <tr> <td><code>fa-2x</code> <td>2倍
+      <tr> <td><code>fa-3x</code> <td>3倍
+      <tr> <td><code>fa-4x</code> <td>4倍
+      <tr> <td><code>fa-5x</code> <td>5倍
+    </table>
+    <h4>リスト</h4>
+    <p><code>ul</code>に<code>fa-ul</code>、<code>li</code>の中の<code>i</code>に<code>fa-li</code>を指定するとリストになる。
+    <h4>横幅を揃える</h4>
+    <p><code>fa-fw</code>
+    <h4>アイコンのの周りに線を付ける</h4>
+    <p><code>fa-border</code>
+    <h4>アイコンの右 / 左に文字を回り込み</h4>
+    <p><code>pull-left</code> / <code>pull-right</code>
+    <h4>回転</h4>
+    <p><code>fa-rotate-90</code> / <code>fa-rotate-180</code> / <code>fa-rotate-270</code>
+    <h4>常時回転</h4>
+    <p><code>fa-spin</code>
+    <h4>左右 / 上下反転</h4>
+    <p><code>fa-flip-horizontal</code> / <code>fa-flip-vertical</code>
+    <h4>アイコンを重ねる</h4>
+    <pre><code>&lt;span class="fa-stack fa-lg"&gt;
+    &lt;i class="fa fa-camera fa-stack-1x"&gt;&lt;/i&gt;
+    &lt;i class="fa fa-ban fa-stack-2x text-danger"&gt;&lt;/i&gt;
+&lt;/span&gt;</code></pre>
+    <p>詳細：<a href="http://fortawesome.github.io/Font-Awesome/examples/">Font Awesome - Example</a>
+
+    <!-- /.col-md-9 --></div>
+
+  <!-- /.row --></div>
+<!-- /.container --></div>
+
