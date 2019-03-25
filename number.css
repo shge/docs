@@ -2,6 +2,10 @@
   margin-top: 80px;
 }
 
+.row {
+  height: 80vh;
+}
+
 .inputp {
   height: 100px;
   text-align: center;
